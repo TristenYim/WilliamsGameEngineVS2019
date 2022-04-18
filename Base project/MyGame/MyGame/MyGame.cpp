@@ -1,10 +1,11 @@
 #include "Engine/GameEngine.h"
 #include "GameScene.h"
+using namespace std;
 
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 600;
+const int WINDOW_WIDTH = 1920;
+const int WINDOW_HEIGHT = 1080;
 
-const std::string WINDOW_TITLE = "My Awesome Game";
+const string WINDOW_TITLE = "My Awesome Game";
 
 int main()
 {

@@ -15,6 +15,7 @@
     </ClCompile>
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -33,6 +34,7 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Ship.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -46,5 +48,10 @@
     <None Include="Resources\README.md">
       <Filter>Resources</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\ship.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>
