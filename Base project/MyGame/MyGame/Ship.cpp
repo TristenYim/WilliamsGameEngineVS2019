@@ -13,3 +13,11 @@ Ship::Ship(int x, int y) {
 void Ship::draw() {
 	GAME.getRenderWindow().draw(sprite_);
 }
+
+void Ship::update(sf::Time& elapsed) {
+	sf::Vector2f pos = sprite_.getPosition();
+	float x = pos.x;
+	float y = pos.y;
+	int msElapsed = elapsed.asMilliseconds();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) y -= SPEED * msElapsed;
+}
