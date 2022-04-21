@@ -5,10 +5,12 @@ Laser::Laser(sf::Vector2f ipos, float ispeed) {
 	sprite_.setPosition(ipos);
 	assignTag("laser");
 	speed = ispeed;
+	setCollisionCheckEnabled(true);
 }
 
 void Laser::draw() {
 	GAME.getRenderWindow().draw(sprite_);
+	return;
 }
 
 void Laser::update(sf::Time& elapsed) {
@@ -20,4 +22,9 @@ void Laser::update(sf::Time& elapsed) {
 	} else {
 		sprite_.setPosition(sf::Vector2f(pos.x + speed * msElapsed, pos.y));
 	}
+	return;
+}
+
+sf::FloatRect Laser::getCollisionRect() {
+	return sprite_.getGlobalBounds();
 }

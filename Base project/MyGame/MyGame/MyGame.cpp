@@ -5,7 +5,7 @@ using namespace std;
 const int WINDOW_WIDTH = 1920;
 const int WINDOW_HEIGHT = 1080;
 
-const string WINDOW_TITLE = "My Awesome Game";
+const string WINDOW_TITLE = "Dual Fight Flight";
 
 int main()
 {

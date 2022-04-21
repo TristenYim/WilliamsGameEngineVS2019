@@ -82,22 +82,28 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Cookie.cpp" />
+    <ClCompile Include="CookieSpawner.cpp" />
     <ClCompile Include="Engine\AnimatedSprite.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cookie.h" />
+    <ClInclude Include="CookieSpawner.h" />
     <ClInclude Include="Engine\AnimatedSprite.h" />
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\GameEngine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Gun.h" />
     <ClInclude Include="Laser.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
@@ -106,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\laser.png" />
+    <Image Include="Resources\meteor.png" />
     <Image Include="Resources\ship.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

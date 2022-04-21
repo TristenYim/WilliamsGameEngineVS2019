@@ -7,9 +7,10 @@ public:
 	//Creates a laser
 	Laser(sf::Vector2f ipos, float ispeed);
 
-	//Functions overriden from GameObject
+	//Methods overriden from GameObject
 	void draw();
 	void update(sf::Time& elapsed);
+	sf::FloatRect getCollisionRect();
 private:
 	sf::Sprite sprite_;
 	float speed;
