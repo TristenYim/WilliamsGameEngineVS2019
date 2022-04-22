@@ -1,4 +1,5 @@
 #include "Cookie.h"
+#include "GameScene.h"
 
 Cookie::Cookie(sf::Vector2f ipos, sf::Vector2f ispeed) {
 	sprite_.setTexture(GAME.getTexture("Resources/meteor.png"));
@@ -32,6 +33,8 @@ sf::FloatRect Cookie::getCollisionRect() {
 
 void Cookie::handleCollision(GameObject& otherObject) {
 	if (otherObject.hasTag("laser")) {
+		GameScene& currentScene = (GameScene&)GAME.getCurrentScene();
+		currentScene.increaseScore();
 		otherObject.makeDead();
 	}
 	makeDead();

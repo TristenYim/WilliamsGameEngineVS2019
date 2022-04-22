@@ -20,6 +20,7 @@
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Cookie.cpp" />
     <ClCompile Include="CookieSpawner.cpp" />
+    <ClCompile Include="ScoreText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -43,6 +44,7 @@
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Cookie.h" />
     <ClInclude Include="CookieSpawner.h" />
+    <ClInclude Include="ScoreText.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -67,5 +69,10 @@
     <Image Include="Resources\meteor.png">
       <Filter>Resources</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Courneuf-Regular.ttf">
+      <Filter>Resources</Filter>
+    </Font>
   </ItemGroup>
 </Project>

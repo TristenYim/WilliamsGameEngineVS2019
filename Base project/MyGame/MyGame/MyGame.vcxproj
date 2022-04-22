@@ -50,6 +50,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SFMLPath)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/sdl- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,6 +93,7 @@
     <ClCompile Include="Gun.cpp" />
     <ClCompile Include="Laser.cpp" />
     <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +107,7 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Gun.h" />
     <ClInclude Include="Laser.h" />
+    <ClInclude Include="ScoreText.h" />
     <ClInclude Include="Ship.h" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +117,9 @@
     <Image Include="Resources\laser.png" />
     <Image Include="Resources\meteor.png" />
     <Image Include="Resources\ship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Resources\Courneuf-Regular.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
