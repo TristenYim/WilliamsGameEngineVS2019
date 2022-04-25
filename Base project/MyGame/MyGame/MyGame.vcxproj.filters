@@ -21,6 +21,8 @@
     <ClCompile Include="Cookie.cpp" />
     <ClCompile Include="CookieSpawner.cpp" />
     <ClCompile Include="ScoreText.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="GoodLuck.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -45,6 +47,8 @@
     <ClInclude Include="Cookie.h" />
     <ClInclude Include="CookieSpawner.h" />
     <ClInclude Include="ScoreText.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="GoodLuck.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
