@@ -16,8 +16,8 @@ int main()
 	GAME.initialize(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 
 	// Create our scene.
-	GameScenePtr scene = std::make_shared<GameScene>();
-	GAME.setScene(scene);
+	GameScenePtr gameScene_ = std::make_shared<GameScene>();
+	GAME.setScene(gameScene_);
 
 	// Run the game loop.
 	GAME.run();
