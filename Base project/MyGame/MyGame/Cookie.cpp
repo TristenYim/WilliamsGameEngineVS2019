@@ -33,12 +33,13 @@ sf::FloatRect Cookie::getCollisionRect() {
 }
 
 void Cookie::handleCollision(GameObject& otherObject) {
+	GameScene& currentScene = (GameScene&)GAME.getCurrentScene();
 	if (otherObject.hasTag("laser")) {
-		GameScene& currentScene = (GameScene&)GAME.getCurrentScene();
 		currentScene.increaseScore();
 		otherObject.makeDead();
 	}
-	Explosion(getPos());
+	ExplosionPtr explosion_ = std::make_shared<Explosion>(sprite_.getPosition());
+	currentScene.addGameObject(explosion_);
 	makeDead();
 	return;
 }

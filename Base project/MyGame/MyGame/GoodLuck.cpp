@@ -1,4 +1,4 @@
-#include "GoodLuck.h"
+/*#include "GoodLuck.h"
 #include <sstream>
 
 GoodLuck::GoodLuck() {
@@ -23,4 +23,4 @@ void GoodLuck::update(sf::Time& elapsed) {
 	stream << "Good Luck!!!";
 
 	goodLuckText_.setString(stream.str());
-}
+}*/

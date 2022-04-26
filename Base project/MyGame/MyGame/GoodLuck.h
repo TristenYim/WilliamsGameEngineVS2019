@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 
 #include "Engine/GameEngine.h"
 
@@ -16,3 +16,5 @@ public:
 private:
 	sf::Text goodLuckText_;
 };
+
+typedef std::shared_ptr<GoodLuck> GoodLuckTextPtr*/
