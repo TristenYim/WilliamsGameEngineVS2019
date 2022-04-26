@@ -5,7 +5,8 @@ Ship::Ship() {
 	sprite_.setTexture(GAME.getTexture("Resources/Ship.png"));
 	sprite_.setPosition(sf::Vector2f(192, 540));
 	guns = { Gun(200, 1.0f, 0.5f) };
-	useWASDQControls = false;
+	useWASDQControls = true;
+	holdPrevention = false;
 }
 
 Ship::Ship(sf::Vector2f ipos, std::vector<Gun> iguns, bool iuseWASDQControls, bool iholdPrevention) {

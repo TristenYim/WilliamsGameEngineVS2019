@@ -1,5 +1,6 @@
 #include "Cookie.h"
 #include "GameScene.h"
+#include "Explosion.h"
 
 Cookie::Cookie(sf::Vector2f ipos, sf::Vector2f ispeed) {
 	sprite_.setTexture(GAME.getTexture("Resources/meteor.png"));
@@ -37,6 +38,7 @@ void Cookie::handleCollision(GameObject& otherObject) {
 		currentScene.increaseScore();
 		otherObject.makeDead();
 	}
+	Explosion(getPos());
 	makeDead();
 	return;
 }
