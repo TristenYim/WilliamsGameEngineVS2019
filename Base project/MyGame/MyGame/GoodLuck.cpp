@@ -1,26 +1,21 @@
-/*#include "GoodLuck.h"
+#include "GoodLuck.h"
 #include <sstream>
 
 GoodLuck::GoodLuck() {
-	goodLuckText_.setFont(GAME.getFont("Courneuf-Regular.ttf"));
 	//TODO: Put the text in the center of the screen
-	float windowLength = GAME.getRenderWindow().getSize().x;
-	float windowWidth = GAME.getRenderWindow().getSize().y;
+	float windowLength = GAME.getRenderWindow().getSize().x / 2.0;
+	float windowHeight = GAME.getRenderWindow().getSize().y / 2.0;
 	//See above
-	goodLuckText_.setCharacterSize(108);
-	goodLuckText_.setColor(sf::Color::Yellow);
+	setupText(sf::Vector2f(windowLength, windowHeight), 108, sf::Color::Yellow);
 	assignTag("goodluck");
-}
-
-void GoodLuck::draw() {
-	GAME.getRenderWindow().draw(goodLuckText_);
 }
 
 void GoodLuck::update(sf::Time& elapsed) {
 	Scene& currentScene_ = (Scene&)GAME.getCurrentScene();
 
-	std::stringstream stream;
-	stream << "Good Luck!!!";
+	std::stringstream stream_;
+	stream_ << "Good Luck!!!";
 
-	goodLuckText_.setString(stream.str());
-}*/
+	text_.setString(stream_.str());
+	return;
+}

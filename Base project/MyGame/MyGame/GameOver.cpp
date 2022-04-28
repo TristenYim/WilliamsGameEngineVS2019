@@ -3,27 +3,19 @@
 #include <sstream>
 
 GameOver::GameOver(int score) {
-	gameOverText_.setFont(GAME.getFont("Courneuf-Regular.ttf"));
-	//TODO: Put the text in the center of the screen
 	float windowLength = GAME.getRenderWindow().getSize().x;
-	float windowWidth = GAME.getRenderWindow().getSize().y;
-	//See above
-	gameOverText_.setCharacterSize(108);
-	gameOverText_.setColor(sf::Color::Red);
+	float windowHeight = GAME.getRenderWindow().getSize().y;
+	setupText(sf::Vector2f(windowLength / 2.0, windowHeight / 2.0), 108, sf::Color::Red);
 	std::stringstream stream_;
 	stream_ << "GAME OVER!\n\nScore: " << score;
-	gameOverText_.setString(stream_.str());
+	text_.setString(stream_.str());
 	assignTag("gameover");
-}
-
-void GameOver::draw() {
-	GAME.getRenderWindow().draw(gameOverText_);
-	return;
 }
 
 void GameOver::update(sf::Time& elapsed) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-
+		GameScenePtr neoScene = std::make_shared<GameScene>();
+		GAME.setScene(neoScene);
 		return;
 	}
 }

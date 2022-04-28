@@ -25,6 +25,11 @@
     <ClCompile Include="GoodLuck.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="GameOver.cpp" />
+    <ClCompile Include="GameOverScene.cpp" />
+    <ClCompile Include="TextObject.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -53,6 +58,11 @@
     <ClInclude Include="GoodLuck.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="GameOver.h" />
+    <ClInclude Include="GameOverScene.h" />
+    <ClInclude Include="TextObject.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesText.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

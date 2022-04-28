@@ -1,8 +1,8 @@
-/*#pragma once
+#pragma once
 
 #include "Engine/GameEngine.h"
 
-class GoodLuck : public GameObject {
+class GoodLuck : public TextObject {
 public:
 	//Creates the text
 	GoodLuck();
@@ -11,10 +11,7 @@ public:
 	void changeColor(sf::Color);
 
 	//Methods overriden from GameObject
-	void draw();
 	void update(sf::Time& elapsed);
-private:
-	sf::Text goodLuckText_;
 };
 
-typedef std::shared_ptr<GoodLuck> GoodLuckTextPtr*/
+typedef std::shared_ptr<GoodLuck> GoodLuckTextPtr;

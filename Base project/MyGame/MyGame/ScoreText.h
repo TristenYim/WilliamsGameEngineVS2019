@@ -2,16 +2,13 @@
 
 #include "Engine/GameEngine.h"
 
-class ScoreText : public GameObject {
+class ScoreText : public TextObject {
 public:
-	//Creates the score instance at position
+	//Creates the score instance at position and sets the size and font color
 	ScoreText(sf::Vector2f pos, int charSize, sf::Color textColor);
 
 	//Methods overriden from GameObject
-	void draw();
 	void update(sf::Time& elapsed);
-private:
-	sf::Text text_;
 };
 
 typedef std::shared_ptr<ScoreText> ScoreTextPtr;

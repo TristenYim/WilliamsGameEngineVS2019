@@ -20,6 +20,10 @@ void Cookie::update(sf::Time& elapsed) {
 	sf::Vector2f pos = sprite_.getPosition();
 
 	if (0 > pos.x || GAME.getRenderWindow().getSize().y < pos.y || 0 > pos.y ) {
+		if (0 > pos.x) {
+			GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
+			currentScene_.decreaseLives();
+		}
 		makeDead();
 	}
 	else {

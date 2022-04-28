@@ -3,22 +3,16 @@
 #include <sstream>
 
 ScoreText::ScoreText(sf::Vector2f pos, int charSize, sf::Color textColor) {
-	text_.setFont(GAME.getFont("Resources/Courneuf-Regular.ttf"));
-	text_.setPosition(pos);
-	text_.setCharacterSize(charSize);
-	text_.setColor(textColor);
+	setupText(pos, charSize, textColor);
 	assignTag("scoreText");
 }
 
-void ScoreText::draw() {
-	GAME.getRenderWindow().draw(text_);
-}
-
 void ScoreText::update(sf::Time& elapsed) {
-	GameScene& currentScene = (GameScene&)GAME.getCurrentScene();
+	GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
 
-	std::stringstream stream;
-	stream << "Score: " << currentScene.getScore();
+	std::stringstream stream_;
+	stream_ << "Score: " << currentScene_.getScore();
 
-	text_.setString(stream.str());
+	text_.setString(stream_.str());
+	return;
 }
