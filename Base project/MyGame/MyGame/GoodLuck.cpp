@@ -3,11 +3,16 @@
 
 GoodLuck::GoodLuck() {
 	//TODO: Put the text in the center of the screen
-	float windowLength = GAME.getRenderWindow().getSize().x / 2.0;
-	float windowHeight = GAME.getRenderWindow().getSize().y / 2.0;
+	float windowLength = GAME.getRenderWindow().getSize().x;
+	float windowHeight = GAME.getRenderWindow().getSize().y;
 	//See above
-	setupText(sf::Vector2f(windowLength, windowHeight), 108, sf::Color::Yellow);
+	setupText(sf::Vector2f(windowLength / 2.0 - 162.0, windowHeight / 2.0 - 54), 108.0, sf::Color::Yellow);
 	assignTag("goodluck");
+}
+
+void GoodLuck::changeColor(sf::Color neocolor) {
+	text_.setColor(neocolor);
+	return;
 }
 
 void GoodLuck::update(sf::Time& elapsed) {

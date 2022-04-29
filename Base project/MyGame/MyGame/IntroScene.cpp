@@ -1,9 +1,15 @@
 #include "IntroScene.h"
+#include "GameScene.h"
 #include "GoodLuck.h"
 #include <Windows.h>
-
+/*
 IntroScene::IntroScene() {
-	//GoodLuckTextPtr goodLuckText = std::make_shared<GoodLuck>();
-	//addGameObject(goodLuckText);
-	return;
+	GoodLuckPtr goodLuckText = std::make_shared<GoodLuck>();
+	addGameObject(goodLuckText);
+	Sleep(10000);
+	//Calls the game scene
+	GameScenePtr gameScene_ = std::make_shared<GameScene>();
+	GAME.setScene(gameScene_);
+	GAME.run();
 }
+*/

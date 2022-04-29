@@ -2,6 +2,8 @@
 
 #include "Engine/GameEngine.h"
 
+const bool BoomEnabled = false;
+
 class Explosion : public AnimatedSprite {
 public:
 	//Creates the explosion
@@ -11,6 +13,8 @@ public:
 	void update(sf::Time& elapsed);
 private:
 	void setupExplosionAnimation();
+
+	sf::Sound boom_;
 };
 
 typedef std::shared_ptr<Explosion> ExplosionPtr;

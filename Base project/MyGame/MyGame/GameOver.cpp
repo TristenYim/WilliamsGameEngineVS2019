@@ -5,9 +5,9 @@
 GameOver::GameOver(int score) {
 	float windowLength = GAME.getRenderWindow().getSize().x;
 	float windowHeight = GAME.getRenderWindow().getSize().y;
-	setupText(sf::Vector2f(windowLength / 2.0, windowHeight / 2.0), 108, sf::Color::Red);
+	setupText(sf::Vector2f(windowLength / 2.0 - 432.0, windowHeight / 2.0 - 324.0), 108, sf::Color::Red);
 	std::stringstream stream_;
-	stream_ << "GAME OVER!\n\nScore: " << score;
+	stream_ << "GAME OVER!\n\nScore: " << score << "\n\nPress ENTER to restart!";
 	text_.setString(stream_.str());
 	assignTag("gameover");
 }

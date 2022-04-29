@@ -136,6 +136,9 @@
   <ItemGroup>
     <Font Include="Resources\Courneuf-Regular.ttf" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\boom.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -4,6 +4,10 @@ Explosion::Explosion(sf::Vector2f ipos) : AnimatedSprite(ipos) {
 	AnimatedSprite::setTexture(GAME.getTexture("Resources/explosion-spritesheet.png"));
 	setupExplosionAnimation();
 	playAnimation("explosionAnim", AnimationMode::OnceForwards);
+	if (BoomEnabled) {
+		boom_.setBuffer(GAME.getSoundBuffer("Resources/Boom.wav"));
+		boom_.play();
+	}
 }
 
 void Explosion::update(sf::Time& elapsed) {

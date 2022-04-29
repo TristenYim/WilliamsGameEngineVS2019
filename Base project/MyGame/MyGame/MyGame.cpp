@@ -16,11 +16,11 @@ int main()
 	//Initialize the game.
 	GAME.initialize(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 
-	//Creates the intro scene TODO: Fix
+	//Creates the intro scene. TODO: Fix
 	//IntroScenePtr introScene_ = std::make_shared<IntroScene>();
 	//GAME.setScene(introScene_);
 
-	//Creates the game scene.
+	//Creates the game scene
 	GameScenePtr gameScene_ = std::make_shared<GameScene>();
 	GAME.setScene(gameScene_);
 	

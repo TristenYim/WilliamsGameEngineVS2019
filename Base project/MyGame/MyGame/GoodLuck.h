@@ -8,10 +8,10 @@ public:
 	GoodLuck();
 
 	//Changes the color of the text
-	void changeColor(sf::Color);
+	void changeColor(sf::Color neocolor);
 
 	//Methods overriden from GameObject
 	void update(sf::Time& elapsed);
 };
 
-typedef std::shared_ptr<GoodLuck> GoodLuckTextPtr;
+typedef std::shared_ptr<GoodLuck> GoodLuckPtr;
