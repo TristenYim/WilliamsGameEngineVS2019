@@ -30,6 +30,7 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="LivesText.cpp" />
+    <ClCompile Include="Background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -63,6 +64,7 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="LivesText.h" />
+    <ClInclude Include="Background.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -88,6 +90,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="Resources\explosion-spritesheet.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\background.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
