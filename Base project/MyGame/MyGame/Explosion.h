@@ -2,7 +2,7 @@
 
 #include "Engine/GameEngine.h"
 
-const bool BoomEnabled = false;
+const bool BoomEnabled = true;
 
 class Explosion : public AnimatedSprite {
 public:

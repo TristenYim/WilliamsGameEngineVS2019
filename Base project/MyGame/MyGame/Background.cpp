@@ -1,33 +1,39 @@
 #include "Background.h"
 
-const float SCROLL_SPEED = 4.0f;
+const float SCROLL_SPEED = 0.5f;
 
 Background::Background() {
-	sprite_1.setTexture(GAME.getTexture("Resources/background.png"));
-	sprite_2.setTexture(GAME.getTexture("Resources/background.png"));
-	sprite_1.setPosition(sf::Vector2f(500, 0));
-	sprite_2.setPosition(sf::Vector2f(0, 1080));
+	sf::Sprite tempSprite_;
+	tempSprite_.setTexture(GAME.getTexture("Resources/background.png"));
+	float posx = 0;
+	for (int repetitions = 0; 2 > repetitions; repetitions++) {
+		float posy = 540;
+		for (int repetitions2 = 0; 3 > repetitions2; repetitions2++) {
+			tempSprite_.setPosition(posx, posy);
+			sprites.push_back(tempSprite_);
+			posy -= 540;
+		}
+		posx = 961;
+	}
 	assignTag("background");
 }
 
 void Background::draw() {
-	GAME.getRenderWindow().draw(sprite_1);
-	GAME.getRenderWindow().draw(sprite_2);
+	for (int index = 0; sprites.size() > index; index++) {
+		GAME.getRenderWindow().draw(sprites[index]);
+	}
 	return;
 }
 
 void Background::update(sf::Time& elapsed) {
 	int msElapsed = elapsed.asMilliseconds();
-	sf::Vector2f sprite_1pos = sprite_1.getPosition();
-	sf::Vector2f sprite_2pos = sprite_2.getPosition();
-	sprite_1pos.y += SCROLL_SPEED * msElapsed;
-	sprite_2pos.y += SCROLL_SPEED * msElapsed;
-	if (GAME.getRenderWindow().getSize().y < sprite_1pos.y) {
-		sprite_1pos.y -= GAME.getRenderWindow().getSize().y;
-	} else if (GAME.getRenderWindow().getSize().y < sprite_2pos.y) {
-		sprite_2pos.y -= GAME.getRenderWindow().getSize().y;
+	for (int index = 0; sprites.size() > index; index++) {
+		sf::Vector2f currentSpritePos = sprites[index].getPosition();
+		currentSpritePos.y += SCROLL_SPEED * msElapsed;
+		if (GAME.getRenderWindow().getSize().y < currentSpritePos.y) {
+			currentSpritePos.y -= GAME.getRenderWindow().getSize().y + 540;
+		}
+		sprites[index].setPosition(currentSpritePos);
 	}
-	sprite_1.setPosition(sprite_1pos);
-	sprite_2.setPosition(sprite_2pos);
 	return;
 }

@@ -10,8 +10,7 @@ public:
 	void draw();
 	void update(sf::Time& elapsed);
 private:
-	sf::Sprite sprite_1;
-	sf::Sprite sprite_2;
+	std::vector<sf::Sprite> sprites;
 };
 
 typedef std::shared_ptr<Background> BackgroundPtr;

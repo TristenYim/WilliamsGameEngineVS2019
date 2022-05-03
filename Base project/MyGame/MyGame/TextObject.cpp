@@ -4,7 +4,7 @@ void TextObject::setupText(sf::Vector2f pos, int charSize, sf::Color textColor) 
 	text_.setFont(GAME.getFont("Resources/Courneuf-Regular.ttf"));
 	text_.setPosition(pos);
 	text_.setCharacterSize(charSize);
-	text_.setColor(textColor);
+	text_.setFillColor(textColor);
 	return;
 }
 
