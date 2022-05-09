@@ -83,64 +83,22 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Background.cpp" />
-    <ClCompile Include="Cookie.cpp" />
-    <ClCompile Include="CookieSpawner.cpp" />
     <ClCompile Include="Engine\AnimatedSprite.cpp" />
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
-    <ClCompile Include="Explosion.cpp" />
-    <ClCompile Include="GameOver.cpp" />
-    <ClCompile Include="GameOverScene.cpp" />
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="GoodLuck.cpp" />
-    <ClCompile Include="Gun.cpp" />
-    <ClCompile Include="IntroScene.cpp" />
-    <ClCompile Include="Laser.cpp" />
-    <ClCompile Include="LivesText.cpp" />
-    <ClCompile Include="MyGame.cpp" />
-    <ClCompile Include="ScoreText.cpp" />
-    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Background.h" />
-    <ClInclude Include="Cookie.h" />
-    <ClInclude Include="CookieSpawner.h" />
     <ClInclude Include="Engine\AnimatedSprite.h" />
     <ClInclude Include="Engine\Game.h" />
     <ClInclude Include="Engine\GameEngine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Scene.h" />
-    <ClInclude Include="Explosion.h" />
-    <ClInclude Include="GameOver.h" />
-    <ClInclude Include="GameOverScene.h" />
-    <ClInclude Include="GameScene.h" />
-    <ClInclude Include="GoodLuck.h" />
-    <ClInclude Include="Gun.h" />
-    <ClInclude Include="IntroScene.h" />
-    <ClInclude Include="Laser.h" />
-    <ClInclude Include="LivesText.h" />
-    <ClInclude Include="ScoreText.h" />
-    <ClInclude Include="Ship.h" />
     <ClInclude Include="TextObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\README.md" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\background.png" />
-    <Image Include="Resources\explosion-spritesheet.png" />
-    <Image Include="Resources\laser.png" />
-    <Image Include="Resources\meteor.png" />
-    <Image Include="Resources\ship.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Resources\Courneuf-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Resources\boom.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

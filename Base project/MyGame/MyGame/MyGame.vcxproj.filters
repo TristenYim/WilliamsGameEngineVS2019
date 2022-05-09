@@ -13,24 +13,9 @@
     <ClCompile Include="Engine\Scene.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="MyGame.cpp" />
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="Ship.cpp" />
-    <ClCompile Include="Laser.cpp" />
-    <ClCompile Include="Gun.cpp" />
-    <ClCompile Include="Cookie.cpp" />
-    <ClCompile Include="CookieSpawner.cpp" />
-    <ClCompile Include="ScoreText.cpp" />
-    <ClCompile Include="Explosion.cpp" />
-    <ClCompile Include="GoodLuck.cpp" />
-    <ClCompile Include="IntroScene.cpp" />
-    <ClCompile Include="GameOver.cpp" />
-    <ClCompile Include="GameOverScene.cpp" />
     <ClCompile Include="TextObject.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="LivesText.cpp" />
-    <ClCompile Include="Background.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -48,23 +33,9 @@
     <ClInclude Include="Engine\Scene.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="GameScene.h" />
-    <ClInclude Include="Ship.h" />
-    <ClInclude Include="Laser.h" />
-    <ClInclude Include="Gun.h" />
-    <ClInclude Include="Cookie.h" />
-    <ClInclude Include="CookieSpawner.h" />
-    <ClInclude Include="ScoreText.h" />
-    <ClInclude Include="Explosion.h" />
-    <ClInclude Include="GoodLuck.h" />
-    <ClInclude Include="IntroScene.h" />
-    <ClInclude Include="GameOver.h" />
-    <ClInclude Include="GameOverScene.h" />
     <ClInclude Include="TextObject.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="LivesText.h" />
-    <ClInclude Include="Background.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -78,32 +49,5 @@
     <None Include="Resources\README.md">
       <Filter>Resources</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Resources\ship.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="Resources\laser.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="Resources\meteor.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="Resources\explosion-spritesheet.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="Resources\background.png">
-      <Filter>Resources</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <Font Include="Resources\Courneuf-Regular.ttf">
-      <Filter>Resources</Filter>
-    </Font>
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Resources\boom.wav">
-      <Filter>Resources</Filter>
-    </Media>
   </ItemGroup>
 </Project>
