@@ -87,6 +87,8 @@
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
+    <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +97,7 @@
     <ClInclude Include="Engine\GameEngine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Scene.h" />
+    <ClInclude Include="GameScene.h" />
     <ClInclude Include="TextObject.h" />
   </ItemGroup>
   <ItemGroup>
