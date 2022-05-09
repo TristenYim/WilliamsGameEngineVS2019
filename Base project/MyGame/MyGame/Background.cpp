@@ -1,6 +1,6 @@
 #include "Background.h"
 
-const float SCROLL_SPEED = 0.5f;
+const float SCROLL_SPEED = 8.0f;
 
 Background::Background() {
 	sf::Sprite tempSprite_;
