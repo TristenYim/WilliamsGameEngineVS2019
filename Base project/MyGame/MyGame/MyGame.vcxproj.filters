@@ -18,6 +18,11 @@
     </ClCompile>
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="GameObjectTemplate.cpp">
+      <Filter>Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayingField.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -39,6 +44,11 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="GameObjectTemplate.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayingField.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -52,5 +62,8 @@
     <None Include="Resources\README.md">
       <Filter>Resources</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\FIeld Boundary.png" />
   </ItemGroup>
 </Project>

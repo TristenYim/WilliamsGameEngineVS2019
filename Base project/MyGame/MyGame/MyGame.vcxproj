@@ -87,8 +87,11 @@
     <ClCompile Include="Engine\Game.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
+    <ClCompile Include="GameObjectTemplate.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="MyGame.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="PlayingField.cpp" />
     <ClCompile Include="TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -97,11 +100,17 @@
     <ClInclude Include="Engine\GameEngine.h" />
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Scene.h" />
+    <ClInclude Include="GameObjectTemplate.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="PlayingField.h" />
     <ClInclude Include="TextObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\FIeld Boundary.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
