@@ -23,6 +23,7 @@
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="PlayingField.cpp" />
+    <ClCompile Include="SelectionBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -49,6 +50,7 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="PlayingField.h" />
+    <ClInclude Include="SelectionBox.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -64,6 +66,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\FIeld Boundary.png" />
+    <Image Include="Resources\Field Boundary.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Yellow Square.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Green Square.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Red Square.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Selection Box.png">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

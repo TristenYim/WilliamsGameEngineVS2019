@@ -1,29 +1,33 @@
 #pragma once
 
 #include "Engine/GameEngine.h"
-#include "Obstacle.h"
+#include "GameScene.h"
 
 class PlayingField : public GameObject {
 public:
-	// Creates the obstacle
 	PlayingField();
 
-	// Methods overriden from GameObject
+	void update(sf::Time& elapsed);
+	sf::FloatRect getCollisionRect();
 	void draw();
 private:
+	// Used as a reference point when adding objects
+	sf::Vector2f topLeftCornerPos;
 	sf::Sprite sprite_;
-	
-	// The field is divided into a 54x27 grid of 32x32 pixel squares
-	// Most objects on the field take up one of these squares
-	// The method below is used to internally calculate the absolution position of an object when given the position in the grid
-	// This is so objects can be consistently placed in the center of grid squares
-	
-	sf::Vector2f findAbsolutePositionOfObject(sf::Vector2i positionInGrid);
-	
-	// To ensure the code looks clean, the game field stores obstacel internally
 
-	std::vector<Obstacle> obstacles;
-	void addObstacle(sf::Vector2i positionInGrid, sf::Texture texture_);
+	// Used to ensure pressing the arrow keys only moves the selection box once per press
+	bool movedSelectionBox = false;
+
+	// Use this for positioning objects relative to the field grid
+	sf::Vector2f findAbsolutePositionOfObject(sf::Vector2i positionInGrid);
+
+	// Useful for ensuring objects do not leave the field
+	sf::Vector2i findRelativePositionOfObject(sf::Vector2f absolutePosition);
+
+	// Use this to add objects to the current scene outside of update by adding it to this vector
+	std::vector<GameObjectPtr> objectsToAdd;
+
+	void addObstacle(sf::Vector2i positionInGrid, sf::Texture& texture_);
 };
 
 typedef std::shared_ptr<PlayingField> PlayingFieldPtr;

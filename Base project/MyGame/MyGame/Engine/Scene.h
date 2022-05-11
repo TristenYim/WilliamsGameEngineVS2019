@@ -14,10 +14,11 @@ public:
 	// Puts a GameObject into the scene.
 	void addGameObject(GameObjectPtr gameObjectPtr);
 
-private:
+protected:
 	// This holds our game objects.
 	std::list<GameObjectPtr> gameObjects_;
 
+private:
 	// These are the functions we run each iteration of the game loop.
 	void handleEvents();
 	void handleCollisions();

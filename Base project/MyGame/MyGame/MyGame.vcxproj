@@ -50,7 +50,6 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(SFMLPath)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalOptions>/sdl- %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -92,6 +91,7 @@
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="PlayingField.cpp" />
+    <ClCompile Include="SelectionBox.cpp" />
     <ClCompile Include="TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -104,13 +104,18 @@
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="PlayingField.h" />
+    <ClInclude Include="SelectionBox.h" />
     <ClInclude Include="TextObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\FIeld Boundary.png" />
+    <Image Include="Resources\Field Boundary.png" />
+    <Image Include="Resources\Green Square.png" />
+    <Image Include="Resources\Red Square.png" />
+    <Image Include="Resources\Selection Box.png" />
+    <Image Include="Resources\Yellow Square.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

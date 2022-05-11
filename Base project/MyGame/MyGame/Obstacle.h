@@ -4,11 +4,10 @@
 
 class Obstacle : public GameObject {
 public:
-	// Creates the obstacle
-	Obstacle(sf::Vector2f ipos, sf::Texture texture_);
+	Obstacle(sf::Vector2f ipos, sf::Texture& texture_);
 
-	// Methods overriden from GameObject
 	void draw();
+	sf::FloatRect getCollisionRect();
 private:
 	sf::Sprite sprite_;
 };
