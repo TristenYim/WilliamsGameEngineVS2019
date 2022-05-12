@@ -10,6 +10,18 @@ SelectionBox::SelectionBox(sf::Vector2f ipos) {
 }
 
 void SelectionBox::update(sf::Time& elapsed) {
+	animationTimer -= elapsed.asMilliseconds();
+	sf::Color spriteColor = sprite_.getColor();
+	if (animationTimer >= TIME_BUFFER + FADE_OUT_TIME + FADE_IN_TIME) {
+		sprite_.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 255));
+	} else if (animationTimer >= TIME_BUFFER + FADE_IN_TIME) {
+		sprite_.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, (animationTimer - TIME_BUFFER - FADE_IN_TIME) / FADE_OUT_TIME * 255));
+	} else if (animationTimer >= TIME_BUFFER) {
+		sprite_.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, (TIME_BUFFER + FADE_IN_TIME - animationTimer) / FADE_IN_TIME * 255));
+	} else {
+		animationTimer += SOLID_TIME + FADE_IN_TIME + FADE_OUT_TIME;
+	}
+
 	GameScene currentScene_ = (GameScene&)GAME.getCurrentScene();
 	PlayingFieldPtr playingField_ = (PlayingFieldPtr&)currentScene_.getGameObject("field");
 
@@ -29,18 +41,6 @@ void SelectionBox::update(sf::Time& elapsed) {
 		arrowKeyTimer -= elapsed.asMilliseconds();
 	} else {
 		arrowKeyTimer = 1000;
-	}
-
-	animationTimer -= elapsed.asMilliseconds();
-	sf::Color spriteColor = sprite_.getColor();
-	if (animationTimer >= TIME_BUFFER + FADE_OUT_TIME + FADE_IN_TIME) {
-		sprite_.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, 255));
-	} else if (animationTimer >= TIME_BUFFER + FADE_IN_TIME) {
-		sprite_.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, (animationTimer - TIME_BUFFER - FADE_IN_TIME) / FADE_OUT_TIME* 255));
-	} else if (animationTimer >= TIME_BUFFER) {
-		sprite_.setColor(sf::Color(spriteColor.r, spriteColor.g, spriteColor.b, (TIME_BUFFER + FADE_IN_TIME - animationTimer) / FADE_IN_TIME * 255));
-	} else {
-		animationTimer += SOLID_TIME + FADE_IN_TIME + FADE_OUT_TIME;
 	}
 	return;
 }
