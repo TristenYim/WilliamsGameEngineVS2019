@@ -2,18 +2,24 @@
 
 #include "Engine/GameEngine.h"
 
+const int SOLID_TIME = 1500;
+const int FADE_OUT_TIME = 500;
+const int FADE_IN_TIME = 250;
+const int TIME_BUFFER = 1000;
+
 class SelectionBox : public GameObject {
 public:
 	SelectionBox(sf::Vector2f ipos);
-	void addToPosition(sf::Vector2f additive);
-	sf::Vector2f getPosition();
 
-	//void update(sf::Time& elapsed);
+	void update(sf::Time& elapsed);
 	void draw();
 	sf::FloatRect getCollisionRect();
 	void handleCollision(GameObject& otherGameObject);
 private:
 	sf::Sprite sprite_;
+
+	float arrowKeyTimer = 1000;
+	float animationTimer = TIME_BUFFER + SOLID_TIME + FADE_OUT_TIME + FADE_IN_TIME;
 };
 
 typedef std::shared_ptr<SelectionBox> SelectionBoxPtr;
