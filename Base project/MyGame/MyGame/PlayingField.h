@@ -15,6 +15,9 @@ public:
 	// Useful for ensuring objects do not leave the field
 	sf::Vector2i findRelativePosition(sf::Vector2f absolutePosition);
 
+	// Use this for positioning objects relative to the field grid
+	sf::Vector2f findAbsolutePosition(sf::Vector2i positionInGrid);
+
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
@@ -22,9 +25,6 @@ private:
 	// Used as a reference point when adding objects
 	sf::Sprite sprite_;
 	sf::Vector2f topLeftCornerPos;
-
-	// Use this for positioning objects relative to the field grid
-	sf::Vector2f findAbsolutePosition(sf::Vector2i positionInGrid);
 
 	// Use this to add objects to the current scene outside of update by adding it to this vector
 	std::vector<GameObjectPtr> objectsToAdd;

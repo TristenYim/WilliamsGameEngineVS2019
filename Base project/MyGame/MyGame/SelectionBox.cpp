@@ -1,6 +1,7 @@
 #include "SelectionBox.h"
 #include "GameScene.h"
 #include "PlayingField.h"
+#include "Tower.h"
 
 SelectionBox::SelectionBox(sf::Vector2f ipos) {
 	sprite_.setPosition(ipos);
@@ -22,26 +23,31 @@ void SelectionBox::update(sf::Time& elapsed) {
 		animationTimer += SOLID_TIME + FADE_IN_TIME + FADE_OUT_TIME;
 	}
 
-	GameScene currentScene_ = (GameScene&)GAME.getCurrentScene();
+	GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
 	PlayingFieldPtr playingField_ = (PlayingFieldPtr&)currentScene_.getGameObject("field");
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
 		sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		if (arrowKeyTimer == 1000 || arrowKeyTimer < 250) {
+		if (arrowKeyTimer == ARROW_KEY_DELAY || arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && playingField_->findRelativePosition(sprite_.getPosition()).y != 0)							sprite_.move(sf::Vector2f(0.0f, -32.0f));
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && playingField_->findRelativePosition(sprite_.getPosition()).x != FIELD_GRID_WIDTH - 1)	sprite_.move(sf::Vector2f(32.0f, 0.0f));
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && playingField_->findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1)	sprite_.move(sf::Vector2f(0.0f, 32.0f));
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playingField_->findRelativePosition(sprite_.getPosition()).x != 0)						sprite_.move(sf::Vector2f(-32.0f, 0.0f));
-			if (arrowKeyTimer < 500) {
+			if (arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
 				arrowKeyTimer += elapsed.asMilliseconds() * 5;
 			}
 		}
 		arrowKeyTimer -= elapsed.asMilliseconds();
 	} else {
-		arrowKeyTimer = 1000;
+		arrowKeyTimer = ARROW_KEY_DELAY;
 	}
+
+	//if (sf::Color(0, 95, 168) == sprite_.getColor() && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && ARROW_KEY_DELAY == arrowKeyTimer) {
+	//	TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
+	//	currentScene_.addGameObject(tower_);
+	//}
 	return;
 }
 
@@ -55,9 +61,9 @@ sf::FloatRect SelectionBox::getCollisionRect() {
 }
 
 void SelectionBox::handleCollision(GameObject& otherGameObject) {
-	if (otherGameObject.hasTag("obstacle")) {
+	if (otherGameObject.hasTag("obstacle") && sprite_.getColor() != sf::Color(0, 95, 158)) {
 		sprite_.setColor(sf::Color(0, 95, 168));
-	} else {
+	} else if (sprite_.getColor() != sf::Color(226, 12, 16)) {
 		sprite_.setColor(sf::Color(226, 12, 16));
 	}
 	return;

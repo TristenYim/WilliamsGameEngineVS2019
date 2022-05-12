@@ -6,6 +6,8 @@ const int SOLID_TIME = 1500;
 const int FADE_OUT_TIME = 500;
 const int FADE_IN_TIME = 250;
 const int TIME_BUFFER = 1000;
+const float ARROW_KEY_DELAY = 1000;
+const float ARROW_KEY_SUPER_SPEED_DELAY = 750;
 
 class SelectionBox : public GameObject {
 public:

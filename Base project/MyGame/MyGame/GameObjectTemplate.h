@@ -6,10 +6,8 @@
 
 class MyObject : public GameObject {
 public:
-	// Creates the obstacle
 	MyObject(sf::Vector2f ipos, sf::Texture texture_);
 
-	// Methods overriden from GameObject
 	void draw();
 private:
 	sf::Sprite sprite_;

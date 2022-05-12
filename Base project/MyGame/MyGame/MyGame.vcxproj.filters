@@ -24,6 +24,8 @@
     </ClCompile>
     <ClCompile Include="PlayingField.cpp" />
     <ClCompile Include="SelectionBox.cpp" />
+    <ClCompile Include="Tower.cpp" />
+    <ClCompile Include="DefenseBot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -51,6 +53,8 @@
     </ClInclude>
     <ClInclude Include="PlayingField.h" />
     <ClInclude Include="SelectionBox.h" />
+    <ClInclude Include="Tower.h" />
+    <ClInclude Include="DefenseBot.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -79,6 +83,12 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="Resources\Selection Box.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Orange Square.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Purple Square.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
