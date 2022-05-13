@@ -4,6 +4,8 @@ const int FIELD_GRID_SIDE_LENGTH = 32;
 const int FIELD_MAP_BORDER_WIDTH = 10;
 const int FIELD_GRID_WIDTH = 54;
 const int FIELD_GRID_HEIGHT = 27;
+const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 254;
+const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 148;
 
 #include "Engine/GameEngine.h"
 #include "GameScene.h"
@@ -25,6 +27,7 @@ private:
 	// Used as a reference point when adding objects
 	sf::Sprite sprite_;
 	sf::Vector2f topLeftCornerPos;
+	sf::Vector2f bottomRightCornerPos;
 
 	// Use this to add objects to the current scene outside of update by adding it to this vector
 	std::vector<GameObjectPtr> objectsToAdd;
