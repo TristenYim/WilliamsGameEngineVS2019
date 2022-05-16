@@ -36,7 +36,7 @@ void SelectionBox::update(sf::Time& elapsed) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && playingField_->findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1)	sprite_.move(sf::Vector2f(0.0f, 32.0f));
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playingField_->findRelativePosition(sprite_.getPosition()).x != 0)						sprite_.move(sf::Vector2f(-32.0f, 0.0f));
 			if (arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
-				arrowKeyTimer += elapsed.asMilliseconds() * 5;
+				arrowKeyTimer += elapsed.asMilliseconds();
 			}
 		}
 		arrowKeyTimer -= elapsed.asMilliseconds();
@@ -44,10 +44,10 @@ void SelectionBox::update(sf::Time& elapsed) {
 		arrowKeyTimer = ARROW_KEY_DELAY;
 	}
 
-	//if (sf::Color(0, 95, 168) == sprite_.getColor() && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && ARROW_KEY_DELAY == arrowKeyTimer) {
-	//	TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
-	//	currentScene_.addGameObject(tower_);
-	//}
+	if (sf::Color(0, 95, 168) == sprite_.getColor() && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && ARROW_KEY_DELAY == arrowKeyTimer) {
+		TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
+		currentScene_.addGameObject(tower_);
+	}
 	return;
 }
 

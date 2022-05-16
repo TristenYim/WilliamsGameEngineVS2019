@@ -29,11 +29,15 @@ void DefenseBot::update(sf::Time& elapsed) {
 		neoPosition.y = playingField_->findAbsolutePosition(sf::Vector2i(0, OUTSIDE_OF_FIELD_DOWN_OR_RIGHT)).y - sprite_.getGlobalBounds().height;
 	}
 
+	relativePosition = playingField_->findRelativePosition(sf::Vector2f(neoPosition.x, neoPosition.y));
+	if (OUTSIDE_OF_FIELD_UP_OR_LEFT == relativePosition.x) {
+		neoPosition.x = playingField_->findAbsolutePosition(sf::Vector2i(OUTSIDE_OF_FIELD_UP_OR_LEFT, 0)).x;
+	}
+	if (OUTSIDE_OF_FIELD_UP_OR_LEFT == relativePosition.y) {
+		neoPosition.y = playingField_->findAbsolutePosition(sf::Vector2i(0, OUTSIDE_OF_FIELD_UP_OR_LEFT)).y;
+	}
+
 	sprite_.setPosition(neoPosition);
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	sprite_.move(sf::Vector2f(0.0f, -DRIVING_SPEED * elapsed.asMilliseconds()));
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	sprite_.move(sf::Vector2f(DRIVING_SPEED * elapsed.asMilliseconds(), 0.0f));
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))	sprite_.move(sf::Vector2f(0.0f, DRIVING_SPEED * elapsed.asMilliseconds()));
-	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	sprite_.move(sf::Vector2f(-DRIVING_SPEED * elapsed.asMilliseconds(), 0.0f));
 	return;
 }
 

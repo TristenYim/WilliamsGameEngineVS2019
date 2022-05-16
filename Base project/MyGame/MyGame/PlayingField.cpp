@@ -15,10 +15,19 @@ PlayingField::PlayingField() {
 	assignTag("field");
 
 	// Temp code for testing obstacles
-	for (int repetitions = 0; repetitions < 9; repetitions++) {
-		addObstacle(sf::Vector2i(0, repetitions * 3), GAME.getTexture("Resources/Red Square.png"));
-		addObstacle(sf::Vector2i(0, repetitions * 3 + 1), GAME.getTexture("Resources/Green Square.png"));
-		addObstacle(sf::Vector2i(0, repetitions * 3 + 2), GAME.getTexture("Resources/Yellow Square.png"));
+	for (int repetitions = 0; repetitions < 27; repetitions++) {
+		int variant = rand() % 3;
+		switch (variant) {
+		case1:
+			addObstacle(sf::Vector2i(0, repetitions), GAME.getTexture("Resources/Red Square.png"));
+			break;
+		case2:
+			addObstacle(sf::Vector2i(0, repetitions), GAME.getTexture("Resources/Green Square.png"));
+			break;
+		case3:
+			addObstacle(sf::Vector2i(0, repetitions), GAME.getTexture("Resources/Yellow Square.png"));
+			break;
+		}
 	}
 
 	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);

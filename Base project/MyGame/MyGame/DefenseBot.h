@@ -2,7 +2,7 @@
 
 #include "Engine/GameEngine.h"
 
-const float DRIVING_SPEED = 0.1f;
+const float DRIVING_SPEED = 0.15f;
 
 class DefenseBot : public GameObject {
 public:
@@ -14,4 +14,4 @@ private:
 	sf::Sprite sprite_;
 };
 
-typedef std::shared_ptr<DefenseBot> DefenseBotPtr;
+typedef std::shared_ptr<DefenseBot> DefenseBotPtr;                
