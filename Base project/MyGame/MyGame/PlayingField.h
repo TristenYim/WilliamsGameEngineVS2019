@@ -29,10 +29,14 @@ private:
 	sf::Vector2f topLeftCornerPos;
 	sf::Vector2f bottomRightCornerPos;
 
+	// Used to see if the field should not place an obstacle in a certain location because there are more squares with obstacles than without
+	std::vector<sf::Vector2i> emptySquares;
+	bool shouldThisSquareHaveAnObstacle(sf::Vector2i square);
+
 	// Use this to add objects to the current scene outside of update by adding it to this vector
 	std::vector<GameObjectPtr> objectsToAdd;
 
-	void addObstacle(sf::Vector2i positionInGrid, sf::Texture& texture_);
+	void addObstacle(sf::Vector2i positionInGrid);
 };
 
 typedef std::shared_ptr<PlayingField> PlayingFieldPtr;

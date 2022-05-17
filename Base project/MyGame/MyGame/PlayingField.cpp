@@ -14,19 +14,15 @@ PlayingField::PlayingField() {
 	sprite_.setPosition(sf::Vector2f(topLeftCornerPos.x - FIELD_MAP_BORDER_WIDTH, topLeftCornerPos.y - FIELD_MAP_BORDER_WIDTH));
 	assignTag("field");
 
-	// Temp code for testing obstacles
-	for (int repetitions = 0; repetitions < 27; repetitions++) {
-		int variant = rand() % 3;
-		switch (variant) {
-		case1:
-			addObstacle(sf::Vector2i(0, repetitions), GAME.getTexture("Resources/Red Square.png"));
-			break;
-		case2:
-			addObstacle(sf::Vector2i(0, repetitions), GAME.getTexture("Resources/Green Square.png"));
-			break;
-		case3:
-			addObstacle(sf::Vector2i(0, repetitions), GAME.getTexture("Resources/Yellow Square.png"));
-			break;
+	emptySquares.push_back(sf::Vector2i(2, 0));
+	emptySquares.push_back(sf::Vector2i(3, 0));
+
+	for (int collumnOrdinal = 1; collumnOrdinal <= FIELD_GRID_WIDTH - 9; collumnOrdinal++) {
+		for (int rowOrdinal = 1; rowOrdinal <= FIELD_GRID_HEIGHT; rowOrdinal++) {
+			sf::Vector2i squareToAddObstacleTo(collumnOrdinal - 1, rowOrdinal - 1);
+			if (shouldThisSquareHaveAnObstacle(squareToAddObstacleTo)) {
+				addObstacle(squareToAddObstacleTo);
+			}
 		}
 	}
 
@@ -91,8 +87,17 @@ void PlayingField::draw() {
 	return;
 }
 
-void PlayingField::addObstacle(sf::Vector2i positionInGrid, sf::Texture& texture_) {
-	ObstaclePtr obstacle_ = std::make_shared<Obstacle>(findAbsolutePosition(positionInGrid), texture_);
+bool PlayingField::shouldThisSquareHaveAnObstacle(sf::Vector2i square) {
+	for (int index = 0; index < emptySquares.size(); index++) {
+		if (square == emptySquares[index]) {
+			return false;
+		}
+	}
+	return true;
+}
+
+void PlayingField::addObstacle(sf::Vector2i positionInGrid) {
+	ObstaclePtr obstacle_ = std::make_shared<Obstacle>(findAbsolutePosition(positionInGrid));
 	objectsToAdd.push_back(obstacle_);
 	return;
 }
