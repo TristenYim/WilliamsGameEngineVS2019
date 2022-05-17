@@ -18,8 +18,6 @@ public:
 	sf::FloatRect getCollisionRect();
 	void handleCollision(GameObject& otherGameObject);
 private:
-	sf::Sprite sprite_;
-
 	bool mouseControlsEnabled = false;
 
 	float arrowKeyTimer = 1000;

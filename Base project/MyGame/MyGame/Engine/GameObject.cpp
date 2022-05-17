@@ -35,3 +35,8 @@ void GameObject::setCollisionCheckEnabled(bool isCollisionCheckEnabled)
 {
 	isCollisionCheckEnabled_ = isCollisionCheckEnabled;
 }
+
+sf::Vector2f GameObject::getPosition()
+{
+	return sprite_.getPosition();
+}

@@ -29,6 +29,8 @@ public:
 	bool isCollisionCheckEnabled();
 	void setCollisionCheckEnabled(bool isCollisionCheckEnabled);
 
+	sf::Vector2f getPosition();
+
 	// This function lets you specify a rectangle for collision checks.
 	virtual sf::FloatRect getCollisionRect() { return sf::FloatRect(); }
 
@@ -37,7 +39,9 @@ public:
 
 	// Put any code here for deal with events such as mouse movement and key presses.
 	virtual void handleEvent(sf::Event& event) {}
-
+protected:
+	// Yes, I modified the Game Engine so objects automatically have sprites. I don't care if it temporarily breaks things, not being able to see the position of objects is dumb.
+	sf::Sprite sprite_;
 private:
 	// Using a set prevents duplicates.
 	std::set<std::string> tags_;

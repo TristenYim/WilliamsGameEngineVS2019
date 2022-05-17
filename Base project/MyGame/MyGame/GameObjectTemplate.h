@@ -9,8 +9,6 @@ public:
 	MyObject(sf::Vector2f ipos, sf::Texture texture_);
 
 	void draw();
-private:
-	sf::Sprite sprite_;
 };
 
 typedef std::shared_ptr<MyObject> MyObjectPtr;

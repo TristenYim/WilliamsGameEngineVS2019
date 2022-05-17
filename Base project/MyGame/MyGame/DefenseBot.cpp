@@ -1,6 +1,7 @@
 #include "DefenseBot.h"
 #include "GameScene.h"
 #include "PlayingField.h"
+#include "Obstacle.h"
 
 DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	sprite_.setTexture(GAME.getTexture("Resources/Orange Square.png"));
@@ -13,10 +14,30 @@ void DefenseBot::update(sf::Time& elapsed) {
 	PlayingFieldPtr playingField_ = (PlayingFieldPtr&)currentScene_.getGameObject("field");
 
 	sf::Vector2f movementVector(0, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))	movementVector.y -= DRIVING_SPEED * elapsed.asMilliseconds();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))	movementVector.x += DRIVING_SPEED * elapsed.asMilliseconds();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))	movementVector.y += DRIVING_SPEED * elapsed.asMilliseconds();
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))	movementVector.x -= DRIVING_SPEED * elapsed.asMilliseconds();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		movementVector.y -= DRIVING_SPEED * elapsed.asMilliseconds();
+		justPressedW = true;
+	} else {
+		justPressedW = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		movementVector.x -= DRIVING_SPEED * elapsed.asMilliseconds();
+		justPressedA = true;
+	} else {
+		justPressedA = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		movementVector.y += DRIVING_SPEED * elapsed.asMilliseconds();
+		justPressedS = true;
+	} else {
+		justPressedS = false;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		movementVector.x += DRIVING_SPEED * elapsed.asMilliseconds();
+		justPressedD = true;
+	} else {
+		justPressedD = false;
+	}
 	sf::Vector2f neoPosition;
 	neoPosition.x = sprite_.getPosition().x + movementVector.x;
 	neoPosition.y = sprite_.getPosition().y + movementVector.y;
@@ -41,7 +62,22 @@ void DefenseBot::update(sf::Time& elapsed) {
 	return;
 }
 
+sf::FloatRect DefenseBot::getCollisionRect() {
+	return sprite_.getGlobalBounds();
+}
+
 void DefenseBot::draw() {
 	GAME.getRenderWindow().draw(sprite_);
 	return;
+}
+
+void DefenseBot::handleCollision(GameObject& otherObject_) {
+	if (otherObject_.hasTag("obstacle")) {
+		if (justPressedW) {
+			sprite_.setPosition(sf::Vector2f(sprite_.getPosition().x, otherObject_.getPosition().y - otherObject_.getCollisionRect().height));
+		}
+		if (justPressedA) {
+			sprite_.setPosition(sf::Vector2f(sprite_.getPosition().x, otherObject_.getPosition().y - otherObject_.getCollisionRect().height));
+		}
+	}
 }

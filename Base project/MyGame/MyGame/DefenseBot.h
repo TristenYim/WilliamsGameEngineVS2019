@@ -9,9 +9,14 @@ public:
 	DefenseBot(sf::Vector2f ipos);
 
 	void update(sf::Time& elapsed);
+	sf::FloatRect getCollisionRect();
 	void draw();
+	void handleCollision(GameObject& otherObject_);
 private:
-	sf::Sprite sprite_;
+	bool justPressedW;
+	bool justPressedA;
+	bool justPressedS;
+	bool justPressedD;
 };
 
 typedef std::shared_ptr<DefenseBot> DefenseBotPtr;                

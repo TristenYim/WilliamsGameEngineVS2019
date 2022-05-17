@@ -9,7 +9,6 @@ public:
 	//void update(sf::Time& elapsed);
 	void draw();
 protected:
-	sf::Sprite sprite_;
 	float attackDelay;
 	float attackTimer;
 	float projectileDamage;

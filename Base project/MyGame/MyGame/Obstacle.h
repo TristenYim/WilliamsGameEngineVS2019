@@ -9,7 +9,6 @@ public:
 	void draw();
 	sf::FloatRect getCollisionRect();
 private:
-	sf::Sprite sprite_;
 	std::vector<std::string> obstacleTextureVariants;
 };
 

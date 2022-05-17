@@ -25,7 +25,6 @@ public:
 	void draw();
 private:
 	// Used as a reference point when adding objects
-	sf::Sprite sprite_;
 	sf::Vector2f topLeftCornerPos;
 	sf::Vector2f bottomRightCornerPos;
 
