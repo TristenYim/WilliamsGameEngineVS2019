@@ -1,6 +1,7 @@
 #include "PlayingField.h"
 #include "SelectionBox.h"
 #include "Obstacle.h"
+#include <fstream>
 
 PlayingField::PlayingField() {
 	sprite_.setTexture(GAME.getTexture("Resources/Field Boundary.png"));
@@ -10,21 +11,10 @@ PlayingField::PlayingField() {
 	topLeftCornerPos.y = GAME.getRenderWindow().getSize().y / 2.0f - sprite_.getTextureRect().height + FIELD_MAP_BORDER_WIDTH;
 	bottomRightCornerPos.x = GAME.getRenderWindow().getSize().x / 2.0f + sprite_.getTextureRect().width - FIELD_MAP_BORDER_WIDTH;
 	bottomRightCornerPos.y = GAME.getRenderWindow().getSize().y / 2.0f + sprite_.getTextureRect().height - FIELD_MAP_BORDER_WIDTH;
-
 	sprite_.setPosition(sf::Vector2f(topLeftCornerPos.x - FIELD_MAP_BORDER_WIDTH, topLeftCornerPos.y - FIELD_MAP_BORDER_WIDTH));
 	assignTag("field");
 
-	emptySquares.push_back(sf::Vector2i(2, 0));
-	emptySquares.push_back(sf::Vector2i(3, 0));
-
-	for (int collumnOrdinal = 1; collumnOrdinal <= FIELD_GRID_WIDTH - 9; collumnOrdinal++) {
-		for (int rowOrdinal = 1; rowOrdinal <= FIELD_GRID_HEIGHT; rowOrdinal++) {
-			sf::Vector2i squareToAddObstacleTo(collumnOrdinal - 1, rowOrdinal - 1);
-			if (shouldThisSquareHaveAnObstacle(squareToAddObstacleTo)) {
-				addObstacle(squareToAddObstacleTo);
-			}
-		}
-	}
+	generateObstaclesFromFile("Obstacle Field Map.txt");
 
 	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);
 	objectsToAdd.push_back(selectionBox_);
@@ -35,7 +25,7 @@ sf::Vector2i PlayingField::findRelativePosition(sf::Vector2f absolutePosition) {
 	int posy;
 	if (topLeftCornerPos.x <= absolutePosition.x && bottomRightCornerPos.x >= absolutePosition.x) {
 		posx = (int)(absolutePosition.x - topLeftCornerPos.x) / FIELD_GRID_SIDE_LENGTH;
-	} else if (bottomRightCornerPos.x < absolutePosition.x) {
+	} else if (bottomRightCornerPos.x <= absolutePosition.x) {
 		posx = OUTSIDE_OF_FIELD_DOWN_OR_RIGHT;
 	} else {
 		posx = OUTSIDE_OF_FIELD_UP_OR_LEFT;
@@ -87,13 +77,24 @@ void PlayingField::draw() {
 	return;
 }
 
-bool PlayingField::shouldThisSquareHaveAnObstacle(sf::Vector2i square) {
-	for (int index = 0; index < emptySquares.size(); index++) {
-		if (square == emptySquares[index]) {
-			return false;
+void PlayingField::generateObstaclesFromFile(std::string filename) {
+	std::ifstream mapFile;
+	mapFile.open(filename);
+	std::string mapFileLine;
+	for (int row = 0; getline(mapFile, mapFileLine); row++) {
+
+		// Whitespace is included in the obstacle map file to make it a bit easier to convert a drawing on a grid into an obstacle map file
+
+		int whitespace = 0;
+		for (int collumn = 0; collumn < mapFileLine.size(); collumn++) {
+			if (' ' == mapFileLine[collumn]) {
+				whitespace++;
+			}
+			if ('1' == mapFileLine[collumn]) {
+				addObstacle(sf::Vector2i(collumn - whitespace, row));
+			}
 		}
 	}
-	return true;
 }
 
 void PlayingField::addObstacle(sf::Vector2i positionInGrid) {

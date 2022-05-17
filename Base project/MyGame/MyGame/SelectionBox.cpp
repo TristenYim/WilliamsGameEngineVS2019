@@ -26,28 +26,56 @@ void SelectionBox::update(sf::Time& elapsed) {
 	GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
 	PlayingFieldPtr playingField_ = (PlayingFieldPtr&)currentScene_.getGameObject("field");
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
-		sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		if (arrowKeyTimer == ARROW_KEY_DELAY || arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && playingField_->findRelativePosition(sprite_.getPosition()).y != 0)							sprite_.move(sf::Vector2f(0.0f, -32.0f));
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && playingField_->findRelativePosition(sprite_.getPosition()).x != FIELD_GRID_WIDTH - 1)	sprite_.move(sf::Vector2f(32.0f, 0.0f));
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && playingField_->findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1)	sprite_.move(sf::Vector2f(0.0f, 32.0f));
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playingField_->findRelativePosition(sprite_.getPosition()).x != 0)						sprite_.move(sf::Vector2f(-32.0f, 0.0f));
-			if (arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
-				arrowKeyTimer += elapsed.asMilliseconds();
-			}
-		}
-		arrowKeyTimer -= elapsed.asMilliseconds();
-	} else {
-		arrowKeyTimer = ARROW_KEY_DELAY;
+	sf::Vector2f neoPosition;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
+		mouseControlsEnabled = !mouseControlsEnabled;
 	}
 
-	if (sf::Color(0, 95, 168) == sprite_.getColor() && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && ARROW_KEY_DELAY == arrowKeyTimer) {
+	if (mouseControlsEnabled) {
+		sf::Vector2i cursorPosition = playingField_->findRelativePosition((sf::Vector2f)sf::Mouse::getPosition(GAME.getRenderWindow()));
+		neoPosition = playingField_->findAbsolutePosition(cursorPosition);
+		if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.x) {
+			neoPosition.x -= sprite_.getGlobalBounds().width;
+		}
+		if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.y) {
+			neoPosition.y -= sprite_.getGlobalBounds().height;
+		}
+	} else {
+		neoPosition = sprite_.getPosition();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
+			sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+			if (arrowKeyTimer == ARROW_KEY_DELAY || arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && playingField_->findRelativePosition(sprite_.getPosition()).y != 0) {
+					neoPosition.y -= 32.0f;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && playingField_->findRelativePosition(sprite_.getPosition()).x != FIELD_GRID_WIDTH - 1) {
+					neoPosition.x += 32.0f;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && playingField_->findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1) {
+					neoPosition.y += 32.0f;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playingField_->findRelativePosition(sprite_.getPosition()).x != 0) {
+					neoPosition.x -= 32.0f;
+				}
+				if (arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
+					arrowKeyTimer += elapsed.asMilliseconds();
+				}
+			}
+			arrowKeyTimer -= elapsed.asMilliseconds();
+		} else {
+			arrowKeyTimer = ARROW_KEY_DELAY;
+		}
+	}
+
+	if (sf::Color(0, 95, 168) == sprite_.getColor() && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && neoPosition == sprite_.getPosition()) {
 		TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
 		currentScene_.addGameObject(tower_);
 	}
+
+	sprite_.setPosition(neoPosition);
 	return;
 }
 

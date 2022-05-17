@@ -29,9 +29,8 @@ private:
 	sf::Vector2f topLeftCornerPos;
 	sf::Vector2f bottomRightCornerPos;
 
-	// Used to see if the field should not place an obstacle in a certain location because there are more squares with obstacles than without
-	std::vector<sf::Vector2i> emptySquares;
-	bool shouldThisSquareHaveAnObstacle(sf::Vector2i square);
+	// Used to generate the obstacles from a file since placing each individual obstacle with code would be difficult to read
+	void generateObstaclesFromFile(std::string filename);
 
 	// Use this to add objects to the current scene outside of update by adding it to this vector
 	std::vector<GameObjectPtr> objectsToAdd;

@@ -20,6 +20,8 @@ public:
 private:
 	sf::Sprite sprite_;
 
+	bool mouseControlsEnabled = false;
+
 	float arrowKeyTimer = 1000;
 	float animationTimer = TIME_BUFFER + SOLID_TIME + FADE_OUT_TIME + FADE_IN_TIME;
 };
