@@ -14,7 +14,7 @@ PlayingField::PlayingField() {
 	sprite_.setPosition(sf::Vector2f(topLeftCornerPos.x - FIELD_MAP_BORDER_WIDTH, topLeftCornerPos.y - FIELD_MAP_BORDER_WIDTH));
 	assignTag("field");
 
-	generateObstaclesFromFile("Obstacle Field Map.txt");
+	generateObstaclesFromFile(OBSTACLE_FIELD_MAP_FILE_NAME);
 
 	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);
 	objectsToAdd.push_back(selectionBox_);
@@ -60,8 +60,28 @@ sf::Vector2f PlayingField::findAbsolutePosition(sf::Vector2i positionInGrid) {
 	return sf::Vector2f(posx, posy);
 }
 
+bool PlayingField::isAnObstacleAt(sf::Vector2i position) {
+	std::ifstream fieldObjectMap;
+	fieldObjectMap.open(OBSTACLE_FIELD_MAP_FILE_NAME);
+	std::string line;
+	for (int lineIndex = 0; ; lineIndex++) {
+		getline(fieldObjectMap, line);
+		if (OUTSIDE_OF_FIELD_UP_OR_LEFT != position.x && OUTSIDE_OF_FIELD_DOWN_OR_RIGHT != position.x) {
+			if (lineIndex == position.y && '1' == line[position.x]) {
+				fieldObjectMap.close();
+				return true;
+			} else if (position.x && position.y == lineIndex) {
+				fieldObjectMap.close();
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+}
+
 void PlayingField::update(sf::Time& elapsed) {
-	if (objectsToAdd.size() > 0) {
+	while (objectsToAdd.size() > 0) {
 		GAME.getCurrentScene().addGameObject(objectsToAdd[0]);
 		objectsToAdd.erase(objectsToAdd.begin());
 	}
@@ -95,6 +115,8 @@ void PlayingField::generateObstaclesFromFile(std::string filename) {
 			}
 		}
 	}
+	mapFile.close();
+	return;
 }
 
 void PlayingField::addObstacle(sf::Vector2i positionInGrid) {

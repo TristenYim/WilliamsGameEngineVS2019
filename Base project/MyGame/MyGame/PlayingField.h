@@ -1,14 +1,15 @@
 #pragma once
 
+#include "Engine/GameEngine.h"
+#include "GameScene.h"
+
 const int FIELD_GRID_SIDE_LENGTH = 32;
 const int FIELD_MAP_BORDER_WIDTH = 10;
 const int FIELD_GRID_WIDTH = 54;
 const int FIELD_GRID_HEIGHT = 27;
 const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 254;
 const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 148;
-
-#include "Engine/GameEngine.h"
-#include "GameScene.h"
+const std::string OBSTACLE_FIELD_MAP_FILE_NAME = "Obstacle Field Map.txt";
 
 class PlayingField : public GameObject {
 public:
@@ -19,6 +20,9 @@ public:
 
 	// Use this for positioning objects relative to the field grid
 	sf::Vector2f findAbsolutePosition(sf::Vector2i positionInGrid);
+
+	// Used to check a field-relative position for obstacles by looking at the obstacle generation file. It checks the file because searching every game object is slow
+	bool isAnObstacleAt(sf::Vector2i position);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();

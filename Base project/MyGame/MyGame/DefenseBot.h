@@ -11,12 +11,6 @@ public:
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
-	void handleCollision(GameObject& otherObject_);
-private:
-	bool justPressedW;
-	bool justPressedA;
-	bool justPressedS;
-	bool justPressedD;
 };
 
 typedef std::shared_ptr<DefenseBot> DefenseBotPtr;                
