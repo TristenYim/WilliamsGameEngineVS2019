@@ -14,12 +14,14 @@ void DefenseBot::update(sf::Time& elapsed) {
 	PlayingFieldPtr playingField_ = (PlayingFieldPtr&)currentScene_.getGameObject("field");
 
 	sf::Vector2f neoPosition = sprite_.getPosition();
+	sf::Vector2i relativeNeoPosition;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
 		neoPosition.y -= DRIVING_SPEED * elapsed.asMilliseconds();
+		relativeNeoPosition = playingField_->findRelativePosition(neoPosition);
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its y-coordinate accordingly
-		if (playingField_->isAnObstacleAt(playingField_->findRelativePosition(neoPosition)) || playingField_->isAnObstacleAt(playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y)))) {
+		if (playingField_->isAnObstacleAt(relativeNeoPosition) || playingField_->isAnObstacleAt(playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y)))) {
 			neoPosition.y = playingField_->findAbsolutePosition(sf::Vector2i(0, playingField_->findRelativePosition(neoPosition).y - 1)).y;
 		}
 	}
@@ -27,19 +29,23 @@ void DefenseBot::update(sf::Time& elapsed) {
 		neoPosition.x -= DRIVING_SPEED * elapsed.asMilliseconds();
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
-		//if (playingField_->isAnObstacleAt(playingField_->findRelativePosition(neoPosition)) || playingField_->isAnObstacleAt(playingField_->findRelativePosition(sf::Vector2f(neoPosition.x, neoPosition.y + sprite_.getGlobalBounds().height)))) {
-		//	neoPosition.x = playingField_->findAbsolutePosition(sf::Vector2i(playingField_->findRelativePosition(neoPosition).x - 1, 0)).x;
-		//}
-		if (playingField_->isAnObstacleAt(playingField_->findRelativePosition(neoPosition))) {
-			//neoPosition.x = playingField_->findAbsolutePosition(sf::Vector2i(playingField_->findRelativePosition(neoPosition).x - 1, 0)).x;
-			neoPosition = sf::Vector2f(0, 0);
+		if (playingField_->isAnObstacleAt(relativeNeoPosition) || playingField_->isAnObstacleAt(playingField_->findRelativePosition(sf::Vector2f(neoPosition.x, neoPosition.y + sprite_.getGlobalBounds().height)))) {
+			int squaresToJumpRight = 0;
+			while (playingField_->isAnObstacleAt(sf::Vector2i(relativeNeoPosition.x + squaresToJumpRight, relativeNeoPosition.y))) {
+				squaresToJumpRight++;
+			}
+			neoPosition.x = playingField_->findAbsolutePosition(sf::Vector2i(playingField_->findRelativePosition(neoPosition).x + 1, 0)).x;
 		}
+		//if (playingField_->isAnObstacleAt(playingField_->findRelativePosition(neoPosition))) {
+		//	neoPosition.x = playingField_->findAbsolutePosition(sf::Vector2i(playingField_->findRelativePosition(neoPosition).x - 1, 0)).x;
+		//	neoPosition = sf::Vector2f(0, 0);
+		//}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 		neoPosition.y += DRIVING_SPEED * elapsed.asMilliseconds();
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its y-coordinate accordingly
-		if (playingField_->isAnObstacleAt(playingField_->findRelativePosition(neoPosition)) || playingField_->isAnObstacleAt(playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y)))) {
+		if (playingField_->isAnObstacleAt(relativeNeoPosition) || playingField_->isAnObstacleAt(playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y)))) {
 			neoPosition.y = playingField_->findAbsolutePosition(sf::Vector2i(0, playingField_->findRelativePosition(neoPosition).y + 1)).y + sprite_.getGlobalBounds().height;
 		}
 	}

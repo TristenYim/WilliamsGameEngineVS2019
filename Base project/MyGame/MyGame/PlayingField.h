@@ -31,6 +31,7 @@ private:
 	// Used as a reference point when adding objects
 	sf::Vector2f topLeftCornerPos;
 	sf::Vector2f bottomRightCornerPos;
+	std::vector<std::vector<bool>> objectMap;
 
 	// Used to generate the obstacles from a file since placing each individual obstacle with code would be difficult to read
 	void generateObstaclesFromFile(std::string filename);

@@ -70,7 +70,7 @@ bool PlayingField::isAnObstacleAt(sf::Vector2i position) {
 			if (lineIndex == position.y && '1' == line[position.x]) {
 				fieldObjectMap.close();
 				return true;
-			} else if (position.x && position.y == lineIndex) {
+			} else if (position.y == lineIndex) {
 				fieldObjectMap.close();
 				return false;
 			}
@@ -105,14 +105,15 @@ void PlayingField::generateObstaclesFromFile(std::string filename) {
 
 		// Whitespace is included in the obstacle map file to make it a bit easier to convert a drawing on a grid into an obstacle map file
 
-		int whitespace = 0;
+		std::vector<bool> objectMapRowToAdd;
 		for (int collumn = 0; collumn < mapFileLine.size(); collumn++) {
-			if (' ' == mapFileLine[collumn]) {
-				whitespace++;
-			}
 			if ('1' == mapFileLine[collumn]) {
-				addObstacle(sf::Vector2i(collumn - whitespace, row));
+				addObstacle(sf::Vector2i(collumn, row));
+				objectMapRowToAdd.push_back(true);
+			} else {
+				objectMapRowToAdd.push_back(false);
 			}
+			objectMap.push_back(objectMapRowToAdd);
 		}
 	}
 	mapFile.close();
