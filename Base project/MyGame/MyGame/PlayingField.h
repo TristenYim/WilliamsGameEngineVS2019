@@ -31,9 +31,11 @@ private:
 	// Used as a reference point when adding objects
 	sf::Vector2f topLeftCornerPos;
 	sf::Vector2f bottomRightCornerPos;
-	std::vector<std::vector<bool>> objectMap;
 
-	// Used to generate the obstacles from a file since placing each individual obstacle with code would be difficult to read
+	// Used to store the obstacle map
+	std::vector<std::vector<bool>> obstacleMap;
+
+	// The obstacles generate from a file and are stored in a 2d vector since that is the easiset way to read and edit the position of obstacles
 	void generateObstaclesFromFile(std::string filename);
 
 	// Use this to add objects to the current scene outside of update by adding it to this vector

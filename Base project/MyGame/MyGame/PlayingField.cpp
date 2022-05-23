@@ -61,22 +61,10 @@ sf::Vector2f PlayingField::findAbsolutePosition(sf::Vector2i positionInGrid) {
 }
 
 bool PlayingField::isAnObstacleAt(sf::Vector2i position) {
-	std::ifstream fieldObjectMap;
-	fieldObjectMap.open(OBSTACLE_FIELD_MAP_FILE_NAME);
-	std::string line;
-	for (int lineIndex = 0; ; lineIndex++) {
-		getline(fieldObjectMap, line);
-		if (OUTSIDE_OF_FIELD_UP_OR_LEFT != position.x && OUTSIDE_OF_FIELD_DOWN_OR_RIGHT != position.x) {
-			if (lineIndex == position.y && '1' == line[position.x]) {
-				fieldObjectMap.close();
-				return true;
-			} else if (position.y == lineIndex) {
-				fieldObjectMap.close();
-				return false;
-			}
-		} else {
-			return false;
-		}
+	if (position.y <= obstacleMap.size() && position.x <= obstacleMap[position.y].size()) {
+		return obstacleMap[position.y][position.x];
+	} else if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == position.y || OUTSIDE_OF_FIELD_UP_OR_LEFT == position.y || OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == position.x || OUTSIDE_OF_FIELD_UP_OR_LEFT == position.y) {
+		return false;
 	}
 }
 
@@ -102,19 +90,16 @@ void PlayingField::generateObstaclesFromFile(std::string filename) {
 	mapFile.open(filename);
 	std::string mapFileLine;
 	for (int row = 0; getline(mapFile, mapFileLine); row++) {
-
-		// Whitespace is included in the obstacle map file to make it a bit easier to convert a drawing on a grid into an obstacle map file
-
-		std::vector<bool> objectMapRowToAdd;
+		std::vector<bool> obstacleMapRowToAdd;
 		for (int collumn = 0; collumn < mapFileLine.size(); collumn++) {
 			if ('1' == mapFileLine[collumn]) {
 				addObstacle(sf::Vector2i(collumn, row));
-				objectMapRowToAdd.push_back(true);
+				obstacleMapRowToAdd.push_back(true);
 			} else {
-				objectMapRowToAdd.push_back(false);
+				obstacleMapRowToAdd.push_back(false);
 			}
-			objectMap.push_back(objectMapRowToAdd);
 		}
+		obstacleMap.push_back(obstacleMapRowToAdd);
 	}
 	mapFile.close();
 	return;
