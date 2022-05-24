@@ -69,13 +69,12 @@ void SelectionBox::update(sf::Time& elapsed) {
 			arrowKeyTimer = ARROW_KEY_DELAY;
 		}
 	}
+	sprite_.setPosition(neoPosition);
 
-	if (sf::Color(0, 95, 168) == sprite_.getColor() && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && neoPosition == sprite_.getPosition()) {
+	if (playingField_->canThisObjectBeAt(playingField_->findRelativePosition(sprite_.getPosition()), "Tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
 		TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
 		currentScene_.addGameObject(tower_);
 	}
-
-	sprite_.setPosition(neoPosition);
 	return;
 }
 

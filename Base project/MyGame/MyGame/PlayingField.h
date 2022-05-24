@@ -11,6 +11,8 @@ const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 254;
 const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 1690;
 const std::string OBSTACLE_FIELD_MAP_FILE_NAME = "Obstacle Field Map.txt";
 
+enum fieldGridBoxTypes { All = 0, None = 1, OffenseOnly = 2 };
+
 class PlayingField : public GameObject {
 public:
 	PlayingField();
@@ -22,7 +24,7 @@ public:
 	sf::Vector2f findAbsolutePosition(sf::Vector2i positionInGrid);
 
 	// Used to check a field-relative position for obstacles by looking at the obstacle generation file. It checks the file because searching every game object is slow
-	bool isAnObstacleAt(sf::Vector2i position);
+	bool canThisObjectBeAt(sf::Vector2i position, std::string tag);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
@@ -33,7 +35,7 @@ private:
 	sf::Vector2f bottomRightCornerPos;
 
 	// Used to store the obstacle map
-	std::vector<std::vector<bool>> obstacleMap;
+	std::vector<std::vector<fieldGridBoxTypes>> obstacleMap;
 
 	// The obstacles generate from a file and are stored in a 2d vector since that is the easiset way to read and edit the position of obstacles
 	void generateObstaclesFromFile(std::string filename);

@@ -60,10 +60,24 @@ sf::Vector2f PlayingField::findAbsolutePosition(sf::Vector2i positionInGrid) {
 	return sf::Vector2f(posx, posy);
 }
 
-bool PlayingField::isAnObstacleAt(sf::Vector2i position) {
+bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 	if (position.y <= obstacleMap.size() && position.x <= obstacleMap[position.y].size()) {
-		return obstacleMap[position.y][position.x];
-	} else if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == position.y || OUTSIDE_OF_FIELD_UP_OR_LEFT == position.y || OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == position.x || OUTSIDE_OF_FIELD_UP_OR_LEFT == position.y) {
+		if ("offense" == tag) {
+			switch (obstacleMap[position.y][position.x]) {
+			case None:
+				return false;
+			default:
+				return false;
+			}
+		} else if ("tower" == tag) {
+			switch (obstacleMap[position.y][position.x]) {
+			case None:
+				return true;
+			default:
+				return false;
+			}
+		}
+	} else {
 		return false;
 	}
 }
@@ -90,13 +104,15 @@ void PlayingField::generateObstaclesFromFile(std::string filename) {
 	mapFile.open(filename);
 	std::string mapFileLine;
 	for (int row = 0; getline(mapFile, mapFileLine); row++) {
-		std::vector<bool> obstacleMapRowToAdd;
+		std::vector<fieldGridBoxTypes> obstacleMapRowToAdd;
 		for (int collumn = 0; collumn < mapFileLine.size(); collumn++) {
 			if ('1' == mapFileLine[collumn]) {
 				addObstacle(sf::Vector2i(collumn, row));
-				obstacleMapRowToAdd.push_back(true);
+				obstacleMapRowToAdd.push_back(None);
+			} else if ('0' == mapFileLine[collumn]) {
+				obstacleMapRowToAdd.push_back(All);
 			} else {
-				obstacleMapRowToAdd.push_back(false);
+				obstacleMapRowToAdd.push_back(OffenseOnly);
 			}
 		}
 		obstacleMap.push_back(obstacleMapRowToAdd);
