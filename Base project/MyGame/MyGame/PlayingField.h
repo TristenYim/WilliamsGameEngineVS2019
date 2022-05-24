@@ -7,8 +7,8 @@ const int FIELD_GRID_SIDE_LENGTH = 32;
 const int FIELD_MAP_BORDER_WIDTH = 10;
 const int FIELD_GRID_WIDTH = 54;
 const int FIELD_GRID_HEIGHT = 27;
-const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 254;
-const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 148;
+const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 254;
+const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 1690;
 const std::string OBSTACLE_FIELD_MAP_FILE_NAME = "Obstacle Field Map.txt";
 
 class PlayingField : public GameObject {
