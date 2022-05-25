@@ -1,12 +1,11 @@
 #include "DefenseBot.h"
 #include "GameScene.h"
 #include "PlayingField.h"
-#include "Obstacle.h"
 
 DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	sprite_.setTexture(GAME.getTexture("Resources/Orange Square.png"));
 	sprite_.setPosition(ipos);
-	assignTag(TEAM);
+	assignTag(DEFENSE_TAG);
 }
 
 void DefenseBot::update(sf::Time& elapsed) {
@@ -25,7 +24,7 @@ void DefenseBot::update(sf::Time& elapsed) {
 		relativeNeoCornerPosition2 = playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width - 1, neoPosition.y));
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
-		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, TEAM) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, TEAM)) {
+		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
 			relativeNeoCornerPosition.y++;
 			relativeNeoCornerPosition2.y++;
 			if (OUTSIDE_OF_FIELD_UP_OR_LEFT == relativeNeoCornerPosition.y) {
@@ -42,7 +41,7 @@ void DefenseBot::update(sf::Time& elapsed) {
 		relativeNeoCornerPosition2 = playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width - 1, neoPosition.y + sprite_.getGlobalBounds().height));
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its y-coordinate accordingly
-		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, TEAM) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, TEAM)) {
+		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
 			relativeNeoCornerPosition.y--;
 			relativeNeoCornerPosition2.y--;
 			if (relativeNeoCornerPosition.y == OUTSIDE_OF_FIELD_UP_OR_LEFT) {
@@ -60,7 +59,7 @@ void DefenseBot::update(sf::Time& elapsed) {
 		relativeNeoCornerPosition2 = playingField_->findRelativePosition(sf::Vector2f(neoPosition.x, neoPosition.y + sprite_.getGlobalBounds().height - 1));
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
-		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, TEAM) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, TEAM)) {
+		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
 			relativeNeoCornerPosition.x++;
 			relativeNeoCornerPosition2.x++;
 			if (relativeNeoCornerPosition.x == OUTSIDE_OF_FIELD_DOWN_OR_RIGHT) {
@@ -77,7 +76,7 @@ void DefenseBot::update(sf::Time& elapsed) {
 		relativeNeoCornerPosition2 = playingField_->findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y + sprite_.getGlobalBounds().height - 1));
 
 		// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
-		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, TEAM) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, TEAM)) {
+		while (playingField_->canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || playingField_->canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
 			relativeNeoCornerPosition.x--;
 			relativeNeoCornerPosition2.x--;
 			if (relativeNeoCornerPosition.x == OUTSIDE_OF_FIELD_UP_OR_LEFT) {

@@ -1,8 +1,7 @@
 #include "GameScene.h"
 #include "PlayingField.h"
-#include "Obstacle.h"
-#include "Tower.h"
 #include "DefenseBot.h"
+#include "OffenseBot.h"
 
 GameScene::GameScene() {
 
@@ -14,6 +13,8 @@ GameScene::GameScene() {
 	addGameObject(playingField_);
 	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(playingField_->findAbsolutePosition(sf::Vector2i(48, 14)));
 	addGameObject(defenseBot_);
+	OffenseBotPtr offenseBot_ = std::make_shared<OffenseBot>(playingField_->findAbsolutePosition(sf::Vector2i(3, 1)), 0.3);
+	addGameObject(offenseBot_);
 }
 
 GameObjectPtr GameScene::getGameObject(std::string tag) {

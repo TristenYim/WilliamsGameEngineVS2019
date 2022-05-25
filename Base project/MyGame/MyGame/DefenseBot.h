@@ -3,7 +3,7 @@
 #include "Engine/GameEngine.h"
 
 const float DRIVING_SPEED = 0.15f;
-const std::string TEAM = "defense";
+const std::string DEFENSE_TAG = "defense";
 
 class DefenseBot : public GameObject {
 public:

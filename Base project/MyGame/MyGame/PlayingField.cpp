@@ -69,6 +69,13 @@ bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 			default:
 				return false;
 			}
+		} else if ("offense" == tag) {
+			switch (obstacleMap[position.y][position.x]) {
+			case All:
+				return true;
+			default:
+				return false;
+			}
 		} else if ("tower" == tag) {
 			switch (obstacleMap[position.y][position.x]) {
 			case None:
