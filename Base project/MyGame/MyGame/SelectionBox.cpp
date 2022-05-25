@@ -1,6 +1,6 @@
 #include "SelectionBox.h"
-#include "GameScene.h"
 #include "PlayingField.h"
+#include "GameScene.h"
 #include "Tower.h"
 
 SelectionBox::SelectionBox(sf::Vector2f ipos) {
@@ -23,9 +23,6 @@ void SelectionBox::update(sf::Time& elapsed) {
 		animationTimer += SOLID_TIME + FADE_IN_TIME + FADE_OUT_TIME;
 	}
 
-	GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
-	PlayingFieldPtr playingField_ = (PlayingFieldPtr&)currentScene_.getGameObject("field");
-
 	sf::Vector2f neoPosition;
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
@@ -33,8 +30,8 @@ void SelectionBox::update(sf::Time& elapsed) {
 	}
 
 	if (mouseControlsEnabled) {
-		sf::Vector2i cursorPosition = playingField_->findRelativePosition((sf::Vector2f)sf::Mouse::getPosition(GAME.getRenderWindow()));
-		neoPosition = playingField_->findAbsolutePosition(cursorPosition);
+		sf::Vector2i cursorPosition = PlayingField::findRelativePosition((sf::Vector2f)sf::Mouse::getPosition(GAME.getRenderWindow()));
+		neoPosition = PlayingField::findAbsolutePosition(cursorPosition);
 		if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.x) {
 			neoPosition.x -= sprite_.getGlobalBounds().width;
 		}
@@ -48,17 +45,17 @@ void SelectionBox::update(sf::Time& elapsed) {
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
 			sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 			if (arrowKeyTimer == ARROW_KEY_DELAY || arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && playingField_->findRelativePosition(sprite_.getPosition()).y != 0) {
-					neoPosition.y -= 32.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && PlayingField::findRelativePosition(sprite_.getPosition()).y != 0) {
+					neoPosition.y -= FIELD_GRID_SIDE_LENGTH;
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && playingField_->findRelativePosition(sprite_.getPosition()).x != FIELD_GRID_WIDTH - 1) {
-					neoPosition.x += 32.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && PlayingField::findRelativePosition(sprite_.getPosition()).x != FIELD_GRID_WIDTH - 1) {
+					neoPosition.x += FIELD_GRID_SIDE_LENGTH;
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && playingField_->findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1) {
-					neoPosition.y += 32.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && PlayingField::findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1) {
+					neoPosition.y += FIELD_GRID_SIDE_LENGTH;
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && playingField_->findRelativePosition(sprite_.getPosition()).x != 0) {
-					neoPosition.x -= 32.0f;
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && PlayingField::findRelativePosition(sprite_.getPosition()).x != 0) {
+					neoPosition.x -= FIELD_GRID_SIDE_LENGTH;
 				}
 				if (arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
 					arrowKeyTimer += elapsed.asMilliseconds();
@@ -71,9 +68,9 @@ void SelectionBox::update(sf::Time& elapsed) {
 	}
 	sprite_.setPosition(neoPosition);
 
-	if (playingField_->canThisObjectBeAt(playingField_->findRelativePosition(sprite_.getPosition()), "tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
 		TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
-		currentScene_.addGameObject(tower_);
+		GAME.getCurrentScene().addGameObject(tower_);
 	}
 	return;
 }

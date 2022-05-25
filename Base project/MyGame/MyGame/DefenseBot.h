@@ -4,6 +4,7 @@
 
 const float DRIVING_SPEED = 0.15f;
 const std::string DEFENSE_TAG = "defense";
+enum direction { Up, Right, Down, Left };
 
 class DefenseBot : public GameObject {
 public:

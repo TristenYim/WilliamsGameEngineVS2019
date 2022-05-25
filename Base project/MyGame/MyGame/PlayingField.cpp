@@ -3,8 +3,10 @@
 #include "Obstacle.h"
 #include <fstream>
 
+// Defines (Don't know if that is the right word?) the static variables
 sf::Vector2f PlayingField::topLeftCornerPos;
 sf::Vector2f PlayingField::bottomRightCornerPos;
+std::vector<std::vector<fieldGridBoxTypes>> PlayingField::obstacleMap;
 
 PlayingField::PlayingField() {
 	sprite_.setTexture(GAME.getTexture(FIELD_TEXTURE));
@@ -25,43 +27,51 @@ void PlayingField::initializeCornerPositions(sf::Vector2f itopLeftCornerPosition
 }
 
 sf::Vector2i PlayingField::findRelativePosition(sf::Vector2f absolutePosition) {
-	int posx;
-	int posy;
-	if (topLeftCornerPos.x <= absolutePosition.x && bottomRightCornerPos.x >= absolutePosition.x) {
-		posx = (int)(absolutePosition.x - topLeftCornerPos.x) / FIELD_GRID_SIDE_LENGTH;
-	} else if (bottomRightCornerPos.x <= absolutePosition.x) {
-		posx = OUTSIDE_OF_FIELD_DOWN_OR_RIGHT;
+	return sf::Vector2i(findRelativeXPosition(absolutePosition.x), findRelativeYPosition(absolutePosition.y));
+}
+
+int PlayingField::findRelativeXPosition(float absoluteXPosition) {
+	if (topLeftCornerPos.x <= absoluteXPosition && bottomRightCornerPos.x >= absoluteXPosition) {
+		return (int)(absoluteXPosition - topLeftCornerPos.x) / FIELD_GRID_SIDE_LENGTH;
+	} else if (bottomRightCornerPos.x <= absoluteXPosition) {
+		return OUTSIDE_OF_FIELD_DOWN_OR_RIGHT;
 	} else {
-		posx = OUTSIDE_OF_FIELD_UP_OR_LEFT;
+		return OUTSIDE_OF_FIELD_UP_OR_LEFT;
 	}
-	if (topLeftCornerPos.y <= absolutePosition.y && bottomRightCornerPos.y >= absolutePosition.y) {
-		posy = (int)(absolutePosition.y - topLeftCornerPos.y) / FIELD_GRID_SIDE_LENGTH;
-	} else if (bottomRightCornerPos.y <= absolutePosition.y) {
-		posy = OUTSIDE_OF_FIELD_DOWN_OR_RIGHT;
+}
+
+int PlayingField::findRelativeYPosition(float absoluteYPosition) {
+	if (topLeftCornerPos.y <= absoluteYPosition && bottomRightCornerPos.y >= absoluteYPosition) {
+		return (int)(absoluteYPosition - topLeftCornerPos.y) / FIELD_GRID_SIDE_LENGTH;
+	} else if (bottomRightCornerPos.y <= absoluteYPosition) {
+		return OUTSIDE_OF_FIELD_DOWN_OR_RIGHT;
 	} else {
-		posy = OUTSIDE_OF_FIELD_UP_OR_LEFT;
+		return OUTSIDE_OF_FIELD_UP_OR_LEFT;
 	}
-	return sf::Vector2i(posx, posy);
 }
 
 sf::Vector2f PlayingField::findAbsolutePosition(sf::Vector2i positionInGrid) {
-	float posx;
-	float posy;
-	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == positionInGrid.x) {
-		posx = bottomRightCornerPos.x;
-	} else if (OUTSIDE_OF_FIELD_UP_OR_LEFT == positionInGrid.x) {
-		posx = topLeftCornerPos.x;
+	return sf::Vector2f(findAbsoluteXPosition(positionInGrid.x), findAbsoluteYPosition(positionInGrid.y));
+}
+
+float PlayingField::findAbsoluteXPosition(int xPositionInGrid) {
+	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == xPositionInGrid) {
+		return bottomRightCornerPos.x;
+	} else if (OUTSIDE_OF_FIELD_UP_OR_LEFT == xPositionInGrid) {
+		return topLeftCornerPos.x;
 	} else {
-		posx = topLeftCornerPos.x + positionInGrid.x * FIELD_GRID_SIDE_LENGTH;
+		return topLeftCornerPos.x + xPositionInGrid * FIELD_GRID_SIDE_LENGTH;
 	}
-	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == positionInGrid.y) {
-		posy = bottomRightCornerPos.y;
-	} else if (OUTSIDE_OF_FIELD_UP_OR_LEFT == positionInGrid.y) {
-		posy = topLeftCornerPos.y;
+}
+
+float PlayingField::findAbsoluteYPosition(int yPositionInGrid) {
+	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == yPositionInGrid) {
+		return bottomRightCornerPos.y;
+	} else if (OUTSIDE_OF_FIELD_UP_OR_LEFT == yPositionInGrid) {
+		return topLeftCornerPos.y;
 	} else {
-		posy = topLeftCornerPos.y + positionInGrid.y * FIELD_GRID_SIDE_LENGTH;
+		return topLeftCornerPos.y + yPositionInGrid * FIELD_GRID_SIDE_LENGTH;
 	}
-	return sf::Vector2f(posx, posy);
 }
 
 bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {

@@ -13,7 +13,7 @@ public:
 	void draw();
 private:
 	float movementSpeed;
-	std::vector<operation> directions{ GoDown, GoRight, GoUp, GoRight, GoDown, GoLeft, GoDown, GoRight, GoUp, GoRight, GoDown, GoRight, Score};
+	std::vector<operation> directions{ GoDown, GoRight, GoUp, GoRight, GoDown, GoLeft, GoDown, GoRight, GoUp, GoRight, GoDown, GoRight, Score };
 	int currentOperation = 0;
 };
 
