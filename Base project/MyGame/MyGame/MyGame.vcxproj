@@ -91,6 +91,7 @@
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="OffenseBot.cpp" />
     <ClCompile Include="PlayingField.cpp" />
     <ClCompile Include="SelectionBox.cpp" />
     <ClCompile Include="TextObject.cpp" />
@@ -106,6 +107,7 @@
     <ClInclude Include="GameObjectTemplate.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="OffenseBot.h" />
     <ClInclude Include="PlayingField.h" />
     <ClInclude Include="SelectionBox.h" />
     <ClInclude Include="TextObject.h" />

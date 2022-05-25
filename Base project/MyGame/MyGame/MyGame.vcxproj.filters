@@ -26,6 +26,7 @@
     <ClCompile Include="SelectionBox.cpp" />
     <ClCompile Include="Tower.cpp" />
     <ClCompile Include="DefenseBot.cpp" />
+    <ClCompile Include="OffenseBot.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -55,6 +56,7 @@
     <ClInclude Include="SelectionBox.h" />
     <ClInclude Include="Tower.h" />
     <ClInclude Include="DefenseBot.h" />
+    <ClInclude Include="OffenseBot.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
