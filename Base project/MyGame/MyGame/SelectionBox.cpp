@@ -71,7 +71,7 @@ void SelectionBox::update(sf::Time& elapsed) {
 	}
 	sprite_.setPosition(neoPosition);
 
-	if (playingField_->canThisObjectBeAt(playingField_->findRelativePosition(sprite_.getPosition()), "Tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+	if (playingField_->canThisObjectBeAt(playingField_->findRelativePosition(sprite_.getPosition()), "tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
 		TowerPtr tower_ = std::make_shared<Tower>(sprite_.getPosition());
 		currentScene_.addGameObject(tower_);
 	}

@@ -62,10 +62,10 @@ sf::Vector2f PlayingField::findAbsolutePosition(sf::Vector2i positionInGrid) {
 
 bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 	if (position.y <= obstacleMap.size() && position.x <= obstacleMap[position.y].size()) {
-		if ("offense" == tag) {
+		if ("defense" == tag) {
 			switch (obstacleMap[position.y][position.x]) {
 			case None:
-				return false;
+				return true;
 			default:
 				return false;
 			}
