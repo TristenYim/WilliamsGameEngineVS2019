@@ -9,6 +9,7 @@ const int FIELD_GRID_WIDTH = 54;
 const int FIELD_GRID_HEIGHT = 27;
 const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 254;
 const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 1690;
+const std::string FIELD_TEXTURE = "Resources/Field Boundary.png";
 const std::string OBSTACLE_FIELD_MAP_FILE_NAME = "Obstacle Field Map.txt";
 
 enum fieldGridBoxTypes { All = 0, None = 1, OffenseOnly = 2 };
@@ -16,6 +17,9 @@ enum fieldGridBoxTypes { All = 0, None = 1, OffenseOnly = 2 };
 class PlayingField : public GameObject {
 public:
 	PlayingField();
+
+	// Initializing the corner positions is required to use the static methods below
+	static void initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f itopRightCornerPosition);
 
 	// Useful for ensuring objects do not leave the field
 	sf::Vector2i findRelativePosition(sf::Vector2f absolutePosition);
@@ -31,8 +35,8 @@ public:
 	void draw();
 private:
 	// Used as a reference point when adding objects
-	sf::Vector2f topLeftCornerPos;
-	sf::Vector2f bottomRightCornerPos;
+	static sf::Vector2f topLeftCornerPos;
+	static sf::Vector2f bottomRightCornerPos;
 
 	// Used to store the obstacle map
 	std::vector<std::vector<fieldGridBoxTypes>> obstacleMap;

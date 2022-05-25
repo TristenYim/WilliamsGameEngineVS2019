@@ -3,14 +3,12 @@
 #include "Obstacle.h"
 #include <fstream>
 
-PlayingField::PlayingField() {
-	sprite_.setTexture(GAME.getTexture("Resources/Field Boundary.png"));
-	sprite_.scale(2.0f, 2.0f);
+sf::Vector2f PlayingField::topLeftCornerPos;
+sf::Vector2f PlayingField::bottomRightCornerPos;
 
-	topLeftCornerPos.x = GAME.getRenderWindow().getSize().x / 2.0f - sprite_.getTextureRect().width + FIELD_MAP_BORDER_WIDTH;
-	topLeftCornerPos.y = GAME.getRenderWindow().getSize().y / 2.0f - sprite_.getTextureRect().height + FIELD_MAP_BORDER_WIDTH;
-	bottomRightCornerPos.x = GAME.getRenderWindow().getSize().x / 2.0f + sprite_.getTextureRect().width - FIELD_MAP_BORDER_WIDTH;
-	bottomRightCornerPos.y = GAME.getRenderWindow().getSize().y / 2.0f + sprite_.getTextureRect().height - FIELD_MAP_BORDER_WIDTH;
+PlayingField::PlayingField() {
+	sprite_.setTexture(GAME.getTexture(FIELD_TEXTURE));
+	sprite_.scale(2.0f, 2.0f);
 	sprite_.setPosition(sf::Vector2f(topLeftCornerPos.x - FIELD_MAP_BORDER_WIDTH, topLeftCornerPos.y - FIELD_MAP_BORDER_WIDTH));
 	assignTag("field");
 
@@ -18,6 +16,12 @@ PlayingField::PlayingField() {
 
 	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);
 	objectsToAdd.push_back(selectionBox_);
+}
+
+void PlayingField::initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f ibottomRightCornerPosition) {
+	topLeftCornerPos = itopLeftCornerPosition;
+	bottomRightCornerPos = ibottomRightCornerPosition;
+	return;
 }
 
 sf::Vector2i PlayingField::findRelativePosition(sf::Vector2f absolutePosition) {
