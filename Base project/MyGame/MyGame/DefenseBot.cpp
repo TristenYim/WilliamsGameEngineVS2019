@@ -113,3 +113,100 @@ void DefenseBot::draw() {
 	GAME.getRenderWindow().draw(sprite_);
 	return;
 }
+
+//void DefenseBot::update(sf::Time& elapsed) {
+//	int xDistanceMultiplier = 0;
+//	int yDistanceMultiplier = 0;
+//
+//	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+//		yDistanceMultiplier = -1;
+//	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+//		xDistanceMultiplier = -1;
+//	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+//		yDistanceMultiplier = 1;
+//	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+//		xDistanceMultiplier = 1;
+//	}
+//
+//	sf::Vector2f neoPosition = sprite_.getPosition();
+//
+//	// The locations of two corners are used to ensure the defense bot can't drive partially into obstacles at weird angles
+//	sf::Vector2i relativeNeoCornerPosition;
+//	sf::Vector2i relativeNeoCornerPosition2;
+//
+//	neoPosition.x += xDistanceMultiplier * DRIVING_SPEED * elapsed.asMilliseconds();
+//	neoPosition.y += yDistanceMultiplier * DRIVING_SPEED * elapsed.asMilliseconds();
+//	relativeNeoCornerPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + (0.5 + xDistanceMultiplier / 2) * sprite_.getGlobalBounds().width, neoPosition.y + (0.5 + yDistanceMultiplier / 2) * sprite_.getGlobalBounds().height));
+//	relativeNeoCornerPosition2 = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + xDistanceMultiplier * std::abs(sprite_.getGlobalBounds().width - 1), neoPosition.y + yDistanceMultiplier * std::abs(sprite_.getGlobalBounds().height - 1)));
+//
+//	// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
+//	while (PlayingField::canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || PlayingField::canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
+//		relativeNeoCornerPosition.x -= xDistanceMultiplier;
+//		relativeNeoCornerPosition2.x -= xDistanceMultiplier;
+//		relativeNeoCornerPosition.y -= yDistanceMultiplier;
+//		relativeNeoCornerPosition2.y -= yDistanceMultiplier;
+//		if (OUTSIDE_OF_FIELD_UP_OR_LEFT == relativeNeoCornerPosition.y || OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == relativeNeoCornerPosition.y || OUTSIDE_OF_FIELD_UP_OR_LEFT == relativeNeoCornerPosition.x || OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == relativeNeoCornerPosition.x) {
+//			if (OUTSIDE_OF_FIELD_UP_OR_LEFT == relativeNeoCornerPosition.y) {
+//				neoPosition.y = PlayingField::findAbsoluteYPosition(OUTSIDE_OF_FIELD_UP_OR_LEFT);
+//			} else if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == relativeNeoCornerPosition.y) {
+//				neoPosition.y = PlayingField::findAbsoluteYPosition(OUTSIDE_OF_FIELD_DOWN_OR_RIGHT);
+//			}
+//			if (OUTSIDE_OF_FIELD_UP_OR_LEFT == relativeNeoCornerPosition.x) {
+//				neoPosition.x = PlayingField::findAbsoluteXPosition(OUTSIDE_OF_FIELD_UP_OR_LEFT);
+//			} else if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == relativeNeoCornerPosition.x) {
+//				neoPosition.x = PlayingField::findAbsoluteXPosition(OUTSIDE_OF_FIELD_DOWN_OR_RIGHT);
+//			}
+//			break;
+//		}
+//	}
+//	if (PlayingField::findRelativeYPosition(neoPosition.y + (0.5 + yDistanceMultiplier / 2) * sprite_.getGlobalBounds().height) != relativeNeoCornerPosition.y && OUTSIDE_OF_FIELD_UP_OR_LEFT != relativeNeoCornerPosition.y && OUTSIDE_OF_FIELD_DOWN_OR_RIGHT != relativeNeoCornerPosition.y) {
+//		neoPosition.y = PlayingField::findAbsolutePosition(relativeNeoCornerPosition).y;
+//	}
+//	if (PlayingField::findRelativeXPosition(neoPosition.x + (0.5 + xDistanceMultiplier / 2) * sprite_.getGlobalBounds().width) != relativeNeoCornerPosition.x && relativeNeoCornerPosition.x != OUTSIDE_OF_FIELD_UP_OR_LEFT && relativeNeoCornerPosition.x != OUTSIDE_OF_FIELD_DOWN_OR_RIGHT) {
+//		neoPosition.x = PlayingField::findAbsolutePosition(relativeNeoCornerPosition).x;
+//	}
+//
+//	sprite_.setPosition(neoPosition);
+//	return;
+	//}	else if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+	//	// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its y-coordinate accordingly
+	//	if (PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x, neoPosition.y + sprite_.getGlobalBounds().height)).y != relativeNeoCornerPosition.y && relativeNeoCornerPosition.y != OUTSIDE_OF_FIELD_UP_OR_LEFT) {
+	//		neoPosition.y = PlayingField::findAbsolutePosition(sf::Vector2i(relativeNeoCornerPosition.x, relativeNeoCornerPosition.y + 1)).y - sprite_.getGlobalBounds().height;
+	//	}
+	//}
+	//if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+	//	neoPosition.x -= DRIVING_SPEED * elapsed.asMilliseconds();
+	//	relativeNeoCornerPosition = PlayingField::findRelativePosition(neoPosition);
+	//	relativeNeoCornerPosition2 = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x, neoPosition.y + sprite_.getGlobalBounds().height - 1));
+
+	//	// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
+	//	while (PlayingField::canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || PlayingField::canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
+	//		relativeNeoCornerPosition.x++;
+	//		relativeNeoCornerPosition2.x++;
+	//		if (relativeNeoCornerPosition.x == OUTSIDE_OF_FIELD_DOWN_OR_RIGHT) {
+	//			neoPosition.x = PlayingField::findAbsolutePosition(sf::Vector2i(OUTSIDE_OF_FIELD_UP_OR_LEFT, 0)).x;
+	//			break;
+	//		}
+	//	}
+	//	if (PlayingField::findRelativePosition(neoPosition).x != relativeNeoCornerPosition.x && relativeNeoCornerPosition.x != OUTSIDE_OF_FIELD_DOWN_OR_RIGHT) {
+	//		neoPosition.x = PlayingField::findAbsolutePosition(relativeNeoCornerPosition).x;
+	//	}
+	//} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+	//	neoPosition.x += DRIVING_SPEED * elapsed.asMilliseconds();
+	//	relativeNeoCornerPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y));
+	//	relativeNeoCornerPosition2 = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y + sprite_.getGlobalBounds().height - 1));
+
+	//	// Checks to see if there's an obstacle where the defense bot is trying to go and ajusts its x-coordinate accordingly
+	//	while (PlayingField::canThisObjectBeAt(relativeNeoCornerPosition, DEFENSE_TAG) || PlayingField::canThisObjectBeAt(relativeNeoCornerPosition2, DEFENSE_TAG)) {
+	//		relativeNeoCornerPosition.x--;
+	//		relativeNeoCornerPosition2.x--;
+	//		if (relativeNeoCornerPosition.x == OUTSIDE_OF_FIELD_UP_OR_LEFT) {
+	//			neoPosition.x = PlayingField::findAbsolutePosition(sf::Vector2i(OUTSIDE_OF_FIELD_DOWN_OR_RIGHT, 0)).x - sprite_.getGlobalBounds().width;
+	//			break;
+	//		}
+	//	}
+	//	if (PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y)).x != relativeNeoCornerPosition.x && relativeNeoCornerPosition.x != OUTSIDE_OF_FIELD_UP_OR_LEFT) {
+	//		neoPosition.x = PlayingField::findAbsolutePosition(sf::Vector2i(relativeNeoCornerPosition.x + 1, relativeNeoCornerPosition.y)).x - sprite_.getGlobalBounds().width;
+	//	}
+	//}
+//}

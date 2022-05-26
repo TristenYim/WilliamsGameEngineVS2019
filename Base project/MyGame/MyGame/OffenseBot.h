@@ -3,7 +3,7 @@
 #include "Engine/GameEngine.h"
 const std::string OFFENSE_TAG = "offense";
 
-enum operation { GoUp, GoRight, GoDown, GoLeft, Stop, Score };
+enum Operation { GoUp, GoRight, GoDown, GoLeft, Stop, Score };
 
 class OffenseBot : public GameObject {
 public:
@@ -13,8 +13,9 @@ public:
 	void draw();
 private:
 	float movementSpeed;
-	std::vector<operation> directions{ GoDown, GoRight, GoUp, GoRight, GoDown, GoLeft, GoDown, GoRight, GoUp, GoRight, GoDown, GoRight, Score };
+	std::vector<Operation> directions{ GoDown, GoRight, GoUp, GoRight, GoDown, GoLeft, GoDown, GoRight, GoUp, GoRight, GoDown, GoRight, Score };
 	int currentOperation = 0;
+	void go(Operation& direction, sf::Vector2f& neoPosition, float msElapsed);
 };
 
 typedef std::shared_ptr<OffenseBot> OffenseBotPtr;

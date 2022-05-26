@@ -13,79 +13,55 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed) {
 void OffenseBot::update(sf::Time& elapsed) {
 	float distance = movementSpeed * elapsed.asMilliseconds();
 	sf::Vector2f neoPosition = sprite_.getPosition();
-	sf::Vector2i relativeNeoPosition = PlayingField::findRelativePosition(sprite_.getPosition());
+	sf::Vector2i relativeNeoPosition = PlayingField::findRelativePosition(neoPosition);
 
-	if (distance > 0) {
-		if (directions[currentOperation] == GoUp) {
-			relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y + sprite_.getGlobalBounds().height - distance));
-			if (PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x, relativeNeoPosition.y - 2), OFFENSE_TAG)) {
-				neoPosition.y -= distance;
-				distance = 0;
-			} else {
-				while (!PlayingField::canThisObjectBeAt(relativeNeoPosition, OFFENSE_TAG)) {
-					relativeNeoPosition.y++;
-				}
+	while (distance > 0) {
+		float xDistanceMultiplier = 0;
+		float yDistanceMultiplier = 0;
+		int xMovementIncrement = 0;
+		int xCheckIncrement = 0;
+		int yMovementIncrement = 0;
+		int yCheckIncrement = 0;
 
-				neoPosition = sf::Vector2f(PlayingField::findAbsolutePosition(relativeNeoPosition).x - sprite_.getGlobalBounds().width / 2.0, PlayingField::findAbsolutePosition(relativeNeoPosition).y - sprite_.getGlobalBounds().height / 2.0);
-				distance -= sprite_.getPosition().y - neoPosition.y;
-
-				if (!PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x, relativeNeoPosition.y - 2), OFFENSE_TAG)) {
-					currentOperation++;
-				}
-			}
+		switch (directions[currentOperation]) {
+		case GoUp:
+			yDistanceMultiplier = -1;
+			yMovementIncrement = -1;
+			yCheckIncrement = -2;
+			break;
+		case GoLeft:
+			xDistanceMultiplier = -1;
+			xMovementIncrement = -1;
+			xCheckIncrement = -2;
+			break;
+		case GoDown:
+			yDistanceMultiplier = 1;
+			yMovementIncrement = 1;
+			yCheckIncrement = 1;
+			break;
+		case GoRight:
+			xDistanceMultiplier = 1;
+			xMovementIncrement = 1;
+			xCheckIncrement = 1;
+			break;
 		}
-		if (directions[currentOperation] == GoRight) {
-			relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width + distance, neoPosition.y + sprite_.getGlobalBounds().height));
-			if (PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + 1, relativeNeoPosition.y), OFFENSE_TAG)) {
-				neoPosition.x += distance;
-				distance = 0;
-			} else {
-				while (PlayingField::canThisObjectBeAt(relativeNeoPosition, OFFENSE_TAG)) {
-					relativeNeoPosition.x--;
-				}
 
-				neoPosition = sf::Vector2f(PlayingField::findAbsolutePosition(relativeNeoPosition).x - sprite_.getGlobalBounds().width / 2.0, PlayingField::findAbsolutePosition(relativeNeoPosition).y - sprite_.getGlobalBounds().height / 2.0);
-				distance -= neoPosition.x - sprite_.getPosition().x;
-
-				if (!PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + 1, relativeNeoPosition.y), OFFENSE_TAG)) {
-					currentOperation++;
-				}
+		relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width + xDistanceMultiplier * distance, neoPosition.y + sprite_.getGlobalBounds().height + yDistanceMultiplier * distance));
+		if (PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + xCheckIncrement, relativeNeoPosition.y + yCheckIncrement), OFFENSE_TAG)) {
+			neoPosition.x += xMovementIncrement * distance;
+			neoPosition.y += yMovementIncrement * distance;
+			distance = 0;
+		} else {
+			while (!PlayingField::canThisObjectBeAt(relativeNeoPosition, OFFENSE_TAG)) {
+				relativeNeoPosition.x += xMovementIncrement;
+				relativeNeoPosition.y += yMovementIncrement;
 			}
-		}
-		if (directions[currentOperation] == GoDown) {
-			relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y + sprite_.getGlobalBounds().height + distance));
-			if (PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x, relativeNeoPosition.y + 1), OFFENSE_TAG)) {
-				neoPosition.y += distance;
-				distance = 0;
-			} else {
-				while (!PlayingField::canThisObjectBeAt(relativeNeoPosition, OFFENSE_TAG)) {
-					relativeNeoPosition.y--;
-				}
 
-				neoPosition = sf::Vector2f(PlayingField::findAbsolutePosition(relativeNeoPosition).x - sprite_.getGlobalBounds().width / 2.0, PlayingField::findAbsolutePosition(relativeNeoPosition).y - sprite_.getGlobalBounds().height / 2.0);
-				distance -= neoPosition.y - sprite_.getPosition().y;
+			neoPosition = sf::Vector2f(PlayingField::findAbsolutePosition(relativeNeoPosition).x - sprite_.getGlobalBounds().width / 2.0, PlayingField::findAbsolutePosition(relativeNeoPosition).y - sprite_.getGlobalBounds().height / 2.0);
+			distance -= xDistanceMultiplier * (neoPosition.x - sprite_.getPosition().x) + yDistanceMultiplier * (neoPosition.y - sprite_.getPosition().y);
 
-				if (!PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x, relativeNeoPosition.y + 1), OFFENSE_TAG)) {
-					currentOperation++;
-				}
-			}
-		}
-		if (directions[currentOperation] == GoLeft) {
-			relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width - distance, neoPosition.y + sprite_.getGlobalBounds().height));
-			if (PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x - 2, relativeNeoPosition.y), OFFENSE_TAG)) {
-				neoPosition.x -= distance;
-				distance = 0;
-			} else {
-				while (PlayingField::canThisObjectBeAt(relativeNeoPosition, OFFENSE_TAG)) {
-					relativeNeoPosition.x++;
-				}
-
-				neoPosition = sf::Vector2f(PlayingField::findAbsolutePosition(relativeNeoPosition).x - sprite_.getGlobalBounds().width / 2.0, PlayingField::findAbsolutePosition(relativeNeoPosition).y - sprite_.getGlobalBounds().height / 2.0);
-				distance -= sprite_.getPosition().x - neoPosition.x;
-
-				if (!PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x - 2, relativeNeoPosition.y), OFFENSE_TAG)) {
-					currentOperation++;
-				}
+			if (!PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + xCheckIncrement, relativeNeoPosition.y + yCheckIncrement), OFFENSE_TAG)) {
+				currentOperation++;
 			}
 		}
 	}

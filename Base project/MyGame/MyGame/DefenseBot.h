@@ -13,6 +13,8 @@ public:
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
+private:
+	void drive(sf::Vector2f& neoPosition, float msElapsed);
 };
 
 typedef std::shared_ptr<DefenseBot> DefenseBotPtr;                
