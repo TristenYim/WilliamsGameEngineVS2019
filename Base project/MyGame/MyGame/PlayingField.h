@@ -9,7 +9,7 @@ const int FIELD_GRID_HEIGHT = 27;
 const int OUTSIDE_OF_FIELD_UP_OR_LEFT = 254;
 const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 1690;
 const std::string FIELD_TEXTURE = "Resources/Field Boundary.png";
-const std::string OBSTACLE_FIELD_MAP_FILE_NAME = "Obstacle Field Map.txt";
+const std::string FIELD_MAP_FILE = "Obstacle Field Map.txt";
 
 enum fieldGridBoxTypes { All = 0, None = 1, OffenseOnly = 2 };
 

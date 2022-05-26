@@ -14,7 +14,7 @@ PlayingField::PlayingField() {
 	sprite_.setPosition(sf::Vector2f(topLeftCornerPos.x - FIELD_MAP_BORDER_WIDTH, topLeftCornerPos.y - FIELD_MAP_BORDER_WIDTH));
 	assignTag("field");
 
-	generateObstaclesFromFile(OBSTACLE_FIELD_MAP_FILE_NAME);
+	generateObstaclesFromFile(FIELD_MAP_FILE);
 
 	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);
 	objectsToAdd.push_back(selectionBox_);
@@ -124,19 +124,21 @@ void PlayingField::generateObstaclesFromFile(std::string filename) {
 	std::ifstream mapFile;
 	mapFile.open(filename);
 	std::string mapFileLine;
-	for (int row = 0; getline(mapFile, mapFileLine); row++) {
-		std::vector<fieldGridBoxTypes> obstacleMapRowToAdd;
-		for (int collumn = 0; collumn < mapFileLine.size(); collumn++) {
-			if ('1' == mapFileLine[collumn]) {
-				addObstacle(sf::Vector2i(collumn, row));
-				obstacleMapRowToAdd.push_back(None);
-			} else if ('0' == mapFileLine[collumn]) {
-				obstacleMapRowToAdd.push_back(All);
-			} else {
-				obstacleMapRowToAdd.push_back(OffenseOnly);
+	for (int row = -2; getline(mapFile, mapFileLine); row++) {
+		if (row >= 0) {
+			std::vector<fieldGridBoxTypes> obstacleMapRowToAdd;
+			for (int collumn = 0; collumn < mapFileLine.size(); collumn++) {
+				if ('1' == mapFileLine[collumn]) {
+					addObstacle(sf::Vector2i(collumn, row));
+					obstacleMapRowToAdd.push_back(None);
+				} else if ('0' == mapFileLine[collumn]) {
+					obstacleMapRowToAdd.push_back(All);
+				} else {
+					obstacleMapRowToAdd.push_back(OffenseOnly);
+				}
 			}
+			obstacleMap.push_back(obstacleMapRowToAdd);
 		}
-		obstacleMap.push_back(obstacleMapRowToAdd);
 	}
 	mapFile.close();
 	return;

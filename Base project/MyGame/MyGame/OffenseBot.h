@@ -7,14 +7,17 @@ enum Operation { GoUp, GoRight, GoDown, GoLeft, Stop, Score };
 
 class OffenseBot : public GameObject {
 public:
-	OffenseBot(sf::Vector2f ipos, float imovementSpeed);
+	OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom);
 
 	void update(sf::Time& elapsed);
 	void draw();
 private:
 	float movementSpeed;
-	std::vector<Operation> directions{ GoDown, GoRight, GoUp, GoRight, GoDown, GoLeft, GoDown, GoRight, GoUp, GoRight, GoDown, GoRight, Score };
+	float scoringAccuracy;
+	float scoringSpeed;
+	std::vector<Operation> directions;
 	int currentOperation = 0;
+
 	void go(Operation& direction, sf::Vector2f& neoPosition, float msElapsed);
 };
 

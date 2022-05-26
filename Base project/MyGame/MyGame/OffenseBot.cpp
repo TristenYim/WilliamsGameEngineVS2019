@@ -1,14 +1,45 @@
 #include "OffenseBot.h"
 #include "PlayingField.h"
+#include <fstream>
 
-OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed) {
+OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom) {
 	sprite_.setTexture(GAME.getTexture("Resources/Blue Square.png"));
 
 	// The position in modified to spawn the offense bot on the corner of a square. Since this constructor cannot access the playing field, it must take an absolute position input rather than a relative one
 	sprite_.setPosition(sf::Vector2f(ipos.x - sprite_.getGlobalBounds().width / 2.0, ipos.y - sprite_.getGlobalBounds().height / 2.0));
 	movementSpeed = imovementSpeed;
+
 	assignTag(OFFENSE_TAG);
+	std::ifstream fieldMapFile;
+	fieldMapFile.open(FIELD_MAP_FILE);
+	std::string directions_string;
+	//getline(fieldMapFile, directions_string);
+	for (int index = 0; index <= spawnOnBottom; index++) {
+		getline(fieldMapFile, directions_string);
+	}
+	fieldMapFile.close();
+	for (int index = 0; index <= directions_string.size(); index++) {
+		switch (directions_string[index]) {
+		case 'U':
+			directions.push_back(GoUp);
+			break;
+		case 'L':
+			directions.push_back(GoLeft);
+			break;
+		case 'D':
+			directions.push_back(GoDown);
+			break;
+		case 'R':
+			directions.push_back(GoRight);
+			break;
+		case 'W':
+			directions.push_back(Score);
+			break;
+		}
+	}
 }
+
+// TODO: Make the pathing less susceptible to phasing
 
 void OffenseBot::update(sf::Time& elapsed) {
 	float distance = movementSpeed * elapsed.asMilliseconds();
