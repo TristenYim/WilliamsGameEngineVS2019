@@ -16,8 +16,6 @@ void OffenseBot::update(sf::Time& elapsed) {
 	sf::Vector2i relativeNeoPosition = PlayingField::findRelativePosition(neoPosition);
 
 	while (distance > 0) {
-		float xDistanceMultiplier = 0;
-		float yDistanceMultiplier = 0;
 		int xMovementIncrement = 0;
 		int xCheckIncrement = 0;
 		int yMovementIncrement = 0;
@@ -25,28 +23,24 @@ void OffenseBot::update(sf::Time& elapsed) {
 
 		switch (directions[currentOperation]) {
 		case GoUp:
-			yDistanceMultiplier = -1;
 			yMovementIncrement = -1;
 			yCheckIncrement = -2;
 			break;
 		case GoLeft:
-			xDistanceMultiplier = -1;
 			xMovementIncrement = -1;
 			xCheckIncrement = -2;
 			break;
 		case GoDown:
-			yDistanceMultiplier = 1;
 			yMovementIncrement = 1;
 			yCheckIncrement = 1;
 			break;
 		case GoRight:
-			xDistanceMultiplier = 1;
 			xMovementIncrement = 1;
 			xCheckIncrement = 1;
 			break;
 		}
 
-		relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width + xDistanceMultiplier * distance, neoPosition.y + sprite_.getGlobalBounds().height + yDistanceMultiplier * distance));
+		relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width + (int)(xCheckIncrement / 2) * distance, neoPosition.y + sprite_.getGlobalBounds().height + (int)(yCheckIncrement / 2) * distance));
 		if (PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + xCheckIncrement, relativeNeoPosition.y + yCheckIncrement), OFFENSE_TAG)) {
 			neoPosition.x += xMovementIncrement * distance;
 			neoPosition.y += yMovementIncrement * distance;
@@ -58,7 +52,7 @@ void OffenseBot::update(sf::Time& elapsed) {
 			}
 
 			neoPosition = sf::Vector2f(PlayingField::findAbsolutePosition(relativeNeoPosition).x - sprite_.getGlobalBounds().width / 2.0, PlayingField::findAbsolutePosition(relativeNeoPosition).y - sprite_.getGlobalBounds().height / 2.0);
-			distance -= xDistanceMultiplier * (neoPosition.x - sprite_.getPosition().x) + yDistanceMultiplier * (neoPosition.y - sprite_.getPosition().y);
+			distance -= (int)(xCheckIncrement / 2) * (neoPosition.x - sprite_.getPosition().x) + (int)(yCheckIncrement / 2) * (neoPosition.y - sprite_.getPosition().y);
 
 			if (!PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + xCheckIncrement, relativeNeoPosition.y + yCheckIncrement), OFFENSE_TAG)) {
 				currentOperation++;
