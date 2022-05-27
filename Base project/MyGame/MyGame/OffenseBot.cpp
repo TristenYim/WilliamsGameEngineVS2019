@@ -45,7 +45,7 @@ void OffenseBot::update(sf::Time& elapsed) {
 	float distance = movementSpeed * elapsed.asMilliseconds();
 	sf::Vector2f neoPosition = sprite_.getPosition();
 	sf::Vector2f positionToReach = sprite_.getPosition();
-	sf::Vector2i relativeNeoPosition = PlayingField::findRelativePosition(neoPosition);
+	sf::Vector2i relativePositionToCheck;
 
 	while (distance > 0) {
 		int xMovementIncrement = 0;
@@ -64,7 +64,7 @@ void OffenseBot::update(sf::Time& elapsed) {
 			break;
 		case GoDown:
 			yMovementIncrement = 1;
-			yCheckIncrement = 1;
+			yCheckIncrement = 2;
 			break;
 		case GoRight:
 			xMovementIncrement = 1;
@@ -72,22 +72,25 @@ void OffenseBot::update(sf::Time& elapsed) {
 			break;
 		}
 
-		relativeNeoPosition = PlayingField::findRelativePosition(sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width + (int)(xCheckIncrement / 2) * distance, neoPosition.y + sprite_.getGlobalBounds().height + (int)(yCheckIncrement / 2) * distance));
+		relativePositionToCheck = PlayingField::findRelativePosition(neoPosition);
 		positionToReach.x += xMovementIncrement * distance;
 		positionToReach.y += yMovementIncrement * distance;
-		while (relativeNeoPosition != PlayingField::findRelativePosition(positionToReach) && PlayingField::canThisObjectBeAt(sf::Vector2i(relativeNeoPosition.x + xCheckIncrement, relativeNeoPosition.y + yCheckIncrement), OFFENSE_TAG)) {
-			relativeNeoPosition.x += xMovementIncrement;
-			relativeNeoPosition.y += yMovementIncrement;
+		while (relativePositionToCheck != PlayingField::findRelativePosition(positionToReach) && PlayingField::canThisObjectBeAt(sf::Vector2i(relativePositionToCheck.x, relativePositionToCheck.y + yCheckIncrement), OFFENSE_TAG)) {
+			relativePositionToCheck.x += xMovementIncrement;
+			relativePositionToCheck.y += yMovementIncrement;
 		}
 
-		if (relativeNeoPosition == PlayingField::findRelativePosition(positionToReach)) {
+		if (relativePositionToCheck == PlayingField::findRelativePosition(positionToReach)) {
 			neoPosition = positionToReach;
+			distance = 0;
 		} else {
-			distance -= std::abs(xMovementIncrement * (neoPosition.x - PlayingField::findAbsoluteXPosition(relativeNeoPosition.x))) - std::abs(yMovmentIncrement * (neoPosition.y - PlayingField::findAbsoluteYPosition(relativeNeoPosition.y)));
-			neoPosition = PlayingField::findAbsoluteValue(sf::Vector2f(relativeNeoPosition.x - xMovementIncrement, relativeNeoPosition.y - yMovementIncrement));
+			distance -= std::abs(xMovementIncrement * (neoPosition.x - PlayingField::findAbsoluteXPosition(relativePositionToCheck.x))) - std::abs(yMovementIncrement * (neoPosition.y - PlayingField::findAbsoluteYPosition(relativePositionToCheck.y)));
+			neoPosition = PlayingField::findAbsolutePosition(sf::Vector2i(relativePositionToCheck.x + xMovementIncrement, relativePositionToCheck.y + yMovementIncrement));
 			currentOperation++;
+		}
 	}
 	sprite_.setPosition(neoPosition);
+	return;
 }
 
 void OffenseBot::draw() {
