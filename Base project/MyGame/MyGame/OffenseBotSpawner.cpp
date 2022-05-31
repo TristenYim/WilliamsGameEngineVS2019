@@ -14,9 +14,9 @@ void OffenseBotSpawner::update(sf::Time& elapsed) {
 	} else {
 		OffenseBotPtr offenseBot_;
 		if (spawnBotsOnBottom) {
-			offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(3, 26)), 0.1f, true);
+			offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(3, 26)), 0.2f, true);
 		} else {
-			offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(3, 1)), 0.1f, false);
+			offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(3, 1)), 0.2f, false);
 		}
 		GAME.getCurrentScene().addGameObject(offenseBot_);
 		spawnBotsOnBottom = !spawnBotsOnBottom;
