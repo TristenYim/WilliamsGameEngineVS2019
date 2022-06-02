@@ -11,7 +11,7 @@ const int OUTSIDE_OF_FIELD_DOWN_OR_RIGHT = 1690;
 const std::string FIELD_TEXTURE = "Resources/Field Boundary.png";
 const std::string FIELD_MAP_FILE = "Obstacle Field Map.txt";
 
-enum fieldGridBoxTypes { All = 0, None = 1, OffenseOnly = 2 };
+enum fieldGridBoxTypes { All = 0, None = 1, DefenseOnly = 2 };
 
 class PlayingField : public GameObject {
 public:

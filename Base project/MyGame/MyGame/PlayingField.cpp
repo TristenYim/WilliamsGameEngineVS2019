@@ -79,9 +79,9 @@ bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 		if ("defense" == tag) {
 			switch (obstacleMap[position.y][position.x]) {
 			case None:
-				return true;
-			default:
 				return false;
+			default:
+				return true;
 			}
 		} else if ("offense" == tag) {
 			switch (obstacleMap[position.y][position.x]) {
@@ -134,7 +134,7 @@ void PlayingField::generateObstaclesFromFile(std::string filename) {
 				} else if ('0' == mapFileLine[collumn]) {
 					obstacleMapRowToAdd.push_back(All);
 				} else {
-					obstacleMapRowToAdd.push_back(OffenseOnly);
+					obstacleMapRowToAdd.push_back(DefenseOnly);
 				}
 			}
 			obstacleMap.push_back(obstacleMapRowToAdd);
