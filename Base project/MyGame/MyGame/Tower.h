@@ -4,21 +4,24 @@
 
 class Tower : public GameObject {
 public:
-	Tower(sf::Vector2f ipos);
+	Tower(sf::Vector2f ipos, float irange, float iattackDelay);
 
-	//void update(sf::Time& elapsed);
+	void update(sf::Time& elapsed);
+	sf::FloatRect getCollisionRect();
 	void draw();
+	void handleCollision(GameObject& otherGameObject);
 protected:
 	float attackDelay;
-	float attackTimer;
+	float attackTimer = 0;
 	float projectileDamage;
 	float projectileSpeed;
 	float range;
 	int level = 1;
-	bool objectInRange = false;
 
-	//virtual void attackAction();
+	void attackAction();
 	//virtual void levelUp();
+
+	std::vector<GameObjectPtr> objectsToAttack;
 };
 
 typedef std::shared_ptr<Tower> TowerPtr;

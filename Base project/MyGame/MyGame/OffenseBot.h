@@ -10,6 +10,7 @@ public:
 	OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom);
 
 	void update(sf::Time& elapsed);
+	sf::FloatRect getCollisionRect();
 	void draw();
 private:
 	float movementSpeed;

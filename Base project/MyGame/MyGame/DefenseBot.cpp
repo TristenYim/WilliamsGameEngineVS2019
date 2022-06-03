@@ -40,6 +40,8 @@ void DefenseBot::moveInADirection(sf::Vector2f& neoPosition, direction direction
 	sf::Vector2f positionToReach = neoPosition;
 	sf::Vector2f positionToCheck = neoPosition;
 	sf::Vector2f positionToCheck2 = sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y + sprite_.getGlobalBounds().height);
+	sf::Vector2f positionToCheck3 = sf::Vector2f(neoPosition.x + sprite_.getGlobalBounds().width, neoPosition.y);
+	sf::Vector2f positionToCheck4 = sf::Vector2f(neoPosition.x, neoPosition.y + sprite_.getGlobalBounds().height);
 
 	int xMovementIncrement = 0;
 	int xCheckIncrement = 0;
@@ -64,6 +66,10 @@ void DefenseBot::moveInADirection(sf::Vector2f& neoPosition, direction direction
 		positionToCheck.y += yMovementIncrement;
 		positionToCheck2.x += xMovementIncrement;
 		positionToCheck2.y += yMovementIncrement;
+		positionToCheck3.x += xMovementIncrement;
+		positionToCheck3.y += yMovementIncrement;
+		positionToCheck4.x += xMovementIncrement;
+		positionToCheck4.y += yMovementIncrement;
 		if (positionToCheck == positionToReach) {
 			neoPosition = positionToReach;
 			return;
@@ -72,6 +78,12 @@ void DefenseBot::moveInADirection(sf::Vector2f& neoPosition, direction direction
 			return;
 		} else if (!PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(positionToCheck2), DEFENSE_TAG)) {
 			neoPosition = sf::Vector2f(positionToCheck2.x - xMovementIncrement - sprite_.getGlobalBounds().width, positionToCheck2.y - yMovementIncrement - sprite_.getGlobalBounds().height);
+			return;
+		} else if (!PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(positionToCheck3), DEFENSE_TAG)) {
+			neoPosition = sf::Vector2f(positionToCheck2.x - xMovementIncrement - sprite_.getGlobalBounds().width, positionToCheck2.y - yMovementIncrement);
+			return;
+		} else if (!PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(positionToCheck4), DEFENSE_TAG)) {
+			neoPosition = sf::Vector2f(positionToCheck2.x - xMovementIncrement, positionToCheck2.y - yMovementIncrement - sprite_.getGlobalBounds().height);
 			return;
 		}
 	}

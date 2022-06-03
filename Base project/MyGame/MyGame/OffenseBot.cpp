@@ -7,6 +7,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBott
 
 	// The position in modified to spawn the offense bot on the corner of a square. Since this constructor cannot access the playing field, it must take an absolute position input rather than a relative one
 	sprite_.setPosition(sf::Vector2f(ipos.x - sprite_.getGlobalBounds().width / 2.0, ipos.y - sprite_.getGlobalBounds().height / 2.0));
+	setCollisionCheckEnabled(true);
 	movementSpeed = imovementSpeed;
 
 	assignTag(OFFENSE_TAG);
@@ -90,6 +91,10 @@ void OffenseBot::update(sf::Time& elapsed) {
 	}
 	sprite_.setPosition(neoPosition);
 	return;
+}
+
+sf::FloatRect OffenseBot::getCollisionRect() {
+	return sprite_.getGlobalBounds();
 }
 
 void OffenseBot::draw() {
