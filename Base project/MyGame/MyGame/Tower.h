@@ -21,7 +21,7 @@ protected:
 	void attackAction();
 	//virtual void levelUp();
 
-	std::vector<GameObjectPtr> objectsToAttack;
+	std::vector<GameObject> objectsToAttack;
 };
 
 typedef std::shared_ptr<Tower> TowerPtr;

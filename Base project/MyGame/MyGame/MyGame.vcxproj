@@ -94,6 +94,7 @@
     <ClCompile Include="OffenseBot.cpp" />
     <ClCompile Include="OffenseBotSpawner.cpp" />
     <ClCompile Include="PlayingField.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="SelectionBox.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Tower.cpp" />
@@ -111,6 +112,7 @@
     <ClInclude Include="OffenseBot.h" />
     <ClInclude Include="OffenseBotSpawner.h" />
     <ClInclude Include="PlayingField.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="SelectionBox.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="Tower.h" />
