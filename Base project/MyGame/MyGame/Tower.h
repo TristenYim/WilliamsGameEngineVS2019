@@ -19,13 +19,8 @@ protected:
 	float range;
 	int level = 1;
 
-	void attackAction();
+	void attackAction(GameObject botToAttack);
 	//virtual void levelUp();
-
-	// This list is used to store all offense bots in range in order to determine which ones can be targeted
-	// Bots are added to this list whenever they are in range and are removed if they are out of range when the tower tries to attack
-	// This is system is more efficient than the alternative (or at least I thought it was), searching every object every time the tower tries to attack
-	std::list<GameObjectPtr> botsInRange;
 };
 
 typedef std::shared_ptr<Tower> TowerPtr;

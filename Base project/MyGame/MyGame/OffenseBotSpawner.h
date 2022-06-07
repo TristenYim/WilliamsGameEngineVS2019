@@ -5,12 +5,13 @@ const std::string SPAWNING_FILE = "Resources/Spawning Data.txt";
 
 class OffenseBotSpawner : public GameObject {
 public:
-	OffenseBotSpawner(float ispawningDelay);
+	OffenseBotSpawner(float ispawningDelay, float ibotMovementSpeed);
 
 	void update(sf::Time& elapsed);
 private:
 	float spawningTimer;
 	float spawningDelay;
+	float botMovemevntSpeed;
 	bool spawnBotsOnBottom = false;
 };
 

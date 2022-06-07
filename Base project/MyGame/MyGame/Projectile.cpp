@@ -11,8 +11,9 @@ Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float 
 
 	float rotation = tan(distanceFromEnemy.y / distanceFromEnemy.x);
 	sprite_.setRotation(180 / M_PI * rotation);
-	directionalSpeed.y = asin(rotation) * speed;
-	directionalSpeed.x = acos(rotation) * speed;
+	float scalar = speed / sqrt(distanceFromEnemy.x*distanceFromEnemy.x + distanceFromEnemy.y*distanceFromEnemy.y);
+	directionalSpeed.x = distanceFromEnemy.x * scalar;
+	directionalSpeed.y = distanceFromEnemy.y * scalar;
 
 	setCollisionCheckEnabled(true);
 	assignTag("projectile");
@@ -35,7 +36,7 @@ void Projectile::update(sf::Time& elapsed) {
 void Projectile::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag(OFFENSE_TAG)) {
 		otherGameObject.makeDead();
-		makeDead();
+		//makeDead();
 	}
 	return;
 }
