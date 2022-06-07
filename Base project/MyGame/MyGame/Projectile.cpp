@@ -7,12 +7,14 @@
 
 Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed) {
 	sprite_.setTexture(GAME.getTexture("Resources/Yellow Square.png"));
-	sprite_.setTextureRect(sf::IntRect(ipos.x, ipos.y, 1, 1));
 	sprite_.setPosition(ipos);
+
 	float rotation = tan(distanceFromEnemy.y / distanceFromEnemy.x);
 	sprite_.setRotation(180 / M_PI * rotation);
 	directionalSpeed.y = asin(rotation) * speed;
 	directionalSpeed.x = acos(rotation) * speed;
+
+	setCollisionCheckEnabled(true);
 	assignTag("projectile");
 }
 

@@ -20,6 +20,8 @@ private:
 	int currentOperation = 0;
 
 	void go(Operation& direction, sf::Vector2f& neoPosition, float msElapsed);
+
+	OffenseBot(OffenseBot const&);
 };
 
 typedef std::shared_ptr<OffenseBot> OffenseBotPtr;

@@ -12,11 +12,11 @@ Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay) {
 }
 
 void Tower::update(sf::Time& elapsed) {
-	if (objectsToAttack.size() > 0) {
+	if (botsInRange.size() > 0) {
 		attackTimer -= elapsed.asMilliseconds();
 		if (0 >= attackTimer) {
-			attackAction();
 			attackTimer = attackDelay;
+			attackAction();
 		}
 	} else if (attackDelay != attackTimer) {
 		attackTimer = attackDelay;
@@ -25,7 +25,7 @@ void Tower::update(sf::Time& elapsed) {
 }
 
 sf::FloatRect Tower::getCollisionRect() {
-	return sf::FloatRect(sprite_.getPosition(), sf::Vector2f(range, range));
+	return sf::FloatRect(sf::Vector2f(sprite_.getPosition().x - range / 2.0, sprite_.getPosition().y - range / 2.0), sf::Vector2f(range, range));
 }
 
 void Tower::draw() {
@@ -35,22 +35,28 @@ void Tower::draw() {
 
 void Tower::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag("offense")) {
-		objectsToAttack.push_back(otherGameObject);
+		botsInRange.push_back(std::make_shared<GameObject>(otherGameObject));
 	}
 	return;
 }
 
 void Tower::attackAction() {
 	sprite_.setColor(sf::Color::Green);
-	GameObject furthestToTheRight = objectsToAttack[0];
-	for (int index = 1; index < objectsToAttack.size(); index++) {
-		if (objectsToAttack[index].getPosition().x >= furthestToTheRight.getPosition().x) {
-			furthestToTheRight = objectsToAttack[index];
+
+	// To make the game run faster, the tower only checks to see if the offense bots in its list to attack are still in range when it needs to attack
+	for (auto& offenseBot_ : botsInRange) {
+		if (!sprite_.getGlobalBounds().intersects(offenseBot_->getCollisionRect())) {
+			botsInRange.remove((GameObjectPtr)offenseBot_);
 		}
 	}
-	sf::Vector2f distance = sf::Vector2f(furthestToTheRight.getPosition().x - sprite_.getPosition().x, furthestToTheRight.getPosition().y - sprite_.getPosition().y);
-	ProjectilePtr projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distance, 0.05);
-	GAME.getCurrentScene().addGameObject(projectile_);
-	objectsToAttack.clear();
+	if (botsInRange.size() == 0) {
+		attackTimer = 0;
+	} else {
+		GameObjectPtr botToAttack = botsInRange.front();
+
+		sf::Vector2f distance = sf::Vector2f(botToAttack->getPosition().x - sprite_.getPosition().x, botToAttack->getPosition().y - sprite_.getPosition().y);
+		ProjectilePtr projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distance, 0.5);
+		GAME.getCurrentScene().addGameObject(projectile_);
+	}
 	return;
 }

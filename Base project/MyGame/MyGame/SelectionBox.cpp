@@ -2,6 +2,7 @@
 #include "PlayingField.h"
 #include "GameScene.h"
 #include "Tower.h"
+#include "OffenseBot.h"
 
 SelectionBox::SelectionBox(sf::Vector2f ipos) {
 	sprite_.setPosition(ipos);
@@ -87,7 +88,7 @@ sf::FloatRect SelectionBox::getCollisionRect() {
 void SelectionBox::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag("obstacle") && sprite_.getColor() != sf::Color(0, 95, 158)) {
 		sprite_.setColor(sf::Color(0, 95, 168));
-	} else if (sprite_.getColor() != sf::Color(226, 12, 16)) {
+	} else if (sprite_.getColor() != sf::Color(226, 12, 16) && !otherGameObject.hasTag(OFFENSE_TAG)) {
 		sprite_.setColor(sf::Color(226, 12, 16));
 	}
 	return;
