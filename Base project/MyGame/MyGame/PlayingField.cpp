@@ -7,6 +7,7 @@
 sf::Vector2f PlayingField::topLeftCornerPos;
 sf::Vector2f PlayingField::bottomRightCornerPos;
 std::vector<std::vector<fieldGridBoxTypes>> PlayingField::obstacleMap;
+std::vector<sf::Vector2i> PlayingField::squaresOccupiedByTowers;
 
 PlayingField::PlayingField() {
 	sprite_.setTexture(GAME.getTexture(FIELD_TEXTURE));
@@ -18,6 +19,11 @@ PlayingField::PlayingField() {
 
 	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);
 	objectsToAdd.push_back(selectionBox_);
+}
+
+void PlayingField::addPositionToTowerPositions(sf::Vector2i relativePosition) {
+	squaresOccupiedByTowers.push_back(relativePosition);
+	return;
 }
 
 void PlayingField::initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f ibottomRightCornerPosition) {
@@ -93,6 +99,11 @@ bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 		} else if ("tower" == tag) {
 			switch (obstacleMap[position.y][position.x]) {
 			case None:
+				for (int index = 0; index < squaresOccupiedByTowers.size(); index++) {
+					if (squaresOccupiedByTowers[index] == position) {
+						return false;
+					}
+				}
 				return true;
 			default:
 				return false;

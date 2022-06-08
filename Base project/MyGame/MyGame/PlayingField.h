@@ -17,6 +17,8 @@ class PlayingField : public GameObject {
 public:
 	PlayingField();
 
+	static void addPositionToTowerPositions(sf::Vector2i relatievPosition);
+
 	// Initializing the corner positions is required to use the static methods below
 	static void initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f itopRightCornerPosition);
 
@@ -43,6 +45,9 @@ private:
 
 	// Used to store the obstacle map
 	static std::vector<std::vector<fieldGridBoxTypes>> obstacleMap;
+
+	// Used to store locations where towers are so multiple towers aren't placed on the same square
+	static std::vector<sf::Vector2i> squaresOccupiedByTowers;
 
 	// The obstacles generate from a file and are stored in a 2d vector since that is the easiset way to read and edit the position of obstacles
 	void generateObstaclesFromFile(std::string filename);

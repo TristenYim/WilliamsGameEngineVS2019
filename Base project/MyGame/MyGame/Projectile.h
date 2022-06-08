@@ -2,8 +2,6 @@
 
 #include "Engine/GameEngine.h"
 
-// Replace "Projectile" with the name of your object
-
 class Projectile : public GameObject {
 public:
 	Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed);

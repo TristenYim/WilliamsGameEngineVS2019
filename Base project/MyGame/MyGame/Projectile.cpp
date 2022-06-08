@@ -36,7 +36,7 @@ void Projectile::update(sf::Time& elapsed) {
 void Projectile::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag(OFFENSE_TAG)) {
 		otherGameObject.makeDead();
-		//makeDead();
+		makeDead();
 	}
 	return;
 }

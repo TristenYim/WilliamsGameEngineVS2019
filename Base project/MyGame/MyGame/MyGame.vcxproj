@@ -95,6 +95,7 @@
     <ClCompile Include="OffenseBotSpawner.cpp" />
     <ClCompile Include="PlayingField.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="ProjectileTrailObject.cpp" />
     <ClCompile Include="SelectionBox.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Tower.cpp" />
@@ -108,6 +109,7 @@
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="GameObjectTemplate.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="ProjectileTrailObject.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="OffenseBot.h" />
     <ClInclude Include="OffenseBotSpawner.h" />

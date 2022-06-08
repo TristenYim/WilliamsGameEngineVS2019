@@ -1,18 +1,45 @@
 #include "Tower.h"
 #include "Projectile.h"
+#define _USE_MATH_DEFINES
+#include <math.h>
 
-Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay) {
+Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed) {
 	sprite_.setTexture(GAME.getTexture("Resources/Purple Square.png"));
 	sprite_.setPosition(ipos);
+	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
 	setCollisionCheckEnabled(true);
 	getCollisionRect();
 	assignTag("tower");
 	range = irange;
 	attackDelay = iattackDelay;
+	projectileSpeed = iprojectileSpeed;
 }
 
 void Tower::update(sf::Time& elapsed) {
 	attackTimer -= elapsed.asMilliseconds();
+	if (!objectToTarget.empty()) {
+		sf::Vector2f distanceToEnemy = sf::Vector2f(objectToTarget[0].getPosition().x - sprite_.getPosition().x, objectToTarget[0].getPosition().y - sprite_.getPosition().y);
+		float rotationToReach = 180 * M_PI * atan(distanceToEnemy.y / distanceToEnemy.x);
+		float currentRotation = sprite_.getRotation();
+		if ((int)currentRotation != (int)rotationToReach) {
+			if (std::abs(rotationToReach * 360 * (1 - (int)(currentRotation / 360)) - currentRotation)) {
+				currentRotation += elapsed.asMilliseconds() * rotationSpeed;
+				if (currentRotation > rotationToReach) {
+					currentRotation = rotationToReach;
+				}
+			} else {
+				currentRotation -= elapsed.asMilliseconds() * rotationSpeed;
+				if (currentRotation < rotationToReach) {
+					currentRotation = rotationToReach;
+				}
+			}
+			sprite_.setRotation(currentRotation);
+		}
+		if ((int)(rotationToReach) == (int)currentRotation && 0 >= attackTimer) {
+			attackAction(distanceToEnemy);
+		}
+	}
+	objectToTarget.clear();
 	return;
 }
 
@@ -27,17 +54,14 @@ void Tower::draw() {
 
 void Tower::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag("offense")) {
-		if (0 >= attackTimer) {
-			attackTimer = attackDelay;
-			attackAction(otherGameObject);
-		}
+		objectToTarget.push_back(otherGameObject);
 	}
 	return;
 }
 
-void Tower::attackAction(GameObject botToAttack) {
-	sf::Vector2f distance = sf::Vector2f(botToAttack.getPosition().x - sprite_.getPosition().x, botToAttack.getPosition().y - sprite_.getPosition().y);
-	ProjectilePtr projectile_ = std::make_shared<Projectile>(sf::Vector2f(sprite_.getPosition()), distance, 1.0);
+void Tower::attackAction(sf::Vector2f distanceToEnemy) {
+	attackTimer = attackDelay;
+	ProjectilePtr projectile_ = std::make_shared<Projectile>(sf::Vector2f(sprite_.getPosition()), distanceToEnemy, projectileSpeed);
 	GAME.getCurrentScene().addGameObject(projectile_);
 	return;
 }
