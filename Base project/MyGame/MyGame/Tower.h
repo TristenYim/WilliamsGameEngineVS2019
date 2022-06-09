@@ -16,7 +16,7 @@ protected:
 	float attackDelay;
 	float attackTimer = 0.0;
 	std::vector<GameObject> objectToTarget;
-	float rotationSpeed = 0.5;
+	float rotationSpeed = 0.05;
 	float projectileSpeed;
 	float projectileDamage;
 	int level = 1;

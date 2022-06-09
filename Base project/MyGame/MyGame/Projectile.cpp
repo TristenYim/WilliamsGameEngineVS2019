@@ -8,8 +8,9 @@
 Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed) {
 	sprite_.setTexture(GAME.getTexture("Resources/Yellow Square.png"));
 	sprite_.setPosition(ipos);
+	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
 
-	float rotation = tan(distanceFromEnemy.y / distanceFromEnemy.x);
+	float rotation = atan(distanceFromEnemy.y / distanceFromEnemy.x);
 	sprite_.setRotation(180 / M_PI * rotation);
 	float scalar = speed / sqrt(distanceFromEnemy.x*distanceFromEnemy.x + distanceFromEnemy.y*distanceFromEnemy.y);
 	directionalSpeed.x = distanceFromEnemy.x * scalar;
@@ -35,8 +36,8 @@ void Projectile::update(sf::Time& elapsed) {
 
 void Projectile::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag(OFFENSE_TAG)) {
-		otherGameObject.makeDead();
-		makeDead();
+		//otherGameObject.makeDead();
+		//makeDead();
 	}
 	return;
 }
