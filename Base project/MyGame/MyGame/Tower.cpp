@@ -21,31 +21,41 @@ void Tower::update(sf::Time& elapsed) {
 		sf::Vector2f distanceToEnemy = sf::Vector2f(objectToTarget[0].getPosition().x - sprite_.getPosition().x, objectToTarget[0].getPosition().y - sprite_.getPosition().y);
 		float rotationToReach = 180 / M_PI * atan(distanceToEnemy.y / distanceToEnemy.x);
 		float currentRotation = sprite_.getRotation();
-		if (180 <= currentRotation && 360 >= currentRotation) {
-			currentRotation = -(currentRotation - 180);
+		if (180 < currentRotation) {
+			currentRotation = 360 - currentRotation;
+		}
+		if (distanceToEnemy.x > 0) {
+			if (0 <= rotationToReach) {
+				rotationToReach = 180 - rotationToReach;
+			} else if (0 >= rotationToReach) {
+				rotationToReach = -180 - rotationToReach;
+			}
 		}
 		if ((int)currentRotation != (int)rotationToReach) {
-			if ((0 <= currentRotation && 0 <= rotationToReach) || (0 >= currentRotation && 0 >= rotationToReach) || eugc(0 <= currentRotation && 0 >= rotationToReach && 180 >= (540 + rotationToReach - currentRotation))) {
+			if ((0 <= currentRotation && 0 <= rotationToReach) || (0 >= currentRotation && 0 >= rotationToReach) || (0 <= currentRotation && 0 >= rotationToReach && 180 >= (540 + rotationToReach - currentRotation)) || (0 >= currentRotation && 0 <= rotationToReach && 180 >= (540 - rotationToReach + currentRotation))) {
 				currentRotation += elapsed.asMilliseconds() * rotationSpeed;
-				if (180 <= currentRotation && 360 >= currentRotation) {
-					currentRotation = -(currentRotation - 180);
-				} else if (currentRotation > 360) {
+				if (currentRotation > 360) {
 					currentRotation -= 360;
+				}
+				if (180 < currentRotation && 360 >= currentRotation) {
+					currentRotation = 360 - currentRotation;
 				}
 				//if (currentRotation > rotationToReach) {
 				//	currentRotation = rotationToReach;
 				//}
 			} else {
 				currentRotation -= elapsed.asMilliseconds() * rotationSpeed;
+				if (currentRotation < -360) {
+					currentRotation += 360;
+				}
+				if (-180 > currentRotation && -360 <= currentRotation) {
+					currentRotation = 360 + currentRotation;
+				}
 				//if (currentRotation < rotationToReach) {
 				//	currentRotation = rotationToReach;
 				//}
 			}
-			if (distanceToEnemy.x <= 0) {
-				sprite_.setRotation(currentRotation);
-			} else {
-				sprite_.setRotation(180 + currentRotation);
-			}
+			sprite_.setRotation(currentRotation);
 		}
 		if ((int)(rotationToReach) == (int)currentRotation && 0 >= attackTimer) {
 			attackAction(distanceToEnemy);
