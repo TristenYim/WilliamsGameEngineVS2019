@@ -2,8 +2,7 @@
 #include "OffenseBot.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
-
-//TODO: Fix it so it detects the angle
+#include "PlayingField.h"
 
 Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed) {
 	sprite_.setTexture(GAME.getTexture("Resources/Yellow Square.png"));
@@ -31,13 +30,17 @@ sf::FloatRect Projectile::getCollisionRect() {
 
 void Projectile::update(sf::Time& elapsed) {
 	sprite_.move(sf::Vector2f(directionalSpeed.x * elapsed.asMilliseconds(), directionalSpeed.y * elapsed.asMilliseconds()));
+	sf::Vector2i relativePosition = PlayingField::findRelativePosition(sprite_.getPosition());
+	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == relativePosition.x || OUTSIDE_OF_FIELD_UP_OR_LEFT == relativePosition.x || OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == relativePosition.y || OUTSIDE_OF_FIELD_UP_OR_LEFT == relativePosition.y) {
+		makeDead();
+	}
 	return;
 }
 
 void Projectile::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag(OFFENSE_TAG)) {
-		//otherGameObject.makeDead();
-		//makeDead();
+		otherGameObject.makeDead();
+		makeDead();
 	}
 	return;
 }

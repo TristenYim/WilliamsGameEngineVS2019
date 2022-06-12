@@ -5,7 +5,7 @@
 
 class Tower : public GameObject {
 public:
-	Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed);
+	Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed, float irotationSpeed);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
@@ -16,7 +16,7 @@ protected:
 	float attackDelay;
 	float attackTimer = 0.0;
 	std::vector<GameObject> objectToTarget;
-	float rotationSpeed = 0.05;
+	float rotationSpeed;
 	float projectileSpeed;
 	float projectileDamage;
 	int level = 1;

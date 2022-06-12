@@ -27,7 +27,7 @@ GameScene::GameScene() {
 	addGameObject(playingField_);
 	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));
 	addGameObject(defenseBot_);
-	OffenseBotSpawnerPtr offenseBotSpawner_ = std::make_shared<OffenseBotSpawner>(10000, 0.05);
+	OffenseBotSpawnerPtr offenseBotSpawner_ = std::make_shared<OffenseBotSpawner>(1000, 0.5);
 	addGameObject(offenseBotSpawner_);
 }
 

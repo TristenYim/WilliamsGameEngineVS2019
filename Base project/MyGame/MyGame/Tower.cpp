@@ -3,7 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed) {
+Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed, float irotationSpeed) {
 	sprite_.setTexture(GAME.getTexture("Resources/Purple Square.png"));
 	sprite_.setPosition(ipos);
 	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
@@ -13,47 +13,36 @@ Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iproject
 	range = irange;
 	attackDelay = iattackDelay;
 	projectileSpeed = iprojectileSpeed;
+	rotationSpeed = irotationSpeed;
 }
 
 void Tower::update(sf::Time& elapsed) {
 	attackTimer -= elapsed.asMilliseconds();
 	if (!objectToTarget.empty()) {
 		sf::Vector2f distanceToEnemy = sf::Vector2f(objectToTarget[0].getPosition().x - sprite_.getPosition().x, objectToTarget[0].getPosition().y - sprite_.getPosition().y);
-		float rotationToReach = 180 / M_PI * atan(distanceToEnemy.y / distanceToEnemy.x);
+		float rotationToReach = 180 * atan(distanceToEnemy.y / distanceToEnemy.x) / M_PI;
 		float currentRotation = sprite_.getRotation();
-		if (180 < currentRotation) {
-			currentRotation = 360 - currentRotation;
-		}
 		if (distanceToEnemy.x > 0) {
 			if (0 <= rotationToReach) {
-				rotationToReach = 180 - rotationToReach;
-			} else if (0 >= rotationToReach) {
-				rotationToReach = -180 - rotationToReach;
+				rotationToReach = 180 + rotationToReach;
+			} else {
+				rotationToReach = -180 + rotationToReach;
 			}
 		}
+		while (0 > rotationToReach) {
+			rotationToReach += 360;
+		}
 		if ((int)currentRotation != (int)rotationToReach) {
-			if ((0 <= currentRotation && 0 <= rotationToReach) || (0 >= currentRotation && 0 >= rotationToReach) || (0 <= currentRotation && 0 >= rotationToReach && 180 >= (540 + rotationToReach - currentRotation)) || (0 >= currentRotation && 0 <= rotationToReach && 180 >= (540 - rotationToReach + currentRotation))) {
+			if ((rotationToReach - currentRotation <= 180.0 && rotationToReach - currentRotation >= 0.0) || rotationToReach - currentRotation < -180) {
 				currentRotation += elapsed.asMilliseconds() * rotationSpeed;
-				if (currentRotation > 360) {
-					currentRotation -= 360;
+				if (currentRotation > rotationToReach && rotationToReach - currentRotation > 0) {
+					currentRotation = rotationToReach;
 				}
-				if (180 < currentRotation && 360 >= currentRotation) {
-					currentRotation = 360 - currentRotation;
-				}
-				//if (currentRotation > rotationToReach) {
-				//	currentRotation = rotationToReach;
-				//}
 			} else {
 				currentRotation -= elapsed.asMilliseconds() * rotationSpeed;
-				if (currentRotation < -360) {
-					currentRotation += 360;
+				if (currentRotation < rotationToReach && rotationToReach - currentRotation < 0) {
+					currentRotation = rotationToReach;
 				}
-				if (-180 > currentRotation && -360 <= currentRotation) {
-					currentRotation = 360 + currentRotation;
-				}
-				//if (currentRotation < rotationToReach) {
-				//	currentRotation = rotationToReach;
-				//}
 			}
 			sprite_.setRotation(currentRotation);
 		}

@@ -101,3 +101,7 @@ void OffenseBot::draw() {
 	GAME.getRenderWindow().draw(sprite_);
 	return;
 }
+
+sf::Vector2f OffenseBot::getPosition() {
+	return sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width, sprite_.getPosition().y + sprite_.getGlobalBounds().height);
+}
