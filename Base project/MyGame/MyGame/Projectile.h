@@ -9,7 +9,6 @@ public:
 	void draw();
 	sf::FloatRect getCollisionRect();
 	void update(sf::Time& elapsed);
-	void handleCollision(GameObject& otherGameObject);
 private:
 	sf::Vector2f directionalSpeed;
 };

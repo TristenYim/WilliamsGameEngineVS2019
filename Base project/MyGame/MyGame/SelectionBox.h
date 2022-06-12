@@ -16,9 +16,9 @@ public:
 	void update(sf::Time& elapsed);
 	void draw();
 	sf::FloatRect getCollisionRect();
-	void handleCollision(GameObject& otherGameObject);
 private:
 	bool mouseControlsEnabled = false;
+	bool pressedM = false;
 
 	float arrowKeyTimer = 1000;
 	float animationTimer = TIME_BUFFER + SOLID_TIME + FADE_OUT_TIME + FADE_IN_TIME;

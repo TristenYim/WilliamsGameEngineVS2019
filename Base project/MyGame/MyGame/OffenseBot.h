@@ -12,6 +12,7 @@ public:
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
+	void handleCollision(GameObject& otherGameObject);
 	sf::Vector2f getPosition();
 private:
 	float movementSpeed;

@@ -30,6 +30,7 @@
     <ClCompile Include="OffenseBotSpawner.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectileTrailObject.cpp" />
+    <ClCompile Include="Credits.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -63,6 +64,7 @@
     <ClInclude Include="OffenseBotSpawner.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ProjectileTrailObject.h" />
+    <ClInclude Include="Credits.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

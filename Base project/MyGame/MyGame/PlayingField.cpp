@@ -21,14 +21,14 @@ PlayingField::PlayingField() {
 	objectsToAdd.push_back(selectionBox_);
 }
 
-void PlayingField::addPositionToTowerPositions(sf::Vector2i relativePosition) {
-	squaresOccupiedByTowers.push_back(relativePosition);
-	return;
-}
-
 void PlayingField::initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f ibottomRightCornerPosition) {
 	topLeftCornerPos = itopLeftCornerPosition;
 	bottomRightCornerPos = ibottomRightCornerPosition;
+	return;
+}
+
+void PlayingField::addPositionToTowerPositions(sf::Vector2i relativePosition) {
+	squaresOccupiedByTowers.push_back(relativePosition);
 	return;
 }
 

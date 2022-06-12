@@ -15,13 +15,16 @@ enum fieldGridBoxTypes { All = 0, None = 1, DefenseOnly = 2 };
 
 class PlayingField : public GameObject {
 public:
+	//		Constructors/Setup
 	PlayingField();
-
-	static void addPositionToTowerPositions(sf::Vector2i relatievPosition);
 
 	// Initializing the corner positions is required to use the static methods below
 	static void initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f itopRightCornerPosition);
 
+	//		Setters/Adders
+	static void addPositionToTowerPositions(sf::Vector2i relatievPosition);
+
+	//		Methods
 	// Useful for ensuring objects do not leave the field
 	static sf::Vector2i findRelativePosition(sf::Vector2f absolutePosition);
 	static int findRelativeXPosition(float absoluteXPosition);
@@ -35,10 +38,12 @@ public:
 	// Used to check a field-relative position for obstacles by looking at the obstacle generation file. It checks the file because searching every game object is slow
 	static bool canThisObjectBeAt(sf::Vector2i position, std::string tag);
 
+	//		Methods overriden from GameObject
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
 private:
+	//		Variables
 	// Used as a reference point when adding objects
 	static sf::Vector2f topLeftCornerPos;
 	static sf::Vector2f bottomRightCornerPos;
@@ -49,11 +54,12 @@ private:
 	// Used to store locations where towers are so multiple towers aren't placed on the same square
 	static std::vector<sf::Vector2i> squaresOccupiedByTowers;
 
-	// The obstacles generate from a file and are stored in a 2d vector since that is the easiset way to read and edit the position of obstacles
-	void generateObstaclesFromFile(std::string filename);
-
 	// Use this to add objects to the current scene outside of update by adding it to this vector
 	std::vector<GameObjectPtr> objectsToAdd;
+
+	//		Methods
+	// The obstacles generate from a file and are stored in a 2d vector since that is the easiset way to read and edit the position of obstacles
+	void generateObstaclesFromFile(std::string filename);
 
 	void addObstacle(sf::Vector2i positionInGrid);
 };

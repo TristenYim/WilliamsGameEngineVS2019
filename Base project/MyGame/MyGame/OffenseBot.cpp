@@ -1,5 +1,6 @@
 #include "OffenseBot.h"
 #include "PlayingField.h"
+#include "Credits.h"
 #include <fstream>
 
 OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom) {
@@ -99,6 +100,15 @@ sf::FloatRect OffenseBot::getCollisionRect() {
 
 void OffenseBot::draw() {
 	GAME.getRenderWindow().draw(sprite_);
+	return;
+}
+
+void OffenseBot::handleCollision(GameObject& otherGameObject) {
+	if (otherGameObject.hasTag("projectile")) {
+		otherGameObject.makeDead();
+		makeDead();
+		Credits::addCredit(50);
+	}
 	return;
 }
 

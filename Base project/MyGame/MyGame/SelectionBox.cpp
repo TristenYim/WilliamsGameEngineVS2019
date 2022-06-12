@@ -1,8 +1,7 @@
 #include "SelectionBox.h"
 #include "PlayingField.h"
-#include "GameScene.h"
+#include "Credits.h"
 #include "Tower.h"
-#include "OffenseBot.h"
 
 SelectionBox::SelectionBox(sf::Vector2f ipos) {
 	sprite_.setPosition(ipos);
@@ -78,10 +77,11 @@ void SelectionBox::update(sf::Time& elapsed) {
 		if (sprite_.getColor() != sf::Color(0, 95, 168)) {
 			sprite_.setColor(sf::Color(0, 95, 168));
 		}
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && Credits::getCredit() >= 300) {
 			PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
 			TowerPtr tower_ = std::make_shared<Tower>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0), 300.0, 4000.0, 0.7, 0.1);
 			GAME.getCurrentScene().addGameObject(tower_);
+			Credits::addCredit(-300);
 		}
 	} else if (sprite_.getColor() != sf::Color(226, 12, 16)) {
 		sprite_.setColor(sf::Color(226, 12, 16));

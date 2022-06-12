@@ -8,6 +8,7 @@ public:
 
 	// Use this to find a specific object with a specific tag
 	GameObjectPtr getGameObject(std::string tag);
+private:
 };
 
 typedef std::shared_ptr<GameScene> GameScenePtr;

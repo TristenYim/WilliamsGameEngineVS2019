@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "PlayingField.h"
+#include "Credits.h"
 #include "DefenseBot.h"
 #include "OffenseBotSpawner.h"
 #include "OffenseBot.h"
@@ -25,6 +26,8 @@ GameScene::GameScene() {
 
 	PlayingFieldPtr playingField_ = std::make_shared<PlayingField>();
 	addGameObject(playingField_);
+	CreditsPtr credits_ = std::make_shared<Credits>(sf::Vector2f(90, 20), 32, sf::Color::White, 1000);
+	addGameObject(credits_);
 	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));
 	addGameObject(defenseBot_);
 	OffenseBotSpawnerPtr offenseBotSpawner_ = std::make_shared<OffenseBotSpawner>(1000, 0.5);
