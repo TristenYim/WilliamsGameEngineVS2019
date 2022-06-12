@@ -81,7 +81,7 @@ float PlayingField::findAbsoluteYPosition(int yPositionInGrid) {
 }
 
 bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
-	if (position.y <= obstacleMap.size() && position.x <= obstacleMap[position.y].size()) {
+	if (position.y >= 0 && position.y < obstacleMap.size() && position.x >= 0 && position.x < obstacleMap[position.y].size()) {
 		if ("defense" == tag) {
 			switch (obstacleMap[position.y][position.x]) {
 			case None:
