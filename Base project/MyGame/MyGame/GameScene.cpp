@@ -1,5 +1,6 @@
 #include "GameScene.h"
 #include "PlayingField.h"
+#include "Obstacle.h"
 #include "Credits.h"
 #include "DefenseBot.h"
 #include "OffenseBotSpawner.h"
@@ -23,6 +24,8 @@ GameScene::GameScene() {
 	fieldBottomRightCornerPosition.y = GAME.getRenderWindow().getSize().y / 2.0f + tempSprite_.getTextureRect().height - FIELD_MAP_BORDER_WIDTH;
 
 	PlayingField::initializeCornerPositions(fieldTopLeftCornerPosition, fieldBottomRightCornerPosition);
+	std::vector<std::string> initialVariants{ "Resources/Ultimate Ascent.png", "Resources/Garbage.png", "Resources/Stronghold.png", "Resources/Power Up.png", "Resources/Heavy Defense.png", "Resources/Cube.png" };
+	Obstacle::initializeObstacleTextureVariants(initialVariants);
 
 	PlayingFieldPtr playingField_ = std::make_shared<PlayingField>();
 	addGameObject(playingField_);

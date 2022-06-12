@@ -2,7 +2,7 @@
 #include "PlayingField.h"
 
 DefenseBot::DefenseBot(sf::Vector2f ipos) {
-	sprite_.setTexture(GAME.getTexture("Resources/Orange Square.png"));
+	sprite_.setTexture(GAME.getTexture("Resources/Defense Bot.png"));
 	sprite_.setPosition(ipos);
 	assignTag(DEFENSE_TAG);
 }
