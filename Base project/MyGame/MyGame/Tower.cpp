@@ -3,24 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-Tower::Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed, float irotationSpeed) {
-	sprite_.setTexture(GAME.getTexture("Resources/Purple Square.png"));
-	sprite_.setPosition(ipos);
-	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
-
-	setCollisionCheckEnabled(true);
-	assignTag("tower");
-	range = irange;
-	attackDelay = iattackDelay;
-	projectileSpeed = iprojectileSpeed;
-	rotationSpeed = irotationSpeed;
-}
-
 Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
-	sprite_.setPosition(ipos);
-	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
-	setCollisionCheckEnabled(true);
-
 	switch (itype)
 	{
 	case CheesyPoofs:
@@ -28,10 +11,15 @@ Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
 		range = 254;
 		attackDelay = 400;
 		rotationSpeed = 0.3;
-		projectile_ = std::make_shared<Projectile>(sf::Vector2f(sprite_.getPosition()), "Resources/Cheesy Poof.png", 0, 0.8, 50);
+		projectileSpeed = 0.8;
+		projectileDamage = 50;
+		projectileTexture = "Resources/Cheesy Poof.png";
 		break;
 	}
 
+	sprite_.setPosition(ipos);
+	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
+	setCollisionCheckEnabled(true);
 	assignTag("tower");
 }
 
@@ -99,8 +87,7 @@ void Tower::targetEnemy(float msElapsed) {
 
 void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 	attackTimer = attackDelay;
-	projectile_->set
-	ProjectilePtr projectile_ = std::make_shared<Projectile>();
+	ProjectilePtr projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, projectileTexture, projectileSpeed, projectileDamage);
 	GAME.getCurrentScene().addGameObject(projectile_);
 	return;
 }

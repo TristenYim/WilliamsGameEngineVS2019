@@ -7,7 +7,6 @@ enum TowerTypes { CheesyPoofs };
 
 class Tower : public GameObject {
 public:
-	Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed, float irotationSpeed);
 	Tower(TowerTypes itype, sf::Vector2f ipos);
 
 	void update(sf::Time& elapsed);
@@ -21,7 +20,9 @@ protected:
 	std::vector<GameObject> objectToTarget;
 	float rotationSpeed;
 	int level = 1;
-	ProjectilePtr projectile_;
+	std::string projectileTexture;
+	float projectileSpeed;
+	float projectileDamage;
 
 	void attackAction(sf::Vector2f distanceToEnemy);
 	void targetEnemy(float msElapsed);

@@ -39,7 +39,7 @@ sf::FloatRect SelectionBox::getCollisionRect() {
 void SelectionBox::towerActions() {
 	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && Credits::getCredit() >= 300) {
 		PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
-		TowerPtr tower_ = std::make_shared<Tower>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0), 300.0, 300.0, 0.7, 0.3);
+		TowerPtr tower_ = std::make_shared<Tower>(CheesyPoofs, sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
 		GAME.getCurrentScene().addGameObject(tower_);
 		Credits::addCredit(-300);
 	}
