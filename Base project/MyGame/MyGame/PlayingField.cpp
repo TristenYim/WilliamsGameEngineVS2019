@@ -80,6 +80,14 @@ float PlayingField::findAbsoluteYPosition(int yPositionInGrid) {
 	}
 }
 
+sf::Vector2f PlayingField::getTopLeftCornerPos() {
+	return topLeftCornerPos;
+}
+
+sf::Vector2f PlayingField::getBottomRightCornerPos() {
+	return bottomRightCornerPos;
+}
+
 bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 	if (position.y >= 0 && position.y < obstacleMap.size() && position.x >= 0 && position.x < obstacleMap[position.y].size()) {
 		if ("defense" == tag) {

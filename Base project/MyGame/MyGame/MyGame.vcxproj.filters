@@ -31,6 +31,8 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectileTrailObject.cpp" />
     <ClCompile Include="Credits.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoringProjectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -65,6 +67,8 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ProjectileTrailObject.h" />
     <ClInclude Include="Credits.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoringProjectile.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

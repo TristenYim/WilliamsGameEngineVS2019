@@ -11,9 +11,9 @@ Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float 
 
 	float rotation = atan(distanceFromEnemy.y / distanceFromEnemy.x);
 	sprite_.setRotation(180 / M_PI * rotation);
-	float scalar = speed / sqrt(distanceFromEnemy.x*distanceFromEnemy.x + distanceFromEnemy.y*distanceFromEnemy.y);
-	directionalSpeed.x = distanceFromEnemy.x * scalar;
-	directionalSpeed.y = distanceFromEnemy.y * scalar;
+	float speedAdjustmentMultiplier = speed / sqrt(distanceFromEnemy.x * distanceFromEnemy.x + distanceFromEnemy.y * distanceFromEnemy.y);
+	directionalSpeed.x = distanceFromEnemy.x * speedAdjustmentMultiplier;
+	directionalSpeed.y = distanceFromEnemy.y * speedAdjustmentMultiplier;
 
 	setCollisionCheckEnabled(true);
 	assignTag("projectile");

@@ -20,7 +20,7 @@ void OffenseBotSpawner::update(sf::Time& elapsed) {
 		} else {
 			iposition = sf::Vector2i(3, 1);
 		}
-		offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(iposition), botMovemevntSpeed, spawnBotsOnBottom);
+		offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(iposition), botMovemevntSpeed, spawnBotsOnBottom, 50, 1000);
 		GAME.getCurrentScene().addGameObject(offenseBot_);
 		spawnBotsOnBottom = !spawnBotsOnBottom;
 		spawningTimer = spawningDelay;

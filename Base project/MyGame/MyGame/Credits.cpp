@@ -1,12 +1,11 @@
 #include "Credits.h"
-#include "GameScene.h"
 #include <sstream>
 
 int Credits::credit;
 
-Credits::Credits(sf::Vector2f pos, int charSize, sf::Color textColor, int initialCredit) {
+Credits::Credits(sf::Vector2f pos, int charSize, sf::Color textColor, int icredit) {
 	setupText(pos, charSize, textColor);
-	credit = initialCredit;
+	credit = icredit;
 	assignTag("creditsobject");
 }
 

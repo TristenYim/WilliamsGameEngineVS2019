@@ -3,11 +3,11 @@
 #include "Engine/GameEngine.h"
 const std::string OFFENSE_TAG = "offense";
 
-enum Operation { GoUp, GoRight, GoDown, GoLeft, Stop, Score };
+enum Operation { GoUp, GoRight, GoDown, GoLeft, Stop, GoScore };
 
 class OffenseBot : public GameObject {
 public:
-	OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom);
+	OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom, int ipercentChanceOfScoring, float iscoringDelay);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
@@ -16,12 +16,14 @@ public:
 	sf::Vector2f getPosition();
 private:
 	float movementSpeed;
-	float scoringAccuracy;
-	float scoringSpeed;
 	std::vector<Operation> directions;
 	int currentOperation = 0;
+	float scoringTimer = scoringDelay;
+	float scoringDelay;
+	int percentChanceOfScoring;
 
-	void go(Operation& direction, sf::Vector2f& neoPosition, float msElapsed);
+	void move(float msElapsed);
+	void scoreAction();
 
 	OffenseBot(OffenseBot const&);
 };

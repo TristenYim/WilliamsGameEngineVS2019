@@ -4,7 +4,7 @@
 
 class Credits : public TextObject {
 public:
-	Credits(sf::Vector2f pos, int charSize, sf::Color textColor, int initialCredit);
+	Credits(sf::Vector2f pos, int charSize, sf::Color textColor, int icredit);
 
 	static void addCredit(int creditToAdd);
 	static int getCredit();

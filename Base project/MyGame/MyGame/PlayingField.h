@@ -35,6 +35,9 @@ public:
 	static float findAbsoluteXPosition(int xPositionInGrid);
 	static float findAbsoluteYPosition(int yPositionInGrid);
 
+	static sf::Vector2f getTopLeftCornerPos();
+	static sf::Vector2f getBottomRightCornerPos();
+
 	// Used to check a field-relative position for obstacles by looking at the obstacle generation file. It checks the file because searching every game object is slow
 	static bool canThisObjectBeAt(sf::Vector2i position, std::string tag);
 

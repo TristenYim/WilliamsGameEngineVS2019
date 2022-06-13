@@ -1,15 +1,19 @@
 #include "OffenseBot.h"
 #include "PlayingField.h"
 #include "Credits.h"
+#include "ScoringProjectile.h"
 #include <fstream>
 
-OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom) {
+OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom, int ipercentChanceOfScoring, float iscoringDelay) {
 	sprite_.setTexture(GAME.getTexture("Resources/Blue Square.png"));
 
 	// The position in modified to spawn the offense bot on the corner of a square. Since this constructor cannot access the playing field, it must take an absolute position input rather than a relative one
 	sprite_.setPosition(sf::Vector2f(ipos.x - sprite_.getGlobalBounds().width / 2.0, ipos.y - sprite_.getGlobalBounds().height / 2.0));
 	setCollisionCheckEnabled(true);
 	movementSpeed = imovementSpeed;
+
+	percentChanceOfScoring = ipercentChanceOfScoring;
+	scoringDelay = iscoringDelay;
 
 	assignTag(OFFENSE_TAG);
 	std::ifstream fieldMapFile;
@@ -35,14 +39,48 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBott
 			directions.push_back(GoRight);
 			break;
 		case 'W':
-			directions.push_back(Score);
+			directions.push_back(GoScore);
 			break;
 		}
 	}
 }
 
 void OffenseBot::update(sf::Time& elapsed) {
-	float distance = movementSpeed * elapsed.asMilliseconds();
+	if (directions[currentOperation] != GoScore) {
+		move(elapsed.asMilliseconds());
+	} else {
+		scoringTimer -= elapsed.asMilliseconds();
+		if (scoringTimer <= 0) {
+			scoreAction();
+		}
+	}
+	return;
+}
+
+sf::FloatRect OffenseBot::getCollisionRect() {
+	return sprite_.getGlobalBounds();
+}
+
+void OffenseBot::draw() {
+	GAME.getRenderWindow().draw(sprite_);
+	return;
+}
+
+void OffenseBot::handleCollision(GameObject& otherGameObject) {
+	if (otherGameObject.hasTag("projectile")) {
+		otherGameObject.makeDead();
+		makeDead();
+		Credits::addCredit(50);
+	}
+	return;
+}
+
+sf::Vector2f OffenseBot::getPosition() {
+	return sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width, sprite_.getPosition().y + sprite_.getGlobalBounds().height);
+}
+
+void OffenseBot::move(float msElapsed) {
+	float distance = movementSpeed * msElapsed;
 	sf::Vector2f neoPosition = sprite_.getPosition();
 	sf::Vector2f positionToReach = sprite_.getPosition();
 	sf::Vector2i relativePositionToCheck;
@@ -91,27 +129,14 @@ void OffenseBot::update(sf::Time& elapsed) {
 		}
 	}
 	sprite_.setPosition(neoPosition);
-	return;
 }
 
-sf::FloatRect OffenseBot::getCollisionRect() {
-	return sprite_.getGlobalBounds();
-}
-
-void OffenseBot::draw() {
-	GAME.getRenderWindow().draw(sprite_);
-	return;
-}
-
-void OffenseBot::handleCollision(GameObject& otherGameObject) {
-	if (otherGameObject.hasTag("projectile")) {
-		otherGameObject.makeDead();
-		makeDead();
-		Credits::addCredit(50);
-	}
-	return;
-}
-
-sf::Vector2f OffenseBot::getPosition() {
-	return sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width, sprite_.getPosition().y + sprite_.getGlobalBounds().height);
+void OffenseBot::scoreAction() {
+	scoringTimer = scoringDelay;
+	bool willItHit = true;
+	if (1 + rand() % 100 >= percentChanceOfScoring) {
+		willItHit = false;
+	} 
+	ScoringProjectilePtr scoringProjectile_ = std::make_shared<ScoringProjectile>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0), willItHit);
+	GAME.getCurrentScene().addGameObject(scoringProjectile_);
 }
