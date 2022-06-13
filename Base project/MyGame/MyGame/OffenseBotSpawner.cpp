@@ -1,11 +1,12 @@
 #include "OffenseBotSpawner.h"
-#include "OffenseBot.h";
 #include "PlayingField.h"
 
-OffenseBotSpawner::OffenseBotSpawner(float ispawningDelay, float ibotMovementSpeed) {
+OffenseBotSpawner::OffenseBotSpawner(OffenseType ibotType, float ispawningDelay, float initialDelay, int iamount, bool ispawnBotsOnBottom) {
+	botType = ibotType;
 	spawningDelay = ispawningDelay;
-	spawningTimer = ispawningDelay;
-	botMovemevntSpeed = ibotMovementSpeed;
+	spawningTimer = ispawningDelay + initialDelay;
+	amount = iamount;
+	spawnBotsOnBottom = ispawnBotsOnBottom;
 	assignTag("enemyspawner");
 }
 
@@ -20,9 +21,13 @@ void OffenseBotSpawner::update(sf::Time& elapsed) {
 		} else {
 			iposition = sf::Vector2i(3, 1);
 		}
-		offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(iposition), botMovemevntSpeed, spawnBotsOnBottom, 50, 1000);
+		
+		offenseBot_ = std::make_shared<OffenseBot>(PlayingField::findAbsolutePosition(iposition), spawnBotsOnBottom, botType);
 		GAME.getCurrentScene().addGameObject(offenseBot_);
-		spawnBotsOnBottom = !spawnBotsOnBottom;
+		amount--;
+		if (0 == amount) {
+			makeDead();
+		}
 		spawningTimer = spawningDelay;
 	}
 	return;

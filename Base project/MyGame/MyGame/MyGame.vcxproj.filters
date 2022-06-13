@@ -33,6 +33,7 @@
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="ScoringProjectile.cpp" />
+    <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -69,6 +70,7 @@
     <ClInclude Include="Credits.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="ScoringProjectile.h" />
+    <ClInclude Include="Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -110,5 +112,6 @@
     <Text Include="Obstacle Field Map.txt">
       <Filter>Resources</Filter>
     </Text>
+    <Text Include="Waves.txt" />
   </ItemGroup>
 </Project>

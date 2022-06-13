@@ -1,5 +1,6 @@
 #include "Projectile.h"
 #include "OffenseBot.h"
+
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "PlayingField.h"
@@ -19,15 +20,6 @@ Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float 
 	assignTag("projectile");
 }
 
-void Projectile::draw() {
-	GAME.getRenderWindow().draw(sprite_);
-	return;
-}
-
-sf::FloatRect Projectile::getCollisionRect() {
-	return sprite_.getGlobalBounds();
-}
-
 void Projectile::update(sf::Time& elapsed) {
 	sprite_.move(sf::Vector2f(directionalSpeed.x * elapsed.asMilliseconds(), directionalSpeed.y * elapsed.asMilliseconds()));
 	sf::Vector2i relativePosition = PlayingField::findRelativePosition(sprite_.getPosition());
@@ -35,4 +27,13 @@ void Projectile::update(sf::Time& elapsed) {
 		makeDead();
 	}
 	return;
+}
+
+void Projectile::draw() {
+	GAME.getRenderWindow().draw(sprite_);
+	return;
+}
+
+sf::FloatRect Projectile::getCollisionRect() {
+	return sprite_.getGlobalBounds();
 }

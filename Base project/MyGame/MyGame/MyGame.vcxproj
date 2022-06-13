@@ -102,6 +102,7 @@
     <ClCompile Include="SelectionBox.cpp" />
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Tower.cpp" />
+    <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Credits.h" />
@@ -124,6 +125,7 @@
     <ClInclude Include="SelectionBox.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="Tower.h" />
+    <ClInclude Include="Wave.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\README.md" />
@@ -139,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Obstacle Field Map.txt" />
+    <Text Include="Waves.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

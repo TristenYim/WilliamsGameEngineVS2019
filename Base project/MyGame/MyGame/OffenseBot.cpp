@@ -4,16 +4,93 @@
 #include "ScoringProjectile.h"
 #include <fstream>
 
-OffenseBot::OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom, int ipercentChanceOfScoring, float iscoringDelay) {
-	sprite_.setTexture(GAME.getTexture("Resources/Blue Square.png"));
+OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) {
+	switch (type) {
+	case SbaseNshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/SbaseNshoot.png"));
+		movementSpeed = 0.2;
+		hp = 300;
+		scoringDelay = 1000;
+		percentChanceOfScoring = 50;
+		reward = 75;
+		break;
+	case SbaseGshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/SbaseGshoot.png"));
+		movementSpeed = 0.2;
+		hp = 300;
+		scoringDelay = 1000;
+		percentChanceOfScoring = 90;
+		reward = 100;
+		break;
+	case SbaseBshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/SbaseBshoot.png"));
+		movementSpeed = 0.2;
+		hp = 300;
+		scoringDelay = 2000;
+		percentChanceOfScoring = 25;
+		reward = 25;
+		break;
+	case SSbaseGshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/SSbaseGshoot.png"));
+		movementSpeed = 0.05;
+		hp = 2000;
+		scoringDelay = 400;
+		percentChanceOfScoring = 90;
+		reward = 400;
+		break;
+	case FbaseNshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/FbaseNshoot.png"));
+		movementSpeed = 0.3;
+		hp = 200;
+		scoringDelay = 1000;
+		percentChanceOfScoring = 50;
+		reward = 40;
+		break;
+	case FbaseGshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/FbaseGshoot.png"));
+		movementSpeed = 0.3;
+		hp = 200;
+		scoringDelay = 1000;
+		percentChanceOfScoring = 90;
+		reward = 60;
+		break;
+	case FbaseBshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/FbaseGshoot.png"));
+		movementSpeed = 0.3;
+		hp = 200;
+		scoringDelay = 2000;
+		percentChanceOfScoring = 25;
+		reward = 15;
+		break;
+	case SFbaseNshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/SFbaseNshoot.png"));
+		movementSpeed = 0.7;
+		hp = 50;
+		scoringDelay = 500;
+		percentChanceOfScoring = 50;
+		reward = 25;
+		break;
+	case SFbaseGshoot:
+		sprite_.setTexture(GAME.getTexture("Resources/SFbaseGshoot.png"));
+		movementSpeed = 0.7;
+		hp = 50;
+		scoringDelay = 500;
+		percentChanceOfScoring = 90;
+		reward = 40;
+		break;
+	case SFOP:
+		sprite_.setTexture(GAME.getTexture("Resources/SFOP.png"));
+		movementSpeed = 0.7;
+		hp = 400;
+		scoringDelay = 300;
+		percentChanceOfScoring = 90;
+		reward = 400;
+		break;
+	}
 
 	// The position in modified to spawn the offense bot on the corner of a square. Since this constructor cannot access the playing field, it must take an absolute position input rather than a relative one
 	sprite_.setPosition(sf::Vector2f(ipos.x - sprite_.getGlobalBounds().width / 2.0, ipos.y - sprite_.getGlobalBounds().height / 2.0));
 	setCollisionCheckEnabled(true);
-	movementSpeed = imovementSpeed;
-
-	percentChanceOfScoring = ipercentChanceOfScoring;
-	scoringDelay = iscoringDelay;
 
 	assignTag(OFFENSE_TAG);
 	std::ifstream fieldMapFile;
@@ -70,7 +147,7 @@ void OffenseBot::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag("projectile")) {
 		otherGameObject.makeDead();
 		makeDead();
-		Credits::addCredit(50);
+		Credits::addCredit(reward);
 	}
 	return;
 }

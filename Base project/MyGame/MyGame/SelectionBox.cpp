@@ -79,7 +79,7 @@ void SelectionBox::update(sf::Time& elapsed) {
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && Credits::getCredit() >= 300) {
 			PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
-			TowerPtr tower_ = std::make_shared<Tower>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0), 300.0, 4000.0, 0.7, 0.1);
+			TowerPtr tower_ = std::make_shared<Tower>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0), 300.0, 1000.0, 0.7, 0.3);
 			GAME.getCurrentScene().addGameObject(tower_);
 			Credits::addCredit(-300);
 		}

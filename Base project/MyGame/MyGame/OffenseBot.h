@@ -4,10 +4,11 @@
 const std::string OFFENSE_TAG = "offense";
 
 enum Operation { GoUp, GoRight, GoDown, GoLeft, Stop, GoScore };
+enum OffenseType { SbaseNshoot, SbaseGshoot, SbaseBshoot, SSbaseGshoot, FbaseNshoot, FbaseGshoot, FbaseBshoot, SFbaseNshoot, SFbaseGshoot, SFOP };
 
 class OffenseBot : public GameObject {
 public:
-	OffenseBot(sf::Vector2f ipos, float imovementSpeed, bool spawnOnBottom, int ipercentChanceOfScoring, float iscoringDelay);
+	OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
@@ -21,6 +22,8 @@ private:
 	float scoringTimer = scoringDelay;
 	float scoringDelay;
 	int percentChanceOfScoring;
+	int hp;
+	int reward;
 
 	void move(float msElapsed);
 	void scoreAction();

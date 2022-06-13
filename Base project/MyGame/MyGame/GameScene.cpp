@@ -4,8 +4,7 @@
 #include "Credits.h"
 #include "Score.h"
 #include "DefenseBot.h"
-#include "OffenseBotSpawner.h"
-#include "OffenseBot.h"
+#include "Wave.h"
 
 GameScene::GameScene() {
 
@@ -36,8 +35,8 @@ GameScene::GameScene() {
 	addGameObject(scores_);
 	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));
 	addGameObject(defenseBot_);
-	OffenseBotSpawnerPtr offenseBotSpawner_ = std::make_shared<OffenseBotSpawner>(1000, 0.5);
-	addGameObject(offenseBotSpawner_);
+	WavePtr wave_ = std::make_shared<Wave>(0);
+	addGameObject(wave_);
 }
 
 GameObjectPtr GameScene::getGameObject(std::string tag) {
@@ -48,4 +47,13 @@ GameObjectPtr GameScene::getGameObject(std::string tag) {
 		}
 		currentObject++;
 	}
+}
+
+bool GameScene::doesAnObjectWithThisTagExist(std::string tag) {
+	for (auto& gameObject : gameObjects_) {
+		if (gameObject->hasTag(tag)) {
+			return true;
+		}
+	}
+	return false;
 }
