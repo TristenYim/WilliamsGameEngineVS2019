@@ -20,7 +20,3 @@ void Obstacle::draw() {
 	GAME.getRenderWindow().draw(sprite_);
 	return;
 }
-
-sf::FloatRect Obstacle::getCollisionRect() {
-	return sprite_.getGlobalBounds();
-}

@@ -9,7 +9,6 @@ public:
 	static void initializeObstacleTextureVariants(std::vector<std::string> itextureVariants);
 
 	void draw();
-	sf::FloatRect getCollisionRect();
 private:
 	static std::vector<std::string> obstacleTextureVariants;
 };

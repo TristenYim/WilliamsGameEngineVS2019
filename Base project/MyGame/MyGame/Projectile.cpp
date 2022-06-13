@@ -5,8 +5,8 @@
 #include <math.h>
 #include "PlayingField.h"
 
-Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed, int idamage) {
-	sprite_.setTexture(GAME.getTexture("Resources/Yellow Square.png"));
+Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, std::string itexture, float speed, int idamage) {
+	sprite_.setTexture(GAME.getTexture(itexture));
 	sprite_.setPosition(ipos);
 	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
 

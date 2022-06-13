@@ -3,9 +3,12 @@
 #include "Engine/GameEngine.h"
 #include "OffenseBot.h"
 
+enum TowerTypes { CheesyPoofs };
+
 class Tower : public GameObject {
 public:
 	Tower(sf::Vector2f ipos, float irange, float iattackDelay, float iprojectileSpeed, float irotationSpeed);
+	Tower(TowerTypes itype, sf::Vector2f ipos);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
@@ -17,11 +20,11 @@ protected:
 	float attackTimer = 0.0;
 	std::vector<GameObject> objectToTarget;
 	float rotationSpeed;
-	float projectileSpeed;
-	float projectileDamage;
 	int level = 1;
+	ProjectilePtr projectile_;
 
 	void attackAction(sf::Vector2f distanceToEnemy);
+	void targetEnemy(float msElapsed);
 	//virtual void levelUp();
 };
 
