@@ -2,6 +2,7 @@
 
 #include "Engine/GameEngine.h"
 #include "OffenseBot.h"
+#include "Projectile.h"
 
 enum TowerTypes { CheesyPoofs };
 
@@ -20,9 +21,11 @@ protected:
 	std::vector<GameObject> objectToTarget;
 	float rotationSpeed;
 	int level = 1;
-	std::string projectileTexture;
-	float projectileSpeed;
-	float projectileDamage;
+
+	TowerTypes projectileType;
+	int projectilesPerAttack;
+	int projectilesShot = 1;
+	float betweenProjectilesDelay;
 
 	void attackAction(sf::Vector2f distanceToEnemy);
 	void targetEnemy(float msElapsed);

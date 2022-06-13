@@ -4,6 +4,7 @@
 #include <math.h>
 
 Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
+	projectileType = itype;
 	switch (itype)
 	{
 	case CheesyPoofs:
@@ -11,9 +12,8 @@ Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
 		range = 254;
 		attackDelay = 400;
 		rotationSpeed = 0.3;
-		projectileSpeed = 0.8;
-		projectileDamage = 50;
-		projectileTexture = "Resources/Cheesy Poof.png";
+		projectilesPerAttack = 1;
+		betweenProjectilesDelay = 0;
 		break;
 	}
 
@@ -79,15 +79,28 @@ void Tower::targetEnemy(float msElapsed) {
 		sprite_.setRotation(currentRotation);
 	}
 
-	if ((int)(rotationToReach) == (int)currentRotation && 0 >= attackTimer) {
+	if (((int)(rotationToReach) == (int)currentRotation && 0 >= attackTimer) || (1 < projectilesShot && 0 >= attackTimer)) {
 		attackAction(distanceToEnemy);
 	}
 	return;
 }
 
 void Tower::attackAction(sf::Vector2f distanceToEnemy) {
-	attackTimer = attackDelay;
-	ProjectilePtr projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, projectileTexture, projectileSpeed, projectileDamage);
+	if (projectilesPerAttack > projectilesShot) {
+		attackTimer = betweenProjectilesDelay;
+		projectilesShot++;
+	} else {
+		attackTimer = attackDelay;
+		projectilesShot = 1;
+	}
+
+	ProjectilePtr projectile_;
+
+	switch (projectileType) {
+	case CheesyPoofs:
+		projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, "Resources/Cheesy Poof.png", 0.8, 50);
+		break;
+	}
 	GAME.getCurrentScene().addGameObject(projectile_);
 	return;
 }
