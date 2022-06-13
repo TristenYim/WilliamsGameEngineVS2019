@@ -22,6 +22,10 @@ private:
 
 	float arrowKeyTimer = 1000;
 	float animationTimer = TIME_BUFFER + SOLID_TIME + FADE_OUT_TIME + FADE_IN_TIME;
+	
+	void towerActions();
+	void updateColorAndAnimation(float msElapsed);
+	void updatePosition(float msElapsed);
 };
 
 typedef std::shared_ptr<SelectionBox> SelectionBoxPtr;

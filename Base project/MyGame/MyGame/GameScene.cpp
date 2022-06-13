@@ -34,10 +34,10 @@ GameScene::GameScene() {
 	addGameObject(credits_);
 	ScoresPtr scores_ = std::make_shared<Scores>(sf::Vector2f(1550, 20), 32, sf::Color::White, 50, sf::Vector2f(PlayingField::findAbsoluteXPosition(53) + 14, PlayingField::findAbsoluteYPosition(13)));
 	addGameObject(scores_);
-	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));
-	addGameObject(defenseBot_);
 	WavePtr wave_ = std::make_shared<Wave>(0, sf::Vector2f(90, 1000), 32, sf::Color::White);
 	addGameObject(wave_);
+	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));
+	addGameObject(defenseBot_);
 }
 
 GameObjectPtr GameScene::getGameObject(std::string tag) {

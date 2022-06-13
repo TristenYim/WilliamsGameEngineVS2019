@@ -89,8 +89,8 @@
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="GameObjectTemplate.cpp" />
-    <ClCompile Include="GameOverScene.cpp" />
-    <ClCompile Include="GameOverText.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
+    <ClCompile Include="EndingText.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="MyGame.cpp" />
     <ClCompile Include="Obstacle.cpp" />
@@ -115,8 +115,8 @@
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="GameObjectTemplate.h" />
-    <ClInclude Include="GameOverScene.h" />
-    <ClInclude Include="GameOverText.h" />
+    <ClInclude Include="EndingScene.h" />
+    <ClInclude Include="EndingText.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="ProjectileTrailObject.h" />
     <ClInclude Include="Obstacle.h" />

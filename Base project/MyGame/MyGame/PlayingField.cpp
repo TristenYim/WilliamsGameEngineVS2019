@@ -10,6 +10,7 @@ std::vector<std::vector<fieldGridBoxTypes>> PlayingField::obstacleMap;
 std::vector<sf::Vector2i> PlayingField::squaresOccupiedByTowers;
 
 PlayingField::PlayingField() {
+	squaresOccupiedByTowers.clear();
 	sprite_.setTexture(GAME.getTexture(FIELD_TEXTURE));
 	sprite_.scale(2.0f, 2.0f);
 	sprite_.setPosition(sf::Vector2f(topLeftCornerPos.x - FIELD_MAP_BORDER_WIDTH, topLeftCornerPos.y - FIELD_MAP_BORDER_WIDTH));
@@ -112,6 +113,13 @@ bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 						return false;
 					}
 				}
+				return true;
+			default:
+				return false;
+			}
+		} else if ("towerplacementbox" == tag) {
+			switch (obstacleMap[position.y][position.x]) {
+			case None:
 				return true;
 			default:
 				return false;

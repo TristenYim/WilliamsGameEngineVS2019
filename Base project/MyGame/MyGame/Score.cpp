@@ -1,5 +1,5 @@
 #include "Score.h"
-#include "GameOverScene.h"
+#include "EndingScene.h"
 #include <sstream>
 
 int Scores::playerScore;
@@ -53,7 +53,7 @@ void Scores::update(sf::Time& elapsed) {
 
 void Scores::checkForLosing() {
 	if (enemyScore > playerScore) {
-		GameOverScenePtr neoScene_ = std::make_shared<GameOverScene>();
+		EndingScenePtr neoScene_ = std::make_shared<EndingScene>(false);
 		GAME.setScene(neoScene_);
 	}
 	return;

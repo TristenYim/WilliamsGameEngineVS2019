@@ -150,9 +150,9 @@ void OffenseBot::handleCollision(GameObject& otherGameObject) {
 		Projectile& projectile_ = dynamic_cast<Projectile&>(otherGameObject);
 		hp -= projectile_.getDamage();
 		if (0 >= hp) {
+			Credits::addCredit(reward);
 			makeDead();
 		}
-		Credits::addCredit(reward);
 	}
 	return;
 }

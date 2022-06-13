@@ -34,8 +34,8 @@
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="ScoringProjectile.cpp" />
     <ClCompile Include="Wave.cpp" />
-    <ClCompile Include="GameOverScene.cpp" />
-    <ClCompile Include="GameOverText.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
+    <ClCompile Include="EndingText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -73,8 +73,8 @@
     <ClInclude Include="Score.h" />
     <ClInclude Include="ScoringProjectile.h" />
     <ClInclude Include="Wave.h" />
-    <ClInclude Include="GameOverScene.h" />
-    <ClInclude Include="GameOverText.h" />
+    <ClInclude Include="EndingScene.h" />
+    <ClInclude Include="EndingText.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

@@ -16,8 +16,8 @@ public:
 	void handleCollision(GameObject& otherGameObject);
 	sf::Vector2f getPosition();
 private:
-	float movementSpeed;
 	std::vector<Operation> directions;
+	float movementSpeed;
 	int currentOperation = 0;
 	float scoringTimer = scoringDelay;
 	float scoringDelay;

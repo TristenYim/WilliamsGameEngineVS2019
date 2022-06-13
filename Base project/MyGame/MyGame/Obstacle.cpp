@@ -9,6 +9,7 @@ Obstacle::Obstacle(sf::Vector2f ipos) {
 }
 
 void Obstacle::initializeObstacleTextureVariants(std::vector<std::string> itextureVariants) {
+	obstacleTextureVariants.clear();
 	for (int index = 0; index < itextureVariants.size(); index++) {
 		obstacleTextureVariants.push_back(itextureVariants[index]);
 	}

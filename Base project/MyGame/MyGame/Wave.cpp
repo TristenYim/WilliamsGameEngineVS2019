@@ -1,6 +1,7 @@
 #include "Wave.h"
 #include "GameScene.h"
 #include "Credits.h"
+#include "EndingScene.h"
 #include <fstream>
 #include <sstream>
 
@@ -94,10 +95,15 @@ void Wave::update(sf::Time& elapsed) {
 	} else if (0 >= checkForEndOfWaveTimer) {
 		GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
 		if (!currentScene_.doesAnObjectWithThisTagExist(OFFENSE_TAG)) {
-			Credits::addCredit(reward);
-			WavePtr nextWave_ = std::make_shared<Wave>(waveNumber + 1, text_.getPosition(), text_.getCharacterSize(), text_.getFillColor());
-			currentScene_.addGameObject(nextWave_);
-			makeDead();
+			if (totalWaves == waveNumber + 1) {
+				EndingScenePtr neoScene_ = std::make_shared<EndingScene>(true);
+				GAME.setScene(neoScene_);
+			} else {
+				Credits::addCredit(reward);
+				WavePtr nextWave_ = std::make_shared<Wave>(waveNumber + 1, text_.getPosition(), text_.getCharacterSize(), text_.getFillColor());
+				currentScene_.addGameObject(nextWave_);
+				makeDead();
+			}
 		}
 	}
 	std::stringstream stream;
