@@ -1,25 +1,33 @@
 #include "Wave.h"
 #include "GameScene.h"
 #include "Credits.h"
-#include "fstream"
+#include <fstream>
+#include <sstream>
 
-Wave::Wave(int iwaveNumber) {
+int Wave::totalWaves;
+
+Wave::Wave(int iwaveNumber, sf::Vector2f pos, int charSize, sf::Color textColor) {
+	waveNumber = iwaveNumber;
+	setupText(pos, charSize, textColor);
+
+	int delimitersSkipped = 0;
+	int totalDelimiters = 0;
+	float ispawningDelay;
+	float iinitialDelay;
+	int iamount;
+
 	std::ifstream waveFile;
 	waveFile.open(WAVE_FILE);
 	std::string waveFileLine;
-	waveNumber = iwaveNumber;
+
 	for (int row = 0; getline(waveFile, waveFileLine) && row < waveNumber; row++) {
 	}
-	int delimitersSkipped = 0;
-	int totalDelimiters = 0;
 	for (int index = 0; waveFileLine.size() > index; index++) {
 		if (',' == waveFileLine[index]) {
 			totalDelimiters++;
 		}
 	}
-	float ispawningDelay;
-	float iinitialDelay;
-	int iamount;
+
 	while (totalDelimiters > delimitersSkipped) {
 		std::string botTypeString = getstring(waveFileLine, ',', delimitersSkipped);
 		delimitersSkipped++;
@@ -56,9 +64,23 @@ Wave::Wave(int iwaveNumber) {
 		OffenseBotSpawnerPtr botSpawner = std::make_shared<OffenseBotSpawner>(ibotType, ispawningDelay, iinitialDelay, iamount, ispawnBotsOnBottom);
 		botSpawners.push_back(botSpawner);
 	}
-	reward = 500 + waveNumber * 25;
+	waveFile.close();
+
+	reward = 300 + waveNumber * 25;
 	checkForEndOfWaveTimer = iinitialDelay + ispawningDelay * iamount;
 	assignTag("wave");
+}
+
+void Wave::initializeTotalWaves() {
+	totalWaves = 0;
+	std::ifstream waveFile;
+	waveFile.open(WAVE_FILE);
+	std::string temp;
+	while (getline(waveFile, temp)) {
+		totalWaves++;
+	}
+	waveFile.close();
+	return;
 }
 
 void Wave::update(sf::Time& elapsed) {
@@ -73,11 +95,17 @@ void Wave::update(sf::Time& elapsed) {
 		GameScene& currentScene_ = (GameScene&)GAME.getCurrentScene();
 		if (!currentScene_.doesAnObjectWithThisTagExist(OFFENSE_TAG)) {
 			Credits::addCredit(reward);
-			WavePtr nextWave_ = std::make_shared<Wave>(waveNumber + 1);
+			WavePtr nextWave_ = std::make_shared<Wave>(waveNumber + 1, text_.getPosition(), text_.getCharacterSize(), text_.getFillColor());
 			currentScene_.addGameObject(nextWave_);
 			makeDead();
 		}
 	}
+	std::stringstream stream;
+	stream << "Wave " << waveNumber + 1 << " of " << totalWaves;
+	if (!startedWave) {
+		stream << "   Press \'P\' to start!";
+	}
+	text_.setString(stream.str());
 	return;
 }
 

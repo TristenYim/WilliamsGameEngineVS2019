@@ -26,6 +26,7 @@ GameScene::GameScene() {
 	PlayingField::initializeCornerPositions(fieldTopLeftCornerPosition, fieldBottomRightCornerPosition);
 	std::vector<std::string> initialVariants{ "Resources/Ultimate Ascent.png", "Resources/Garbage.png", "Resources/Stronghold.png", "Resources/Power Up.png", "Resources/Heavy Defense.png", "Resources/Cube.png" };
 	Obstacle::initializeObstacleTextureVariants(initialVariants);
+	Wave::initializeTotalWaves();
 
 	PlayingFieldPtr playingField_ = std::make_shared<PlayingField>();
 	addGameObject(playingField_);
@@ -35,7 +36,7 @@ GameScene::GameScene() {
 	addGameObject(scores_);
 	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));
 	addGameObject(defenseBot_);
-	WavePtr wave_ = std::make_shared<Wave>(0);
+	WavePtr wave_ = std::make_shared<Wave>(0, sf::Vector2f(90, 1000), 32, sf::Color::White);
 	addGameObject(wave_);
 }
 

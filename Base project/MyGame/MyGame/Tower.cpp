@@ -72,7 +72,7 @@ void Tower::handleCollision(GameObject& otherGameObject) {
 
 void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 	attackTimer = attackDelay;
-	ProjectilePtr projectile_ = std::make_shared<Projectile>(sf::Vector2f(sprite_.getPosition()), distanceToEnemy, projectileSpeed);
+	ProjectilePtr projectile_ = std::make_shared<Projectile>(sf::Vector2f(sprite_.getPosition()), distanceToEnemy, projectileSpeed, 50);
 	GAME.getCurrentScene().addGameObject(projectile_);
 	return;
 }

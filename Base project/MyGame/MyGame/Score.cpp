@@ -1,4 +1,5 @@
 #include "Score.h"
+#include "GameOverScene.h"
 #include <sstream>
 
 int Scores::playerScore;
@@ -18,20 +19,14 @@ Scores::Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerS
 
 void Scores::addEnemyScore(int scoreToAdd) {
 	enemyScore += scoreToAdd;
+	checkForLosing();
 	return;
 }
 
 void Scores::removePlayerScore(int scoreToRemove) {
 	playerScore -= scoreToRemove;
+	checkForLosing();
 	return;
-}
-
-bool Scores::hasThePlayerLost() {
-	if (enemyScore > playerScore) {
-		return true;
-	} else {
-		return false;
-	}
 }
 
 sf::Vector2f Scores::getPosition() {
@@ -53,5 +48,13 @@ void Scores::update(sf::Time& elapsed) {
 	stream << "Blue: " << playerScore << "   Red: " << enemyScore;
 
 	text_.setString(stream.str());
+	return;
+}
+
+void Scores::checkForLosing() {
+	if (enemyScore > playerScore) {
+		GameOverScenePtr neoScene_ = std::make_shared<GameOverScene>();
+		GAME.setScene(neoScene_);
+	}
 	return;
 }

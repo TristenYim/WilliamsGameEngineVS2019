@@ -4,7 +4,9 @@
 
 class Projectile : public GameObject {
 public:
-	Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed);
+	Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed, int idamage);
+
+	int getDamage();
 
 	void update(sf::Time& elapsed);
 	void draw();

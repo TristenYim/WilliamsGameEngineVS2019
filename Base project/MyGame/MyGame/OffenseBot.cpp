@@ -2,6 +2,7 @@
 #include "PlayingField.h"
 #include "Credits.h"
 #include "ScoringProjectile.h"
+#include "Projectile.h"
 #include <fstream>
 
 OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) {
@@ -146,7 +147,11 @@ void OffenseBot::draw() {
 void OffenseBot::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag("projectile")) {
 		otherGameObject.makeDead();
-		makeDead();
+		Projectile& projectile_ = dynamic_cast<Projectile&>(otherGameObject);
+		hp -= projectile_.getDamage();
+		if (0 >= hp) {
+			makeDead();
+		}
 		Credits::addCredit(reward);
 	}
 	return;

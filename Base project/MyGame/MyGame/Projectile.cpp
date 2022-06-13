@@ -5,10 +5,12 @@
 #include <math.h>
 #include "PlayingField.h"
 
-Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed) {
+Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float speed, int idamage) {
 	sprite_.setTexture(GAME.getTexture("Resources/Yellow Square.png"));
 	sprite_.setPosition(ipos);
 	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
+
+	damage = idamage;
 
 	float rotation = atan(distanceFromEnemy.y / distanceFromEnemy.x);
 	sprite_.setRotation(180 / M_PI * rotation);
@@ -18,6 +20,10 @@ Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, float 
 
 	setCollisionCheckEnabled(true);
 	assignTag("projectile");
+}
+
+int Projectile::getDamage() {
+	return damage;
 }
 
 void Projectile::update(sf::Time& elapsed) {
