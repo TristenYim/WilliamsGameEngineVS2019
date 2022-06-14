@@ -1,6 +1,7 @@
 #include "PlayingField.h"
 #include "SelectionBox.h"
 #include "Obstacle.h"
+#include "TowerGhost.h"
 #include <fstream>
 
 // Defines (Don't know if that is the right word?) the static variables
@@ -18,8 +19,10 @@ PlayingField::PlayingField() {
 
 	generateObstaclesFromFile(FIELD_MAP_FILE);
 
-	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos);
+	SelectionBoxPtr selectionBox_ = std::make_shared<SelectionBox>(topLeftCornerPos, sf::Vector2f(1500, 1000), 32, sf::Color::White);
 	objectsToAdd.push_back(selectionBox_);
+	TowerGhostPtr towerGhost_ = std::make_shared<TowerGhost>();
+	objectsToAdd.push_back(towerGhost_);
 }
 
 void PlayingField::initializeCornerPositions(sf::Vector2f itopLeftCornerPosition, sf::Vector2f ibottomRightCornerPosition) {
@@ -117,13 +120,13 @@ bool PlayingField::canThisObjectBeAt(sf::Vector2i position, std::string tag) {
 			default:
 				return false;
 			}
-		} else if ("towerplacementbox" == tag) {
-			switch (obstacleMap[position.y][position.x]) {
-			case None:
-				return true;
-			default:
-				return false;
+		} else if ("towerupgradebox" == tag) {
+			for (int index = 0; index < squaresOccupiedByTowers.size(); index++) {
+				if (squaresOccupiedByTowers[index] == position) {
+					return true;
+				}
 			}
+			return false;
 		}
 	} else {
 		return false;

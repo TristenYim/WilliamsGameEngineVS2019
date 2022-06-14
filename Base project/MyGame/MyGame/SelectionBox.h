@@ -9,9 +9,9 @@ const int TIME_BUFFER = 1000;
 const float ARROW_KEY_DELAY = 1000;
 const float ARROW_KEY_SUPER_SPEED_DELAY = 750;
 
-class SelectionBox : public GameObject {
+class SelectionBox : public TextObject {
 public:
-	SelectionBox(sf::Vector2f ipos);
+	SelectionBox(sf::Vector2f ipos, sf::Vector2f itextPos, int icharSize, sf::Color itextColor);
 
 	void update(sf::Time& elapsed);
 	void draw();

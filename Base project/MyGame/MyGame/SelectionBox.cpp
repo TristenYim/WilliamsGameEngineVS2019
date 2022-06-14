@@ -3,14 +3,24 @@
 #include "Credits.h"
 #include "Tower.h"
 #include "TowerGhost.h"
+#include <sstream>
 
-SelectionBox::SelectionBox(sf::Vector2f ipos) {
+SelectionBox::SelectionBox(sf::Vector2f ipos, sf::Vector2f itextPos, int icharSize, sf::Color itextColor) {
 	sprite_.setPosition(ipos);
 	sprite_.setTexture(GAME.getTexture("Resources/Selection Box.png"));
+	setupText(itextPos, icharSize, itextColor);
 	assignTag("selection");
 }
 
 void SelectionBox::update(sf::Time& elapsed) {
+	std::stringstream stream;
+	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "towerupgradebox")) {
+		stream << "Upgrade Cost: ";
+	} else if (TowerGhost::isVisibile() && PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower")) {
+		stream << "Tower Cost: " << Tower::getCost(TowerGhost::getType());
+	}
+	text_.setString(stream.str());
+
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !pressedM) {
 		mouseControlsEnabled = !mouseControlsEnabled;
 		pressedM = true;
@@ -28,6 +38,7 @@ void SelectionBox::update(sf::Time& elapsed) {
 
 void SelectionBox::draw() {
 	GAME.getRenderWindow().draw(sprite_);
+	GAME.getRenderWindow().draw(text_);
 	return;
 }
 
