@@ -4,7 +4,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-std::vector<std::string> Tower::towerTextures;
+std::vector<sf::Sprite> Tower::towerSprites;
 std::vector<sf::Sprite> Tower::towerRangeSprites;
 std::vector<int> Tower::attackDelays;
 std::vector<float> Tower::rotationSpeeds;
@@ -21,16 +21,15 @@ Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
 
 	range_ = towerRangeSprites[itype];
 	range_.setPosition(ipos);
-	sprite_.setTexture(GAME.getTexture(towerTextures[itype]));
+	sprite_ = towerSprites[itype];
 	sprite_.setPosition(ipos);
-	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
 	setCollisionCheckEnabled(true);
 	assignTag("tower");
 }
 
 void Tower::initializeTowerVectors() {
 	// This prevents the vectors from breaking since calling this method multiple times would otherwise result in extra data being added to the vectors
-	towerTextures.clear();
+	towerSprites.clear();
 	towerRangeSprites.clear();
 	attackDelays.clear();
 	rotationSpeeds.clear();
@@ -38,13 +37,16 @@ void Tower::initializeTowerVectors() {
 	betweenProjectilesDelays.clear();
 	towerCosts.clear();
 
+	sf::Sprite towerSpriteToPushBack;
 	sf::Sprite rangeToPushBack;
 	int range;
 	rangeToPushBack.setTexture(GAME.getTexture("Resources/Range Box.png"));
 	rangeToPushBack.setColor(sf::Color(254, 254, 254, 100));
 
 	// Cheesy Poofs
-	towerTextures.push_back("Resources/Tower 254.png");
+	towerSpriteToPushBack.setTexture(GAME.getTexture("Resources/Tower 254.png"));
+	towerSpriteToPushBack.setOrigin(sf::Vector2f(towerSpriteToPushBack.getGlobalBounds().width / 2.0, towerSpriteToPushBack.getGlobalBounds().height / 2.0));
+	towerSprites.push_back(towerSpriteToPushBack);
 	range = 254;
 	rangeToPushBack.setScale(sf::Vector2f(range, range));
 	rangeToPushBack.setOrigin(rangeToPushBack.getGlobalBounds().width / 2.0 / range, rangeToPushBack.getGlobalBounds().height / 2.0 / range);
@@ -61,7 +63,9 @@ void Tower::initializeTowerVectors() {
 	projectilePiercesEnemies.push_back(false);
 
 	// Sonic Squirrels
-	towerTextures.push_back("Resources/Sonic Squirrels.png");
+	towerSpriteToPushBack.setTexture(GAME.getTexture("Resources/Sonic Squirrels.png"));
+	towerSpriteToPushBack.setOrigin(sf::Vector2f(towerSpriteToPushBack.getGlobalBounds().width / 2.0, towerSpriteToPushBack.getGlobalBounds().height / 2.0));
+	towerSprites.push_back(towerSpriteToPushBack);
 	range = 300;
 	rangeToPushBack.setScale(sf::Vector2f(range, range));
 	rangeToPushBack.setOrigin(rangeToPushBack.getGlobalBounds().width / 2.0 / range, rangeToPushBack.getGlobalBounds().height / 2.0 / range);
@@ -82,6 +86,14 @@ void Tower::initializeTowerVectors() {
 
 int Tower::getCost(TowerTypes type) {
 	return towerCosts[type];
+}
+
+sf::Sprite Tower::getTowerSprite(TowerTypes type) {
+	return towerSprites[type];
+}
+
+sf::Sprite Tower::getTowerRangeSprite(TowerTypes type) {
+	return towerRangeSprites[type];
 }
 
 void Tower::update(sf::Time& elapsed) {

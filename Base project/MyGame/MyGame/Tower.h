@@ -12,13 +12,15 @@ public:
 
 	static void initializeTowerVectors();
 	static int getCost(TowerTypes type);
+	static sf::Sprite getTowerSprite(TowerTypes type);
+	static sf::Sprite getTowerRangeSprite(TowerTypes type);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
 	void handleCollision(GameObject& otherGameObject);
 private:
-	static std::vector<std::string> towerTextures;
+	static std::vector<sf::Sprite> towerSprites;
 	static std::vector<sf::Sprite> towerRangeSprites;
 	static std::vector<int> attackDelays;
 	static std::vector<float> rotationSpeeds;

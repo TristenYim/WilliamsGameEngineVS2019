@@ -2,6 +2,7 @@
 #include "PlayingField.h"
 #include "Credits.h"
 #include "Tower.h"
+#include "TowerGhost.h"
 
 SelectionBox::SelectionBox(sf::Vector2f ipos) {
 	sprite_.setPosition(ipos);
@@ -19,9 +20,7 @@ void SelectionBox::update(sf::Time& elapsed) {
 		pressedM = false;
 	}
 
-	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "towerplacementbox")) {
-		towerActions();
-	}
+	towerActions();
 	updateColorAndAnimation(elapsed.asMilliseconds());
 	updatePosition(elapsed.asMilliseconds());
 	return;
@@ -37,23 +36,27 @@ sf::FloatRect SelectionBox::getCollisionRect() {
 }
 
 void SelectionBox::towerActions() {
-	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower")) {
-		TowerTypes itype;
-		bool buyingTower = false;
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
-			itype = CheesyPoofs;
-			buyingTower = true;
-		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
-			itype = SonicSquirrels;
-			buyingTower = true;
-		}
+	if (TowerGhost::isVisibile) {
+		TowerGhost::setPosition(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+	}
 
-		if (buyingTower && Credits::getCredit() >= Tower::getCost(itype)) {
-			PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
-			TowerPtr tower_ = std::make_shared<Tower>(itype, sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
-			GAME.getCurrentScene().addGameObject(tower_);
-			Credits::addCredit(-Tower::getCost(itype));
-		}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+		TowerGhost::setType(CheesyPoofs);
+		TowerGhost::setVisibility(true);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+		TowerGhost::setType(SonicSquirrels);
+		TowerGhost::setVisibility(true);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+		TowerGhost::setVisibility(false);
+	}
+
+	if (TowerGhost::isVisibile() && sf::Keyboard::isKeyPressed(sf::Keyboard::B) && Credits::getCredit() >= Tower::getCost(TowerGhost::getType()) &&
+		PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower"))
+	{
+		PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
+		TowerPtr tower_ = std::make_shared<Tower>(TowerGhost::getType(), sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+		GAME.getCurrentScene().addGameObject(tower_);
+		Credits::addCredit(-Tower::getCost(TowerGhost::getType()));
 	}
 }
 
