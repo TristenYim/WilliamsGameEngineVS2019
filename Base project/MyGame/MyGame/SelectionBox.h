@@ -12,6 +12,8 @@ const float ARROW_KEY_SUPER_SPEED_DELAY = 750;
 class SelectionBox : public TextObject {
 public:
 	SelectionBox(sf::Vector2f ipos, sf::Vector2f itextPos, int icharSize, sf::Color itextColor);
+	
+	static void setUpgradeCostToDisplay(int neoCost);
 
 	void update(sf::Time& elapsed);
 	void draw();
@@ -19,6 +21,8 @@ public:
 private:
 	bool mouseControlsEnabled = false;
 	bool pressedM = false;
+
+	static int upgradeCostToDisplay;
 
 	float arrowKeyTimer = 1000;
 	float animationTimer = TIME_BUFFER + SOLID_TIME + FADE_OUT_TIME + FADE_IN_TIME;

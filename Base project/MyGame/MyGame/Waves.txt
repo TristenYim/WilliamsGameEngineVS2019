@@ -1,3 +1,4 @@
+SFbaseGshoot,500,2000,10,1,SFOP,500,2000,10,0
 SbaseBshoot,0,2000,1,1
 SbaseBshoot,500,2000,2,1,SbaseBShoot,500,4000,2,0
 FbaseNshoot,200,6000,5,0,SbaseBShoot,500,2000,3,0

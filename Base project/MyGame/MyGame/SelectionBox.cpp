@@ -5,6 +5,8 @@
 #include "TowerGhost.h"
 #include <sstream>
 
+int SelectionBox::upgradeCostToDisplay;
+
 SelectionBox::SelectionBox(sf::Vector2f ipos, sf::Vector2f itextPos, int icharSize, sf::Color itextColor) {
 	sprite_.setPosition(ipos);
 	sprite_.setTexture(GAME.getTexture("Resources/Selection Box.png"));
@@ -12,10 +14,14 @@ SelectionBox::SelectionBox(sf::Vector2f ipos, sf::Vector2f itextPos, int icharSi
 	assignTag("selection");
 }
 
+void SelectionBox::setUpgradeCostToDisplay(int neoCost) {
+	upgradeCostToDisplay = neoCost;
+}
+
 void SelectionBox::update(sf::Time& elapsed) {
 	std::stringstream stream;
-	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "towerupgradebox")) {
-		stream << "Upgrade Cost: ";
+	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "towerupgradebox") && 0 != upgradeCostToDisplay) {
+		stream << "Upgrade Cost: " << upgradeCostToDisplay;
 	} else if (TowerGhost::isVisibile() && PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower")) {
 		stream << "Tower Cost: " << Tower::getCost(TowerGhost::getType());
 	}
