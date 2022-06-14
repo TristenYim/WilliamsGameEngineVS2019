@@ -115,6 +115,33 @@ void Tower::initializeTowerVectors() {
 	projectileDamages.push_back(5);
 	projectilePiercesEnemies.push_back(true);
 
+	//--------------
+	// Bomb Squad
+	//--------------
+	towerSpriteToPushBack.setTexture(GAME.getTexture("Resources/Sonic Squirrels.png"));
+	towerSpriteToPushBack.setOrigin(sf::Vector2f(towerSpriteToPushBack.getGlobalBounds().width / 2.0, towerSpriteToPushBack.getGlobalBounds().height / 2.0));
+	towerSprites.push_back(towerSpriteToPushBack);
+	range = 300;
+	rangeToPushBack.setScale(sf::Vector2f(range, range));
+	rangeToPushBack.setOrigin(rangeToPushBack.getGlobalBounds().width / 2.0 / range, rangeToPushBack.getGlobalBounds().height / 2.0 / range);
+	rangeSprites.push_back(rangeToPushBack);
+
+	attackDelays.push_back(750);
+	rotationSpeeds.push_back(0.1);
+	projectilesPerAttacks.push_back(3);
+	betweenProjectilesDelays.push_back(100);
+	towerCosts.push_back(500);
+
+	upgradedRanges.push_back(std::vector<float>{ 0, 340, 400, 475, 550 });
+	upgradedAttackDelayModifiers.push_back(std::vector<int>{ 0, 100, 150, 250, 450});
+	upgradedRotationSpeedModifiers.push_back(std::vector<float>{ 0, 0.05, 0.05, 0.1, 0.2 });
+	upgradeCosts.push_back(std::vector<int>{ 200, 140, 285, 400, 0 });
+	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 0, 0, 0, 5, 10 });
+
+	projectileTextures.push_back("Resources/Sonic Blast.png");
+	projectileSpeeds.push_back(1.8);
+	projectileDamages.push_back(5);
+	projectilePiercesEnemies.push_back(true);
 	return;
 }
 
