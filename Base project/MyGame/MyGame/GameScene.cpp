@@ -30,7 +30,7 @@ GameScene::GameScene() {
 
 	PlayingFieldPtr playingField_ = std::make_shared<PlayingField>();
 	addGameObject(playingField_);
-	CreditsPtr credits_ = std::make_shared<Credits>(sf::Vector2f(90, 20), 32, sf::Color::White, 1000);
+	CreditsPtr credits_ = std::make_shared<Credits>(sf::Vector2f(90, 20), 32, sf::Color::White, 300);
 	addGameObject(credits_);
 	ScoresPtr scores_ = std::make_shared<Scores>(sf::Vector2f(1550, 20), 32, sf::Color::White, 50, sf::Vector2f(PlayingField::findAbsoluteXPosition(53) + 14, PlayingField::findAbsoluteYPosition(13)));
 	addGameObject(scores_);

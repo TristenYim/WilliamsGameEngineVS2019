@@ -10,10 +10,18 @@ Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
 	case CheesyPoofs:
 		sprite_.setTexture(GAME.getTexture("Resources/Tower 254.png"));
 		range = 254;
-		attackDelay = 400;
-		rotationSpeed = 0.3;
+		attackDelay = 300;
+		rotationSpeed = 0.4;
 		projectilesPerAttack = 1;
 		betweenProjectilesDelay = 0;
+		break;
+	case SonicSquirrels:
+		sprite_.setTexture(GAME.getTexture("Resources/Sonic Squirrels.png"));
+		range = 2000;
+		attackDelay = 750;
+		rotationSpeed = 0.1;
+		projectilesPerAttack = 3;
+		betweenProjectilesDelay = 100;
 		break;
 	}
 
@@ -21,6 +29,15 @@ Tower::Tower(TowerTypes itype, sf::Vector2f ipos) {
 	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
 	setCollisionCheckEnabled(true);
 	assignTag("tower");
+}
+
+int Tower::getCost(TowerTypes type) {
+	switch (type) {
+	case CheesyPoofs:
+		return 75;
+	case SonicSquirrels:
+		return 500;
+	}
 }
 
 void Tower::update(sf::Time& elapsed) {
@@ -98,7 +115,10 @@ void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 
 	switch (projectileType) {
 	case CheesyPoofs:
-		projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, "Resources/Cheesy Poof.png", 0.8, 50);
+		projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, "Resources/Cheesy Poof.png", 0.8, 50, false);
+		break;
+	case SonicSquirrels:
+		projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, "Resources/Sonic Blast.png", 1.5, 5, true);
 		break;
 	}
 	GAME.getCurrentScene().addGameObject(projectile_);

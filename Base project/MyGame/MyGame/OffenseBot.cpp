@@ -9,64 +9,64 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 	switch (type) {
 	case SbaseNshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SbaseNshoot.png"));
-		movementSpeed = 0.2;
-		hp = 300;
+		movementSpeed = 0.15;
+		hp = 400;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 50;
-		reward = 75;
+		reward = 50;
 		break;
 	case SbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SbaseGshoot.png"));
-		movementSpeed = 0.2;
-		hp = 300;
+		movementSpeed = 0.15;
+		hp = 400;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 90;
-		reward = 100;
+		reward = 75;
 		break;
 	case SbaseBshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SbaseBshoot.png"));
-		movementSpeed = 0.2;
-		hp = 300;
+		movementSpeed = 0.15;
+		hp = 400;
 		scoringDelay = 2000;
 		percentChanceOfScoring = 25;
-		reward = 25;
+		reward = 40;
 		break;
 	case SSbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SSbaseGshoot.png"));
 		movementSpeed = 0.05;
-		hp = 2000;
+		hp = 3000;
 		scoringDelay = 400;
 		percentChanceOfScoring = 90;
-		reward = 400;
+		reward = 1000;
 		break;
 	case FbaseNshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/FbaseNshoot.png"));
 		movementSpeed = 0.3;
-		hp = 200;
+		hp = 250;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 50;
-		reward = 40;
+		reward = 65;
 		break;
 	case FbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/FbaseGshoot.png"));
 		movementSpeed = 0.3;
-		hp = 200;
+		hp = 250;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 90;
-		reward = 60;
+		reward = 100;
 		break;
 	case FbaseBshoot:
-		sprite_.setTexture(GAME.getTexture("Resources/FbaseGshoot.png"));
+		sprite_.setTexture(GAME.getTexture("Resources/FbaseBshoot.png"));
 		movementSpeed = 0.3;
-		hp = 200;
+		hp = 250;
 		scoringDelay = 2000;
 		percentChanceOfScoring = 25;
-		reward = 15;
+		reward = 50;
 		break;
 	case SFbaseNshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SFbaseNshoot.png"));
 		movementSpeed = 0.7;
-		hp = 50;
+		hp = 100;
 		scoringDelay = 500;
 		percentChanceOfScoring = 50;
 		reward = 25;
@@ -74,7 +74,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 	case SFbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SFbaseGshoot.png"));
 		movementSpeed = 0.7;
-		hp = 50;
+		hp = 100;
 		scoringDelay = 500;
 		percentChanceOfScoring = 90;
 		reward = 40;
@@ -85,7 +85,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 400;
 		scoringDelay = 300;
 		percentChanceOfScoring = 90;
-		reward = 400;
+		reward = 1000;
 		break;
 	}
 
@@ -146,8 +146,10 @@ void OffenseBot::draw() {
 
 void OffenseBot::handleCollision(GameObject& otherGameObject) {
 	if (otherGameObject.hasTag("projectile")) {
-		otherGameObject.makeDead();
 		Projectile& projectile_ = dynamic_cast<Projectile&>(otherGameObject);
+		if (!projectile_.doesItPierce()) {
+			otherGameObject.makeDead();
+		}
 		hp -= projectile_.getDamage();
 		if (0 >= hp) {
 			Credits::addCredit(reward);

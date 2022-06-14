@@ -5,15 +5,25 @@
 #include <math.h>
 #include "PlayingField.h"
 
-Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, std::string itexture, float speed, int idamage) {
+Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, std::string itexture, float speed, int idamage, bool ipierces) {
 	sprite_.setTexture(GAME.getTexture(itexture));
 	sprite_.setPosition(ipos);
 	sprite_.setOrigin(sf::Vector2f(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0));
 
 	damage = idamage;
+	pierces = ipierces;
 
-	float rotation = atan(distanceFromEnemy.y / distanceFromEnemy.x);
-	sprite_.setRotation(180 / M_PI * rotation);
+	float rotation = atan(distanceFromEnemy.y / distanceFromEnemy.x) * 180 / M_PI;
+	float currentRotation = sprite_.getRotation();
+	if (distanceFromEnemy.x > 0) {
+		if (0 <= rotation) {
+			rotation = 180 + rotation;
+		} else {
+			rotation = -180 + rotation;
+		}
+	}
+	sprite_.setRotation(rotation);
+
 	float speedAdjustmentMultiplier = speed / sqrt(distanceFromEnemy.x * distanceFromEnemy.x + distanceFromEnemy.y * distanceFromEnemy.y);
 	directionalSpeed.x = distanceFromEnemy.x * speedAdjustmentMultiplier;
 	directionalSpeed.y = distanceFromEnemy.y * speedAdjustmentMultiplier;
@@ -24,6 +34,10 @@ Projectile::Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, std::s
 
 int Projectile::getDamage() {
 	return damage;
+}
+
+bool Projectile::doesItPierce() {
+	return pierces;
 }
 
 void Projectile::update(sf::Time& elapsed) {

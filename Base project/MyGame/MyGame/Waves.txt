@@ -1,5 +1,3 @@
 SbaseBshoot,0,2000,1,1
-SbaseBshoot,200,2000,4,1,SbaseBShoot,500,4000,2,0,SFbaseNshoot,2000,4000,1,1
-FbaseNshoot,1000,2000,5,0,SFbaseNshoot,0,4000,1,1
-SbaseNshoot,1000,2000,5,1
-SFbaseNshoot,500,2000,25,0,SFbaseNshoot,25,2250,1,1
+SbaseBshoot,500,2000,2,1,SbaseBShoot,500,4000,2,0
+FbaseNshoot,200,6000,5,0,SbaseBShoot,500,2000,3,0

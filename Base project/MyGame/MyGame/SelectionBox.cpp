@@ -37,11 +37,23 @@ sf::FloatRect SelectionBox::getCollisionRect() {
 }
 
 void SelectionBox::towerActions() {
-	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower") && sf::Keyboard::isKeyPressed(sf::Keyboard::Num1) && Credits::getCredit() >= 300) {
-		PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
-		TowerPtr tower_ = std::make_shared<Tower>(CheesyPoofs, sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
-		GAME.getCurrentScene().addGameObject(tower_);
-		Credits::addCredit(-300);
+	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower")) {
+		TowerTypes itype;
+		bool buyingTower = false;
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1)) {
+			itype = CheesyPoofs;
+			buyingTower = true;
+		} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
+			itype = SonicSquirrels;
+			buyingTower = true;
+		}
+
+		if (buyingTower && Credits::getCredit() >= Tower::getCost(itype)) {
+			PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
+			TowerPtr tower_ = std::make_shared<Tower>(itype, sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+			GAME.getCurrentScene().addGameObject(tower_);
+			Credits::addCredit(-Tower::getCost(itype));
+		}
 	}
 }
 

@@ -4,17 +4,19 @@
 #include "OffenseBot.h"
 #include "Projectile.h"
 
-enum TowerTypes { CheesyPoofs };
+enum TowerTypes { CheesyPoofs, SonicSquirrels };
 
 class Tower : public GameObject {
 public:
 	Tower(TowerTypes itype, sf::Vector2f ipos);
 
+	static int getCost(TowerTypes type);
+
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
 	void handleCollision(GameObject& otherGameObject);
-protected:
+private:
 	float range;
 	float attackDelay;
 	float attackTimer = 0.0;

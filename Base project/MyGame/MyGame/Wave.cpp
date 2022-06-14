@@ -53,7 +53,7 @@ Wave::Wave(int iwaveNumber, sf::Vector2f pos, int charSize, sf::Color textColor)
 			ibotType = FbaseNshoot;
 		} else if ("FbaseGshoot" == botTypeString) {
 			ibotType = FbaseGshoot;
-		} else if ("FbaseNshoot" == botTypeString) {
+		} else if ("FbaseBshoot" == botTypeString) {
 			ibotType = FbaseBshoot;
 		} else if ("SFbaseNshoot" == botTypeString) {
 			ibotType = SFbaseNshoot;
