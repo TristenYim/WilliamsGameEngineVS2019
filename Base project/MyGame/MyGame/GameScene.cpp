@@ -4,6 +4,7 @@
 #include "Credits.h"
 #include "Score.h"
 #include "DefenseBot.h"
+#include "Tower.h"
 #include "Wave.h"
 
 GameScene::GameScene() {
@@ -25,12 +26,13 @@ GameScene::GameScene() {
 
 	PlayingField::initializeCornerPositions(fieldTopLeftCornerPosition, fieldBottomRightCornerPosition);
 	std::vector<std::string> initialVariants{ "Resources/Ultimate Ascent.png", "Resources/Garbage.png", "Resources/Stronghold.png", "Resources/Power Up.png", "Resources/Heavy Defense.png", "Resources/Cube.png" };
+	Tower::initializeTowerVectors();
 	Obstacle::initializeObstacleTextureVariants(initialVariants);
 	Wave::initializeTotalWaves();
 
 	PlayingFieldPtr playingField_ = std::make_shared<PlayingField>();
 	addGameObject(playingField_);
-	CreditsPtr credits_ = std::make_shared<Credits>(sf::Vector2f(90, 20), 32, sf::Color::White, 300);
+	CreditsPtr credits_ = std::make_shared<Credits>(sf::Vector2f(90, 20), 32, sf::Color::White, 10000);
 	addGameObject(credits_);
 	ScoresPtr scores_ = std::make_shared<Scores>(sf::Vector2f(1550, 20), 32, sf::Color::White, 50, sf::Vector2f(PlayingField::findAbsoluteXPosition(53) + 14, PlayingField::findAbsoluteYPosition(13)));
 	addGameObject(scores_);

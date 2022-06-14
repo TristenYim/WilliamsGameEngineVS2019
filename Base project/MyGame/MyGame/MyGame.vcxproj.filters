@@ -36,6 +36,7 @@
     <ClCompile Include="Wave.cpp" />
     <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="EndingText.cpp" />
+    <ClCompile Include="TowerGhost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -75,6 +76,7 @@
     <ClInclude Include="Wave.h" />
     <ClInclude Include="EndingScene.h" />
     <ClInclude Include="EndingText.h" />
+    <ClInclude Include="TowerGhost.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -109,6 +111,102 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="Resources\Purple Square.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Blue Square.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Catapult.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Cheesy Poof.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Cube.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Defense Bot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Fast Offense Bot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\FbaseBshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\FbaseGshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\FbaseNshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Garbage.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Goal.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Heavy Defense.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Normal Shooter.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Power Up.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Range Box.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SbaseBshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SbaseGshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SbaseNshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SFbaseGshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SFbaseNshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SFOP.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Slow Offense Bot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Sonic Blast.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Sonic Squirrels.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\SSbaseGshoot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Steamworks.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Stronghold.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Super Fast Offense Bot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Super Slow Offense Bot.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Tower 254.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Turret.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Ultimate Ascent.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

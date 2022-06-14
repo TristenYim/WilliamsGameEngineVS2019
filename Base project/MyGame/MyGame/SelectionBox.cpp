@@ -70,7 +70,7 @@ void SelectionBox::updateColorAndAnimation(float msElapsed) {
 		animationTimer += SOLID_TIME + FADE_IN_TIME + FADE_OUT_TIME;
 	}
 
-	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower") && sprite_.getColor() != sf::Color(0, 95, 168, sprite_.getColor().a)) {
+	if (PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower")) {
 		sprite_.setColor(sf::Color(0, 95, 168, sprite_.getColor().a));
 	} else if (sprite_.getColor() != sf::Color(226, 12, 16, sprite_.getColor().a)) {
 		sprite_.setColor(sf::Color(226, 12, 16, sprite_.getColor().a));

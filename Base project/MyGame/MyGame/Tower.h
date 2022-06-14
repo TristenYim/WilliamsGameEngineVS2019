@@ -10,6 +10,7 @@ class Tower : public GameObject {
 public:
 	Tower(TowerTypes itype, sf::Vector2f ipos);
 
+	static void initializeTowerVectors();
 	static int getCost(TowerTypes type);
 
 	void update(sf::Time& elapsed);
@@ -17,17 +18,26 @@ public:
 	void draw();
 	void handleCollision(GameObject& otherGameObject);
 private:
-	float range;
-	float attackDelay;
+	static std::vector<std::string> towerTextures;
+	static std::vector<sf::Sprite> towerRangeSprites;
+	static std::vector<int> attackDelays;
+	static std::vector<float> rotationSpeeds;
+	static std::vector<int> projectilesPerAttacks;
+	static std::vector<int> betweenProjectilesDelays;
+	static std::vector<int> towerCosts;
+	static std::vector<std::string> projectileTextures;
+	static std::vector<float> projectileSpeeds;
+	static std::vector<int> projectileDamages;
+	static std::vector<bool> projectilePiercesEnemies;
+
+	sf::Sprite range_;
+	bool drawRange = false;
 	float attackTimer = 0.0;
 	std::vector<GameObject> objectToTarget;
-	float rotationSpeed;
 	int level = 1;
 
-	TowerTypes projectileType;
-	int projectilesPerAttack;
+	TowerTypes type_;
 	int projectilesShot = 1;
-	float betweenProjectilesDelay;
 
 	void attackAction(sf::Vector2f distanceToEnemy);
 	void targetEnemy(float msElapsed);
