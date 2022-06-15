@@ -40,6 +40,7 @@
     <ClCompile Include="BombProjectile.cpp" />
     <ClCompile Include="BombExplosion.cpp" />
     <ClCompile Include="BotExplosion.cpp" />
+    <ClCompile Include="BlockingTimerText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -83,6 +84,7 @@
     <ClInclude Include="BombProjectile.h" />
     <ClInclude Include="BombExplosion.h" />
     <ClInclude Include="BotExplosion.h" />
+    <ClInclude Include="BlockingTimerText.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

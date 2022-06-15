@@ -82,6 +82,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BlockingTimerText.cpp" />
     <ClCompile Include="BombExplosion.cpp" />
     <ClCompile Include="BombProjectile.cpp" />
     <ClCompile Include="BotExplosion.cpp" />
@@ -111,6 +112,7 @@
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BlockingTimerText.h" />
     <ClInclude Include="BombProjectile.h" />
     <ClInclude Include="BotExplosion.h" />
     <ClInclude Include="Credits.h" />

@@ -5,15 +5,21 @@
 int Scores::playerScore;
 int Scores::enemyScore;
 sf::Sprite Scores::sprite_;
+float Scores::penaltyOnScreenTimer;
+int Scores::penaltyOnScreenDelay;
 
-Scores::Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerScore, sf::Vector2f ipos) {
+Scores::Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerScore, sf::Vector2f ipos, int ipenaltyOnScreenDelay) {
 	sprite_.setTexture(GAME.getTexture("Resources/Goal.png"));
 	sprite_.setOrigin(sprite_.getGlobalBounds().width / 2.0, sprite_.getGlobalBounds().height / 2.0);
 	sprite_.setPosition(ipos);
 	setCollisionCheckEnabled(true);
+
 	setupText(pos, charSize, textColor);
 	playerScore = iplayerScore;
 	enemyScore = 0;
+	originalColor = textColor;
+	penaltyOnScreenDelay = ipenaltyOnScreenDelay;
+
 	assignTag("scoreobject");
 }
 
@@ -23,9 +29,11 @@ void Scores::addEnemyScore(int scoreToAdd) {
 	return;
 }
 
-void Scores::removePlayerScore(int scoreToRemove) {
-	playerScore -= scoreToRemove;
+void Scores::majorPenalty() {
+	playerScore -= 10;
 	checkForLosing();
+	penaltyOnScreenTimer = penaltyOnScreenDelay;
+
 	return;
 }
 
@@ -44,10 +52,20 @@ void Scores::draw() {
 }
 
 void Scores::update(sf::Time& elapsed) {
-	std::stringstream stream;
-	stream << "Blue: " << playerScore << "   Red: " << enemyScore;
+	if (0 < penaltyOnScreenTimer) {
+		penaltyOnScreenTimer -= elapsed.asMilliseconds();
+		std::stringstream stream;
+		stream << "MAJOR PENALTY!";
 
-	text_.setString(stream.str());
+		text_.setString(stream.str());
+		text_.setFillColor(sf::Color(200, 150, 100));
+	} else {
+		text_.setFillColor(originalColor);
+		std::stringstream stream;
+		stream << "Blue: " << playerScore << "   Red: " << enemyScore;
+
+		text_.setString(stream.str());
+	}
 	return;
 }
 

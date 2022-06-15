@@ -1,9 +1,17 @@
 #include "DefenseBot.h"
 #include "PlayingField.h"
+#include "Score.h"
+#include "BlockingTimerText.h"
 
 DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	sprite_.setTexture(GAME.getTexture("Resources/Defense Bot.png"));
 	sprite_.setPosition(ipos);
+
+	blockingDelay = 3000;
+	blockingCooldown = -5000;
+	blockingPenaltyCooldown = 2000;
+	blockingTimer = blockingDelay;
+
 	assignTag(DEFENSE_TAG);
 }
 
@@ -23,6 +31,28 @@ void DefenseBot::update(sf::Time& elapsed) {
 		moveInADirection(neoPosition, Right, elapsed.asMilliseconds());
 	}
 
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && blockingTimer >= 0) {
+		blockingTimer -= elapsed.asMilliseconds();
+		BlockingTimerText::setVisibility(true);
+		BlockingTimerText::setColor(sf::Color(200, 150, 100));
+		BlockingTimerText::setSecondsInTimer(int(blockingTimer / 1000) + 1);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && 0 >= blockingTimer) {
+		blockingTimer = blockingPenaltyCooldown;
+		Scores::majorPenalty();
+	} else if (blockingDelay > blockingTimer && 0 < blockingTimer) {
+		blockingTimer = blockingCooldown;
+	} else if (0 >= blockingTimer) {
+		blockingTimer += elapsed.asMilliseconds();
+		if (blockingTimer >= 0) {
+			blockingTimer = blockingDelay;
+		}
+		BlockingTimerText::setVisibility(true);
+		BlockingTimerText::setColor(sf::Color(0, 254, 200));
+		BlockingTimerText::setSecondsInTimer(abs(int(blockingTimer / 1000)) + 1);
+	} else {
+		BlockingTimerText::setVisibility(false);
+	}
+
 	sprite_.setPosition(neoPosition);
 	return;
 }
@@ -33,6 +63,13 @@ sf::FloatRect DefenseBot::getCollisionRect() {
 
 void DefenseBot::draw() {
 	GAME.getRenderWindow().draw(sprite_);
+	return;
+}
+
+void DefenseBot::handleCollision(GameObject& otherGameObject) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && otherGameObject.hasTag("scoringprojectile")) {
+		otherGameObject.makeDead();
+	}
 	return;
 }
 

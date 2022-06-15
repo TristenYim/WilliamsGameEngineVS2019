@@ -4,10 +4,10 @@
 
 class Scores : public TextObject {
 public:
-	Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerScore, sf::Vector2f ipos);
+	Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerScore, sf::Vector2f ipos, int ipenaltyOnScreenDelay);
 
 	static void addEnemyScore(int scoreToAdd);
-	static void removePlayerScore(int scoreToRemove);
+	static void majorPenalty();
 
 	static sf::Vector2f getPosition();
 	sf::FloatRect getCollisionRect();
@@ -17,6 +17,10 @@ private:
 	static sf::Sprite sprite_;
 	static int playerScore;
 	static int enemyScore;
+	static float penaltyOnScreenTimer;
+	static int penaltyOnScreenDelay;
+	
+	sf::Color originalColor;
 
 	// To make it seem more like a FIRST game, the player loses if the enemy gets more points than the player
 	// The player loses points by getting penalties and the enemy gets points by scoring

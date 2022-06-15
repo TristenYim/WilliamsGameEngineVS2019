@@ -36,7 +36,7 @@ ScoringProjectile::ScoringProjectile(sf::Vector2f ipos, bool willItHit) {
 	float speedAdjustmentMultiplier = 0.5 / sqrt(distanceFromTarget.x * distanceFromTarget.x + distanceFromTarget.y + distanceFromTarget.y);
 	movementVector = sf::Vector2f(distanceFromTarget.x * speedAdjustmentMultiplier, distanceFromTarget.y * speedAdjustmentMultiplier);
 
-	assignTag("ScoringProjectile");
+	assignTag("scoringprojectile");
 }
 
 void ScoringProjectile::update(sf::Time& elapsed) {

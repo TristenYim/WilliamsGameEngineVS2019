@@ -13,8 +13,13 @@ public:
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
+	void handleCollision(GameObject& otherGameObject);
 private:
 	void moveInADirection(sf::Vector2f& neoPosition, direction direction_, int msElapsed);
+	float blockingTimer;
+	int blockingDelay;
+	int blockingCooldown;
+	int blockingPenaltyCooldown;
 };
 
 typedef std::shared_ptr<DefenseBot> DefenseBotPtr;                
