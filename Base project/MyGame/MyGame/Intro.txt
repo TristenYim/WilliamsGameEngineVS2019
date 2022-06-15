@@ -1,0 +1,29 @@
+In FIRST TD, you are a defense bot trying to defend an incoming wave of offense bots which are trying to score in your goal.
+
+You use a selection box to interact with the game. By default it's moved with the arrow keys, but it can also follow your cursor.
+Press 'M' to toggle between arrow key movement and cursor following.
+
+To buy towers, press the number keys, select your location, and then press B to buy.
+To upgrade, hover over the tower and press u.
+When you hover over towers, a box is drawn showing its range.
+
+The Cheesy Poofs tower is a rapid-firing single-target tower that has high DPS. This tower is assigned the the '1' key.
+The Sonic Squirrels tower is an extremely rapid-firing tower that has shoots 3 piercing projectiles that do little damage. This tower is assigned the the '2' key.
+The Bomb Squad tower is a slow-firing tower that shoots explosive bombs. This tower is assigned the the '3' key.
+
+To start a wave, press p.
+Enemies spawn from one of two entrances and immediately start making their way to the end.
+When an enemy reaches the end, it will start scoring and continue until killed.
+There are various kinds of enemies with different speeds, health, scoring speeds, and scoring accuracy.
+At the end of a wave, you are awarded bonus credits.
+
+The defense bot allows you to interact with the game in a way that's unrelated to the towers.
+You move the defense bot with WASD and use X to block and C to ram.
+Blocking prevents scoring projectiles from passing through you, however, if you block for too long, you recieve a MAJOR PENALTY.
+Ramming does a small amount of damage to a single enemy. This exists to prevent an enemy from scoring indefinitely if you cannot place a tower to kill it.
+
+To win, you must outlast all of the waves. To lose, the enemies must reach a greater score than you.
+By default you have 50 score and the enemies have 0 score. Major penalties subtract 10 points from your score.
+You can also recieve minor penalties for colliding with offense bots for too long.
+
+That's basically it. You start with 75 credits. Good luck!

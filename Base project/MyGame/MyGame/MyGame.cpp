@@ -1,5 +1,5 @@
 #include "Engine/GameEngine.h"
-#include "GameScene.h"
+#include "IntroScene.h"
 
 const int WINDOW_WIDTH = 1920;
 const int WINDOW_HEIGHT = 1080;
@@ -15,8 +15,8 @@ int main()
 	GAME.initialize(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 
 	// Create our scene.
-	GameScenePtr scene = std::make_shared<GameScene>();
-	GAME.setScene(scene);
+	IntroScenePtr introScene_ = std::make_shared<IntroScene>();
+	GAME.setScene(introScene_);
 
 	// Run the game loop.
 	GAME.run();

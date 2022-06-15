@@ -41,6 +41,8 @@
     <ClCompile Include="BombExplosion.cpp" />
     <ClCompile Include="BotExplosion.cpp" />
     <ClCompile Include="PenaltyTimerText.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="IntroText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -85,6 +87,8 @@
     <ClInclude Include="BombExplosion.h" />
     <ClInclude Include="BotExplosion.h" />
     <ClInclude Include="PenaltyTimerText.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="IntroText.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -229,5 +233,8 @@
       <Filter>Resources</Filter>
     </Text>
     <Text Include="Waves.txt" />
+    <Text Include="Intro.txt">
+      <Filter>Resources</Filter>
+    </Text>
   </ItemGroup>
 </Project>

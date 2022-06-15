@@ -82,6 +82,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="IntroText.cpp" />
     <ClCompile Include="PenaltyTimerText.cpp" />
     <ClCompile Include="BombExplosion.cpp" />
     <ClCompile Include="BombProjectile.cpp" />
@@ -112,6 +114,8 @@
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="IntroText.h" />
     <ClInclude Include="PenaltyTimerText.h" />
     <ClInclude Include="BombProjectile.h" />
     <ClInclude Include="BotExplosion.h" />
@@ -188,6 +192,7 @@
     <Image Include="Resources\Yellow Square.png" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Intro.txt" />
     <Text Include="Obstacle Field Map.txt" />
     <Text Include="Waves.txt" />
   </ItemGroup>
