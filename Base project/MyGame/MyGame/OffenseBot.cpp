@@ -3,6 +3,7 @@
 #include "Credits.h"
 #include "ScoringProjectile.h"
 #include "Projectile.h"
+#include "BotExplosion.h"
 #include <fstream>
 
 OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) {
@@ -153,6 +154,8 @@ void OffenseBot::handleCollision(GameObject& otherGameObject) {
 		hp -= projectile_.getDamage();
 		if (0 >= hp) {
 			Credits::addCredit(reward);
+			BotExplosionPtr explosion_ = std::make_shared<BotExplosion>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+			GAME.getCurrentScene().addGameObject(explosion_);
 			makeDead();
 		}
 	}

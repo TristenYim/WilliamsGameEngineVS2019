@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClCompile Include="BombExplosion.cpp" />
     <ClCompile Include="BombProjectile.cpp" />
+    <ClCompile Include="BotExplosion.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="DefenseBot.cpp" />
     <ClCompile Include="Engine\AnimatedSprite.cpp" />
@@ -111,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BombProjectile.h" />
+    <ClInclude Include="BotExplosion.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="DefenseBot.h" />
     <ClInclude Include="Engine\AnimatedSprite.h" />

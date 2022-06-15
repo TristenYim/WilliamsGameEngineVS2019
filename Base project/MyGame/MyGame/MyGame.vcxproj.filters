@@ -39,6 +39,7 @@
     <ClCompile Include="TowerGhost.cpp" />
     <ClCompile Include="BombProjectile.cpp" />
     <ClCompile Include="BombExplosion.cpp" />
+    <ClCompile Include="BotExplosion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -81,6 +82,7 @@
     <ClInclude Include="TowerGhost.h" />
     <ClInclude Include="BombProjectile.h" />
     <ClInclude Include="BombExplosion.h" />
+    <ClInclude Include="BotExplosion.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">

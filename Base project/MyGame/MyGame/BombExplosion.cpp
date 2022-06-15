@@ -15,13 +15,11 @@ void BombExplosion::update(sf::Time& elapsed) {
 }
 
 void BombExplosion::setupBombExplosionAnimation() {
-	//Sets up the frames
 	std::vector<sf::IntRect> frames;
 	frames.push_back(sf::IntRect(0, 0, 200, 200));
 	frames.push_back(sf::IntRect(200, 0, 200, 200));
 	frames.push_back(sf::IntRect(400, 0, 200, 200));
 
-	//Adds the animation
 	addAnimation("bombExplosionAnim", frames);
 	return;
 }
