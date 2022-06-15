@@ -82,6 +82,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BombExplosion.cpp" />
+    <ClCompile Include="BombProjectile.cpp" />
     <ClCompile Include="Credits.cpp" />
     <ClCompile Include="DefenseBot.cpp" />
     <ClCompile Include="Engine\AnimatedSprite.cpp" />
@@ -108,6 +110,7 @@
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BombProjectile.h" />
     <ClInclude Include="Credits.h" />
     <ClInclude Include="DefenseBot.h" />
     <ClInclude Include="Engine\AnimatedSprite.h" />
@@ -130,6 +133,7 @@
     <ClInclude Include="SelectionBox.h" />
     <ClInclude Include="TextObject.h" />
     <ClInclude Include="Tower.h" />
+    <ClInclude Include="BombExplosion.h" />
     <ClInclude Include="TowerGhost.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
@@ -138,6 +142,8 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\Blue Square.png" />
+    <Image Include="Resources\Bomb Squad.png" />
+    <Image Include="Resources\Bomb.png" />
     <Image Include="Resources\Catapult.png" />
     <Image Include="Resources\Cheesy Poof.png" />
     <Image Include="Resources\Cube.png" />

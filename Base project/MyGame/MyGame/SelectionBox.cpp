@@ -63,6 +63,9 @@ void SelectionBox::towerActions() {
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2)) {
 		TowerGhost::setType(SonicSquirrels);
 		TowerGhost::setVisibility(true);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3)) {
+		TowerGhost::setType(BombSquad);
+		TowerGhost::setVisibility(true);
 	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		TowerGhost::setVisibility(false);
 	}

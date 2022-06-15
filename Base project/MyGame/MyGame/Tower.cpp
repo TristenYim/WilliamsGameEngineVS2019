@@ -1,7 +1,8 @@
 #include "Tower.h"
 #include "SelectionBox.h"
-#include "Projectile.h"
 #include "Credits.h"
+#include "Projectile.h"
+#include "BombProjectile.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -83,7 +84,7 @@ void Tower::initializeTowerVectors() {
 	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 0, 10, 25, 40, 75 });
 
 	projectileTextures.push_back("Resources/Cheesy Poof.png");
-	projectileSpeeds.push_back(0.8);
+	projectileSpeeds.push_back(1.0);
 	projectileDamages.push_back(50);
 	projectilePiercesEnemies.push_back(false);
 
@@ -93,7 +94,7 @@ void Tower::initializeTowerVectors() {
 	towerSpriteToPushBack.setTexture(GAME.getTexture("Resources/Sonic Squirrels.png"));
 	towerSpriteToPushBack.setOrigin(sf::Vector2f(towerSpriteToPushBack.getGlobalBounds().width / 2.0, towerSpriteToPushBack.getGlobalBounds().height / 2.0));
 	towerSprites.push_back(towerSpriteToPushBack);
-	range = 300;
+	range = 200;
 	rangeToPushBack.setScale(sf::Vector2f(range, range));
 	rangeToPushBack.setOrigin(rangeToPushBack.getGlobalBounds().width / 2.0 / range, rangeToPushBack.getGlobalBounds().height / 2.0 / range);
 	rangeSprites.push_back(rangeToPushBack);
@@ -104,11 +105,11 @@ void Tower::initializeTowerVectors() {
 	betweenProjectilesDelays.push_back(100);
 	towerCosts.push_back(500);
 
-	upgradedRanges.push_back(std::vector<float>{ 0, 340, 400, 475, 550 });
+	upgradedRanges.push_back(std::vector<float>{ 0, 230, 265, 300, 360 });
 	upgradedAttackDelayModifiers.push_back(std::vector<int>{ 0, 100, 150, 250, 450});
 	upgradedRotationSpeedModifiers.push_back(std::vector<float>{ 0, 0.05, 0.05, 0.1, 0.2 });
 	upgradeCosts.push_back(std::vector<int>{ 200, 140, 285, 400, 0 });
-	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 0, 0, 0, 5, 10 });
+	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 0, 0, 1, 3, 5 });
 
 	projectileTextures.push_back("Resources/Sonic Blast.png");
 	projectileSpeeds.push_back(1.8);
@@ -118,30 +119,31 @@ void Tower::initializeTowerVectors() {
 	//--------------
 	// Bomb Squad
 	//--------------
-	towerSpriteToPushBack.setTexture(GAME.getTexture("Resources/Sonic Squirrels.png"));
+	towerSpriteToPushBack.setTexture(GAME.getTexture("Resources/Bomb Squad.png"));
 	towerSpriteToPushBack.setOrigin(sf::Vector2f(towerSpriteToPushBack.getGlobalBounds().width / 2.0, towerSpriteToPushBack.getGlobalBounds().height / 2.0));
 	towerSprites.push_back(towerSpriteToPushBack);
-	range = 300;
+	range = 500;
 	rangeToPushBack.setScale(sf::Vector2f(range, range));
 	rangeToPushBack.setOrigin(rangeToPushBack.getGlobalBounds().width / 2.0 / range, rangeToPushBack.getGlobalBounds().height / 2.0 / range);
 	rangeSprites.push_back(rangeToPushBack);
 
-	attackDelays.push_back(750);
+	attackDelays.push_back(1600);
 	rotationSpeeds.push_back(0.1);
-	projectilesPerAttacks.push_back(3);
-	betweenProjectilesDelays.push_back(100);
-	towerCosts.push_back(500);
+	projectilesPerAttacks.push_back(1);
+	betweenProjectilesDelays.push_back(0);
+	towerCosts.push_back(120);
 
-	upgradedRanges.push_back(std::vector<float>{ 0, 340, 400, 475, 550 });
-	upgradedAttackDelayModifiers.push_back(std::vector<int>{ 0, 100, 150, 250, 450});
-	upgradedRotationSpeedModifiers.push_back(std::vector<float>{ 0, 0.05, 0.05, 0.1, 0.2 });
-	upgradeCosts.push_back(std::vector<int>{ 200, 140, 285, 400, 0 });
-	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 0, 0, 0, 5, 10 });
+	upgradedRanges.push_back(std::vector<float>{ 0, 550, 615, 700, 800 });
+	upgradedAttackDelayModifiers.push_back(std::vector<int>{ 0, 100, 225, 400, 600 });
+	upgradedRotationSpeedModifiers.push_back(std::vector<float>{ 0, 0.03, 0.04, 0.06, 0.1 });
+	upgradeCosts.push_back(std::vector<int>{ 90, 120, 180, 240, 0 });
+	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 10, 25, 50, 80, 120 });
 
-	projectileTextures.push_back("Resources/Sonic Blast.png");
-	projectileSpeeds.push_back(1.8);
-	projectileDamages.push_back(5);
+	projectileTextures.push_back("Resources/Bomb.png");
+	projectileSpeeds.push_back(0.7);
+	projectileDamages.push_back(80);
 	projectilePiercesEnemies.push_back(true);
+
 	return;
 }
 
@@ -259,8 +261,12 @@ void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 
 	switch (type_) {
 	case CheesyPoofs: case SonicSquirrels:
-		projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), distanceToEnemy, projectileTextures[type_], projectileSpeeds[type_], projectileDamages[type_] + upgradedProjectileDamageModifiers[type_][level], projectilePiercesEnemies[type_]);
+		projectile_ = std::make_shared<Projectile>(sprite_.getPosition(), projectileTextures[type_], distanceToEnemy, projectileSpeeds[type_], projectileDamages[type_] + upgradedProjectileDamageModifiers[type_][level], projectilePiercesEnemies[type_]);
 		break;
+	case BombSquad:
+		BombProjectilePtr bombProjectile_ = std::make_shared<BombProjectile>(sprite_.getPosition(), projectileTextures[type_], distanceToEnemy, projectileSpeeds[type_], projectileDamages[type_] + upgradedProjectileDamageModifiers[type_][level], projectilePiercesEnemies[type_], level);
+		GAME.getCurrentScene().addGameObject(bombProjectile_);
+		return;
 	}
 	GAME.getCurrentScene().addGameObject(projectile_);
 	return;

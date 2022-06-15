@@ -4,7 +4,7 @@
 #include "OffenseBot.h"
 #include "Projectile.h"
 
-enum TowerTypes { CheesyPoofs, SonicSquirrels };
+enum TowerTypes { CheesyPoofs, SonicSquirrels, BombSquad };
 
 class Tower : public GameObject {
 public:

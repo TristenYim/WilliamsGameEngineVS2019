@@ -6,6 +6,7 @@
 #include "DefenseBot.h"
 #include "Tower.h"
 #include "Wave.h"
+#include "BombProjectile.h"
 
 GameScene::GameScene() {
 
@@ -29,6 +30,7 @@ GameScene::GameScene() {
 	Tower::initializeTowerVectors();
 	Obstacle::initializeObstacleTextureVariants(initialVariants);
 	Wave::initializeTotalWaves();
+	BombProjectile::setupProjectileType();
 
 	PlayingFieldPtr playingField_ = std::make_shared<PlayingField>();
 	addGameObject(playingField_);

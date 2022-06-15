@@ -37,6 +37,8 @@
     <ClCompile Include="EndingScene.cpp" />
     <ClCompile Include="EndingText.cpp" />
     <ClCompile Include="TowerGhost.cpp" />
+    <ClCompile Include="BombProjectile.cpp" />
+    <ClCompile Include="BombExplosion.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -77,6 +79,8 @@
     <ClInclude Include="EndingScene.h" />
     <ClInclude Include="EndingText.h" />
     <ClInclude Include="TowerGhost.h" />
+    <ClInclude Include="BombProjectile.h" />
+    <ClInclude Include="BombExplosion.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -207,6 +211,12 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="Resources\Ultimate Ascent.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Bomb Squad.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Bomb.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>

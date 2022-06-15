@@ -5,7 +5,7 @@
 class Projectile : public GameObject {
 public:
 	Projectile() {};
-	Projectile(sf::Vector2f ipos, sf::Vector2f distanceFromEnemy, std::string itexture, float speed, int idamage, bool ipierces);
+	Projectile(sf::Vector2f ipos, std::string itexture, sf::Vector2f distanceFromEnemy, float speed, int idamage, bool ipierces);
 
 	int getDamage();
 	bool doesItPierce();
@@ -13,9 +13,12 @@ public:
 	void update(sf::Time& elapsed);
 	void draw();
 	sf::FloatRect getCollisionRect();
+protected:
+	void setup(sf::Vector2f ipos, std::string itexture, sf::Vector2f distanceFromEnemy, float speed, int idamage, bool ipierces);
+	void updateSpritePosition(float msElapsed);
+	int damage;
 private:
 	sf::Vector2f directionalSpeed;
-	int damage;
 	bool pierces;
 };
 
