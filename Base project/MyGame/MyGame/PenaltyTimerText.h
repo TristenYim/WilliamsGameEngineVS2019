@@ -2,9 +2,9 @@
 
 #include "Engine/GameEngine.h"
 
-class BlockingTimerText : public TextObject {
+class PenaltyTimerText : public TextObject {
 public:
-	BlockingTimerText(sf::Vector2f ipos, int icharSize, sf::Color itextColor);
+	PenaltyTimerText(sf::Vector2f ipos, int icharSize, sf::Color itextColor);
 
 	static void setSecondsInTimer(int neoSeconds);
 	static void setVisibility(bool neoVisibility);
@@ -18,4 +18,4 @@ private:
 	static bool visibility;
 };
 
-typedef std::shared_ptr<BlockingTimerText> BlockingTimerTextPtr;
+typedef std::shared_ptr<PenaltyTimerText> PenaltyTimerTextPtr;

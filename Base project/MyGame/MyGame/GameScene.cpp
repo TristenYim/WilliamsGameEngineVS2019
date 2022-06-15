@@ -3,7 +3,7 @@
 #include "Obstacle.h"
 #include "Credits.h"
 #include "Score.h"
-#include "BlockingTimerText.h"
+#include "PenaltyTimerText.h"
 #include "DefenseBot.h"
 #include "Tower.h"
 #include "Wave.h"
@@ -39,8 +39,8 @@ GameScene::GameScene() {
 	addGameObject(credits_);
 	ScoresPtr scores_ = std::make_shared<Scores>(sf::Vector2f(1550, 20), 32, sf::Color::White, 50, sf::Vector2f(PlayingField::findAbsoluteXPosition(53) + 14, PlayingField::findAbsoluteYPosition(13)), 2000);
 	addGameObject(scores_);
-	BlockingTimerTextPtr blockingTimerText_ = std::make_shared<BlockingTimerText>(sf::Vector2f(1870, 10), 56, sf::Color::White);
-	addGameObject(blockingTimerText_);
+	PenaltyTimerTextPtr penaltyTimerText_ = std::make_shared<PenaltyTimerText>(sf::Vector2f(1870, 10), 56, sf::Color::White);
+	addGameObject(penaltyTimerText_);
 	WavePtr wave_ = std::make_shared<Wave>(0, sf::Vector2f(90, 1000), 32, sf::Color::White);
 	addGameObject(wave_);
 	DefenseBotPtr defenseBot_ = std::make_shared<DefenseBot>(PlayingField::findAbsolutePosition(sf::Vector2i(48, 14)));

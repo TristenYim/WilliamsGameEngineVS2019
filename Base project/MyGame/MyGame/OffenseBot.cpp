@@ -1,5 +1,6 @@
 #include "OffenseBot.h"
 #include "PlayingField.h"
+#include "DefenseBot.h"
 #include "Credits.h"
 #include "ScoringProjectile.h"
 #include "Projectile.h"
@@ -152,6 +153,14 @@ void OffenseBot::handleCollision(GameObject& otherGameObject) {
 			otherGameObject.makeDead();
 		}
 		hp -= projectile_.getDamage();
+		if (0 >= hp) {
+			Credits::addCredit(reward);
+			BotExplosionPtr explosion_ = std::make_shared<BotExplosion>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+			GAME.getCurrentScene().addGameObject(explosion_);
+			makeDead();
+		}
+	} else if (otherGameObject.hasTag("defense") && DefenseBot::isAttacking()) {
+		hp -= 75;
 		if (0 >= hp) {
 			Credits::addCredit(reward);
 			BotExplosionPtr explosion_ = std::make_shared<BotExplosion>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));

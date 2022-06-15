@@ -1,7 +1,10 @@
 #include "DefenseBot.h"
 #include "PlayingField.h"
+#include "OffenseBot.h"
 #include "Score.h"
-#include "BlockingTimerText.h"
+#include "PenaltyTimerText.h"
+
+bool DefenseBot::attacking;
 
 DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	sprite_.setTexture(GAME.getTexture("Resources/Defense Bot.png"));
@@ -11,46 +14,37 @@ DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	blockingCooldown = -5000;
 	blockingPenaltyCooldown = 2000;
 	blockingTimer = blockingDelay;
+	
+	attacking = false;
+	attackCooldown = 2000;
+	attackCooldownTimer = 0;
 
 	assignTag(DEFENSE_TAG);
+}
+
+bool DefenseBot::isAttacking() {
+	return attacking;
 }
 
 void DefenseBot::update(sf::Time& elapsed) {
 	sf::Vector2f neoPosition = sprite_.getPosition();
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-		moveInADirection(neoPosition, Up, elapsed.asMilliseconds());
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-		moveInADirection(neoPosition, Left, elapsed.asMilliseconds());
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-		moveInADirection(neoPosition, Down, elapsed.asMilliseconds());
-	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-		moveInADirection(neoPosition, Right, elapsed.asMilliseconds());
-	}
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && blockingTimer >= 0) {
-		blockingTimer -= elapsed.asMilliseconds();
-		BlockingTimerText::setVisibility(true);
-		BlockingTimerText::setColor(sf::Color(200, 150, 100));
-		BlockingTimerText::setSecondsInTimer(int(blockingTimer / 1000) + 1);
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && 0 >= blockingTimer) {
-		blockingTimer = blockingPenaltyCooldown;
-		Scores::majorPenalty();
-	} else if (blockingDelay > blockingTimer && 0 < blockingTimer) {
-		blockingTimer = blockingCooldown;
-	} else if (0 >= blockingTimer) {
-		blockingTimer += elapsed.asMilliseconds();
-		if (blockingTimer >= 0) {
-			blockingTimer = blockingDelay;
+	penaltyActions(elapsed.asMilliseconds());
+	attackActions(elapsed.asMilliseconds());
+	
+	if (0 == attackCooldownTimer) {
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+			moveInADirection(neoPosition, Up, elapsed.asMilliseconds());
 		}
-		BlockingTimerText::setVisibility(true);
-		BlockingTimerText::setColor(sf::Color(0, 254, 200));
-		BlockingTimerText::setSecondsInTimer(abs(int(blockingTimer / 1000)) + 1);
-	} else {
-		BlockingTimerText::setVisibility(false);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+			moveInADirection(neoPosition, Left, elapsed.asMilliseconds());
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+			moveInADirection(neoPosition, Down, elapsed.asMilliseconds());
+		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+			moveInADirection(neoPosition, Right, elapsed.asMilliseconds());
+		}
 	}
 
 	sprite_.setPosition(neoPosition);
@@ -58,7 +52,11 @@ void DefenseBot::update(sf::Time& elapsed) {
 }
 
 sf::FloatRect DefenseBot::getCollisionRect() {
-	return sprite_.getGlobalBounds();
+	//if (attacking) {
+	//	return sf::FloatRect(sprite_.getPosition().x - sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y - sprite_.getGlobalBounds().height / 2.0, sprite_.getGlobalBounds().width * 2.0, sprite_.getGlobalBounds().height * 2.0);
+	//} else {
+		return sprite_.getGlobalBounds();
+	//}
 }
 
 void DefenseBot::draw() {
@@ -122,6 +120,44 @@ void DefenseBot::moveInADirection(sf::Vector2f& neoPosition, direction direction
 		} else if (!PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(positionToCheck4), DEFENSE_TAG)) {
 			neoPosition = sf::Vector2f(positionToCheck2.x - xMovementIncrement, positionToCheck2.y - yMovementIncrement - sprite_.getGlobalBounds().height);
 			return;
+		}
+	}
+}
+
+void DefenseBot::penaltyActions(float msElapsed) {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && blockingTimer >= 0) {
+		blockingTimer -= msElapsed;
+		PenaltyTimerText::setVisibility(true);
+		PenaltyTimerText::setColor(sf::Color(200, 150, 100));
+		PenaltyTimerText::setSecondsInTimer(int(blockingTimer / 1000) + 1);
+	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) && 0 >= blockingTimer) {
+		blockingTimer = blockingPenaltyCooldown;
+		Scores::majorPenalty();
+	} else if (blockingDelay > blockingTimer && 0 < blockingTimer) {
+		blockingTimer = blockingCooldown;
+	} else if (0 >= blockingTimer) {
+		blockingTimer += msElapsed;
+		if (blockingTimer >= 0) {
+			blockingTimer = blockingDelay;
+		}
+		PenaltyTimerText::setVisibility(true);
+		PenaltyTimerText::setColor(sf::Color(0, 254, 200));
+		PenaltyTimerText::setSecondsInTimer(abs(int(blockingTimer / 1000)) + 1);
+	} else {
+		PenaltyTimerText::setVisibility(false);
+	}
+}
+
+void DefenseBot::attackActions(float msElapsed) {
+	attacking = false;
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && 0 == attackCooldownTimer) {
+		attackCooldownTimer = attackCooldown;
+		attacking = true;
+	} else if (attackCooldownTimer > 0) {
+		attackCooldownTimer -= msElapsed;
+		if (0 > attackCooldownTimer) {
+			attackCooldownTimer = 0;
 		}
 	}
 }

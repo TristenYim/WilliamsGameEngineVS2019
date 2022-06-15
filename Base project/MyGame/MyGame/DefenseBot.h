@@ -10,16 +10,25 @@ class DefenseBot : public GameObject {
 public:
 	DefenseBot(sf::Vector2f ipos);
 
+	static bool isAttacking();
+
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
 	void draw();
 	void handleCollision(GameObject& otherGameObject);
 private:
-	void moveInADirection(sf::Vector2f& neoPosition, direction direction_, int msElapsed);
 	float blockingTimer;
 	int blockingDelay;
 	int blockingCooldown;
 	int blockingPenaltyCooldown;
+
+	float attackCooldownTimer;
+	float attackCooldown;
+	static bool attacking;
+
+	void moveInADirection(sf::Vector2f& neoPosition, direction direction_, int msElapsed);
+	void penaltyActions(float msElapsed);
+	void attackActions(float msElapsed);
 };
 
 typedef std::shared_ptr<DefenseBot> DefenseBotPtr;                
