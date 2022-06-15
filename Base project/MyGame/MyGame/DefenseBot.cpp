@@ -2,9 +2,11 @@
 #include "PlayingField.h"
 #include "OffenseBot.h"
 #include "Score.h"
+#include "Credits.h"
 #include "PenaltyTimerText.h"
 
 bool DefenseBot::attacking;
+bool DefenseBot::reachingIntoFrame;
 
 DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	sprite_.setTexture(GAME.getTexture("Resources/Defense Bot.png"));
@@ -19,11 +21,19 @@ DefenseBot::DefenseBot(sf::Vector2f ipos) {
 	attackCooldown = 2000;
 	attackCooldownTimer = 0;
 
+	reachingIntoFrameDelay = 2000;
+	reachingIntoFrameTimer = reachingIntoFrameDelay;
+	reachingIntoFrame = false;
+
 	assignTag(DEFENSE_TAG);
 }
 
 bool DefenseBot::isAttacking() {
 	return attacking;
+}
+
+void DefenseBot::setReachingIntoFrame(bool neoReachingIntoFrame) {
+	reachingIntoFrame = neoReachingIntoFrame;
 }
 
 void DefenseBot::update(sf::Time& elapsed) {
@@ -52,11 +62,11 @@ void DefenseBot::update(sf::Time& elapsed) {
 }
 
 sf::FloatRect DefenseBot::getCollisionRect() {
-	//if (attacking) {
-	//	return sf::FloatRect(sprite_.getPosition().x - sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y - sprite_.getGlobalBounds().height / 2.0, sprite_.getGlobalBounds().width * 2.0, sprite_.getGlobalBounds().height * 2.0);
-	//} else {
+	if (attacking) {
+		return sf::FloatRect(sprite_.getPosition().x - sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y - sprite_.getGlobalBounds().height / 2.0, sprite_.getGlobalBounds().width * 2.0, sprite_.getGlobalBounds().height * 2.0);
+	} else {
 		return sprite_.getGlobalBounds();
-	//}
+	}
 }
 
 void DefenseBot::draw() {
@@ -146,6 +156,22 @@ void DefenseBot::penaltyActions(float msElapsed) {
 	} else {
 		PenaltyTimerText::setVisibility(false);
 	}
+
+	if (reachingIntoFrame) {
+		if (!attacking) {
+			reachingIntoFrameTimer -= msElapsed;
+			PenaltyTimerText::setVisibility(true);
+			PenaltyTimerText::setColor(sf::Color(200, 150, 100));
+			PenaltyTimerText::setSecondsInTimer(int(reachingIntoFrameTimer / 1000) + 1);
+		}
+		if (0 >= reachingIntoFrameTimer) {
+			reachingIntoFrameTimer = reachingIntoFrameDelay;
+			Scores::minorPenalty();
+		}
+	} else {
+		reachingIntoFrameTimer = reachingIntoFrameDelay;
+	}
+	reachingIntoFrame = false;
 }
 
 void DefenseBot::attackActions(float msElapsed) {

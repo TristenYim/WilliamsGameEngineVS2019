@@ -274,9 +274,9 @@ void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 
 void Tower::upgrade() {
 	if (4 > level) {
+		Credits::addCredit(-upgradeCosts[type_][level]);
 		level++;
 		range_.setScale(sf::Vector2f(upgradedRanges[type_][level], upgradedRanges[type_][level]));
-		Credits::addCredit(-upgradeCosts[type_][level]);
 	}
 	return;
 }

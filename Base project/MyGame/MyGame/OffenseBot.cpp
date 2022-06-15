@@ -15,7 +15,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 400;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 50;
-		reward = 50;
+		reward = 15;
 		break;
 	case SbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SbaseGshoot.png"));
@@ -23,7 +23,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 400;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 90;
-		reward = 75;
+		reward = 30;
 		break;
 	case SbaseBshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SbaseBshoot.png"));
@@ -31,7 +31,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 400;
 		scoringDelay = 2000;
 		percentChanceOfScoring = 25;
-		reward = 40;
+		reward = 10;
 		break;
 	case SSbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SSbaseGshoot.png"));
@@ -47,7 +47,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 250;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 50;
-		reward = 65;
+		reward = 25;
 		break;
 	case FbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/FbaseGshoot.png"));
@@ -55,7 +55,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 250;
 		scoringDelay = 1000;
 		percentChanceOfScoring = 90;
-		reward = 100;
+		reward = 40;
 		break;
 	case FbaseBshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/FbaseBshoot.png"));
@@ -63,7 +63,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 250;
 		scoringDelay = 2000;
 		percentChanceOfScoring = 25;
-		reward = 50;
+		reward = 20;
 		break;
 	case SFbaseNshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SFbaseNshoot.png"));
@@ -71,7 +71,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 100;
 		scoringDelay = 500;
 		percentChanceOfScoring = 50;
-		reward = 25;
+		reward = 5;
 		break;
 	case SFbaseGshoot:
 		sprite_.setTexture(GAME.getTexture("Resources/SFbaseGshoot.png"));
@@ -79,7 +79,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 100;
 		scoringDelay = 500;
 		percentChanceOfScoring = 90;
-		reward = 40;
+		reward = 10;
 		break;
 	case SFOP:
 		sprite_.setTexture(GAME.getTexture("Resources/SFOP.png"));
@@ -87,7 +87,7 @@ OffenseBot::OffenseBot(sf::Vector2f ipos, bool spawnOnBottom, OffenseType type) 
 		hp = 400;
 		scoringDelay = 300;
 		percentChanceOfScoring = 90;
-		reward = 1000;
+		reward = 100;
 		break;
 	}
 
@@ -159,13 +159,17 @@ void OffenseBot::handleCollision(GameObject& otherGameObject) {
 			GAME.getCurrentScene().addGameObject(explosion_);
 			makeDead();
 		}
-	} else if (otherGameObject.hasTag("defense") && DefenseBot::isAttacking()) {
-		hp -= 75;
-		if (0 >= hp) {
-			Credits::addCredit(reward);
-			BotExplosionPtr explosion_ = std::make_shared<BotExplosion>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
-			GAME.getCurrentScene().addGameObject(explosion_);
-			makeDead();
+	} else if (otherGameObject.hasTag("defense")) {
+		if (DefenseBot::isAttacking()) {
+			hp -= 75;
+			if (0 >= hp) {
+				Credits::addCredit(reward);
+				BotExplosionPtr explosion_ = std::make_shared<BotExplosion>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+				GAME.getCurrentScene().addGameObject(explosion_);
+				makeDead();
+			}
+		} else {
+			DefenseBot::setReachingIntoFrame(true);
 		}
 	}
 	return;

@@ -8,6 +8,9 @@ public:
 
 	static void addEnemyScore(int scoreToAdd);
 	static void majorPenalty();
+	static void minorPenalty();
+	static int getPenaltyCredit();
+	static void clearPenaltyCredit();
 
 	static sf::Vector2f getPosition();
 	sf::FloatRect getCollisionRect();
@@ -19,6 +22,8 @@ private:
 	static int enemyScore;
 	static float penaltyOnScreenTimer;
 	static int penaltyOnScreenDelay;
+	static bool penaltyIsMajor;
+	static int penaltyCredit;
 	
 	sf::Color originalColor;
 

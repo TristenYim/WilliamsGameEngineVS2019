@@ -11,6 +11,7 @@ public:
 	DefenseBot(sf::Vector2f ipos);
 
 	static bool isAttacking();
+	static void setReachingIntoFrame(bool neoReachingIntoFrame);
 
 	void update(sf::Time& elapsed);
 	sf::FloatRect getCollisionRect();
@@ -25,6 +26,10 @@ private:
 	float attackCooldownTimer;
 	float attackCooldown;
 	static bool attacking;
+
+	float reachingIntoFrameTimer;
+	float reachingIntoFrameDelay;
+	static bool reachingIntoFrame;
 
 	void moveInADirection(sf::Vector2f& neoPosition, direction direction_, int msElapsed);
 	void penaltyActions(float msElapsed);

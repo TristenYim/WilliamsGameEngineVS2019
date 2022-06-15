@@ -18,7 +18,6 @@ int Credits::getCredit() {
 	return credit;
 }
 
-
 void Credits::update(sf::Time& elapsed) {
 	std::stringstream stream;
 	stream << "Credits: " << credit;

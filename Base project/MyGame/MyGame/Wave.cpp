@@ -1,6 +1,7 @@
 #include "Wave.h"
 #include "GameScene.h"
 #include "Credits.h"
+#include "Score.h"
 #include "EndingScene.h"
 #include <fstream>
 #include <sstream>
@@ -67,7 +68,7 @@ Wave::Wave(int iwaveNumber, sf::Vector2f pos, int charSize, sf::Color textColor)
 	}
 	waveFile.close();
 
-	reward = 300 + waveNumber * 25;
+	reward = 100 + waveNumber * 20;
 	checkForEndOfWaveTimer = iinitialDelay + ispawningDelay * iamount;
 	assignTag("wave");
 }
@@ -99,6 +100,11 @@ void Wave::update(sf::Time& elapsed) {
 				EndingScenePtr neoScene_ = std::make_shared<EndingScene>(true);
 				GAME.setScene(neoScene_);
 			} else {
+				reward -= Scores::getPenaltyCredit();
+				if (0 > reward) {
+					reward = 0;
+				}
+				Scores::clearPenaltyCredit();
 				Credits::addCredit(reward);
 				WavePtr nextWave_ = std::make_shared<Wave>(waveNumber + 1, text_.getPosition(), text_.getCharacterSize(), text_.getFillColor());
 				currentScene_.addGameObject(nextWave_);

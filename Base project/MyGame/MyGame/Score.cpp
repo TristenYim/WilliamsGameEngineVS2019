@@ -7,6 +7,8 @@ int Scores::enemyScore;
 sf::Sprite Scores::sprite_;
 float Scores::penaltyOnScreenTimer;
 int Scores::penaltyOnScreenDelay;
+bool Scores::penaltyIsMajor;
+int Scores::penaltyCredit;
 
 Scores::Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerScore, sf::Vector2f ipos, int ipenaltyOnScreenDelay) {
 	sprite_.setTexture(GAME.getTexture("Resources/Goal.png"));
@@ -33,8 +35,23 @@ void Scores::majorPenalty() {
 	playerScore -= 10;
 	checkForLosing();
 	penaltyOnScreenTimer = penaltyOnScreenDelay;
+	penaltyIsMajor = true;
 
 	return;
+}
+
+void Scores::minorPenalty() {
+	penaltyCredit += 50;
+	penaltyOnScreenTimer = penaltyOnScreenDelay;
+	penaltyIsMajor = false;
+}
+
+int Scores::getPenaltyCredit() {
+	return penaltyCredit;
+}
+
+void Scores::clearPenaltyCredit() {
+	penaltyCredit = 0;
 }
 
 sf::Vector2f Scores::getPosition() {
@@ -55,7 +72,11 @@ void Scores::update(sf::Time& elapsed) {
 	if (0 < penaltyOnScreenTimer) {
 		penaltyOnScreenTimer -= elapsed.asMilliseconds();
 		std::stringstream stream;
-		stream << "MAJOR PENALTY!";
+		if (penaltyIsMajor) {
+			stream << "MAJOR PENALTY!";
+		} else {
+			stream << "Minor Penalty!";
+		}
 
 		text_.setString(stream.str());
 		text_.setFillColor(sf::Color(200, 150, 100));
