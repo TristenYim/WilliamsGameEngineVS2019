@@ -19,9 +19,6 @@ public:
 	void draw();
 	sf::FloatRect getCollisionRect();
 private:
-	bool mouseControlsEnabled = false;
-	bool pressedM = false;
-
 	static int upgradeCostToDisplay;
 
 	float arrowKeyTimer = 1000;

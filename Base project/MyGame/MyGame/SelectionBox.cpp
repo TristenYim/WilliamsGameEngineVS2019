@@ -27,15 +27,6 @@ void SelectionBox::update(sf::Time& elapsed) {
 	}
 	text_.setString(stream.str());
 
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M) && !pressedM) {
-		mouseControlsEnabled = !mouseControlsEnabled;
-		pressedM = true;
-	} else if (sf::Keyboard::isKeyPressed(sf::Keyboard::M)) {
-		pressedM = true;
-	} else {
-		pressedM = false;
-	}
-
 	towerActions();
 	updateColorAndAnimation(elapsed.asMilliseconds());
 	updatePosition(elapsed.asMilliseconds());
@@ -102,42 +93,13 @@ void SelectionBox::updateColorAndAnimation(float msElapsed) {
 
 void SelectionBox::updatePosition(float msElapsed) {
 	sf::Vector2f neoPosition;
-	if (mouseControlsEnabled) {
-		sf::Vector2i cursorPosition = PlayingField::findRelativePosition((sf::Vector2f)sf::Mouse::getPosition(GAME.getRenderWindow()));
-		neoPosition = PlayingField::findAbsolutePosition(cursorPosition);
-		if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.x) {
-			neoPosition.x -= sprite_.getGlobalBounds().width;
-		}
-		if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.y) {
-			neoPosition.y -= sprite_.getGlobalBounds().height;
-		}
-	} else {
-		neoPosition = sprite_.getPosition();
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
-			sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-			if (arrowKeyTimer == ARROW_KEY_DELAY || arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && PlayingField::findRelativePosition(sprite_.getPosition()).y != 0) {
-					neoPosition.y -= FIELD_GRID_SIDE_LENGTH;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && PlayingField::findRelativePosition(sprite_.getPosition()).x != FIELD_GRID_WIDTH - 1) {
-					neoPosition.x += FIELD_GRID_SIDE_LENGTH;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && PlayingField::findRelativePosition(sprite_.getPosition()).y != FIELD_GRID_HEIGHT - 1) {
-					neoPosition.y += FIELD_GRID_SIDE_LENGTH;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && PlayingField::findRelativePosition(sprite_.getPosition()).x != 0) {
-					neoPosition.x -= FIELD_GRID_SIDE_LENGTH;
-				}
-				if (arrowKeyTimer < ARROW_KEY_DELAY - ARROW_KEY_SUPER_SPEED_DELAY) {
-					arrowKeyTimer += msElapsed;
-				}
-			}
-			arrowKeyTimer -= msElapsed;
-		} else {
-			arrowKeyTimer = ARROW_KEY_DELAY;
-		}
+	sf::Vector2i cursorPosition = PlayingField::findRelativePosition((sf::Vector2f)sf::Mouse::getPosition(GAME.getRenderWindow()));
+	neoPosition = PlayingField::findAbsolutePosition(cursorPosition);
+	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.x) {
+		neoPosition.x -= sprite_.getGlobalBounds().width;
+	}
+	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.y) {
+		neoPosition.y -= sprite_.getGlobalBounds().height;
 	}
 	sprite_.setPosition(neoPosition);
 }
