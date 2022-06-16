@@ -258,6 +258,9 @@ void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 		projectilesShot = 1;
 	}
 
+	fireSound_.setBuffer(GAME.getSoundBuffer("Resources/Space-Cannon.wav"));
+	fireSound_.play();
+
 	ProjectilePtr projectile_;
 
 	switch (type_) {

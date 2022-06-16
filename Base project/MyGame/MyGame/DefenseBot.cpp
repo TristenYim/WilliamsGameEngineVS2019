@@ -4,6 +4,7 @@
 #include "Score.h"
 #include "Credits.h"
 #include "PenaltyTimerText.h"
+#include "RamAnimation.h"
 
 bool DefenseBot::attacking;
 bool DefenseBot::reachingIntoFrame;
@@ -34,6 +35,7 @@ bool DefenseBot::isAttacking() {
 
 void DefenseBot::setReachingIntoFrame(bool neoReachingIntoFrame) {
 	reachingIntoFrame = neoReachingIntoFrame;
+	return;
 }
 
 void DefenseBot::update(sf::Time& elapsed) {
@@ -172,6 +174,7 @@ void DefenseBot::penaltyActions(float msElapsed) {
 		reachingIntoFrameTimer = reachingIntoFrameDelay;
 	}
 	reachingIntoFrame = false;
+	return;
 }
 
 void DefenseBot::attackActions(float msElapsed) {
@@ -180,10 +183,13 @@ void DefenseBot::attackActions(float msElapsed) {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::C) && 0 == attackCooldownTimer) {
 		attackCooldownTimer = attackCooldown;
 		attacking = true;
+		RamAnimationPtr ramAnimation_ = std::make_shared<RamAnimation>(sf::Vector2f(sprite_.getPosition().x + sprite_.getGlobalBounds().width / 2.0, sprite_.getPosition().y + sprite_.getGlobalBounds().height / 2.0));
+		GAME.getCurrentScene().addGameObject(ramAnimation_);
 	} else if (attackCooldownTimer > 0) {
 		attackCooldownTimer -= msElapsed;
 		if (0 > attackCooldownTimer) {
 			attackCooldownTimer = 0;
 		}
 	}
+	return;
 }

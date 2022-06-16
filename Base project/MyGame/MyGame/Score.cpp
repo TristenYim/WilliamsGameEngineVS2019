@@ -9,6 +9,7 @@ float Scores::penaltyOnScreenTimer;
 int Scores::penaltyOnScreenDelay;
 bool Scores::penaltyIsMajor;
 int Scores::penaltyCredit;
+bool Scores::playPenaltySound;
 
 Scores::Scores(sf::Vector2f pos, int charSize, sf::Color textColor, int iplayerScore, sf::Vector2f ipos, int ipenaltyOnScreenDelay) {
 	sprite_.setTexture(GAME.getTexture("Resources/Goal.png"));
@@ -36,7 +37,7 @@ void Scores::majorPenalty() {
 	checkForLosing();
 	penaltyOnScreenTimer = penaltyOnScreenDelay;
 	penaltyIsMajor = true;
-
+	playPenaltySound = true;
 	return;
 }
 
@@ -44,6 +45,8 @@ void Scores::minorPenalty() {
 	penaltyCredit += 50;
 	penaltyOnScreenTimer = penaltyOnScreenDelay;
 	penaltyIsMajor = false;
+	playPenaltySound = true;
+	return;
 }
 
 int Scores::getPenaltyCredit() {
@@ -52,6 +55,7 @@ int Scores::getPenaltyCredit() {
 
 void Scores::clearPenaltyCredit() {
 	penaltyCredit = 0;
+	return;
 }
 
 sf::Vector2f Scores::getPosition() {
@@ -86,6 +90,12 @@ void Scores::update(sf::Time& elapsed) {
 		stream << "Blue: " << playerScore << "   Red: " << enemyScore;
 
 		text_.setString(stream.str());
+	}
+
+	if (playPenaltySound) {
+		penaltySound_.setBuffer(GAME.getSoundBuffer("Resources/PowerDown14.wav"));
+		penaltySound_.play();
+		playPenaltySound = false;
 	}
 	return;
 }

@@ -9,6 +9,8 @@ public:
 	void update(sf::Time& elapsed);
 private:
 	void setupUpgradeAnimation();
+
+	sf::Sound upgradeSound_;
 };
 
 typedef std::shared_ptr<UpgradeAnimation> UpgradeAnimationPtr;

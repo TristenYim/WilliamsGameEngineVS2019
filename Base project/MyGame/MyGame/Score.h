@@ -24,8 +24,11 @@ private:
 	static int penaltyOnScreenDelay;
 	static bool penaltyIsMajor;
 	static int penaltyCredit;
+	static bool playPenaltySound;
 	
 	sf::Color originalColor;
+
+	sf::Sound penaltySound_;
 
 	// To make it seem more like a FIRST game, the player loses if the enemy gets more points than the player
 	// The player loses points by getting penalties and the enemy gets points by scoring

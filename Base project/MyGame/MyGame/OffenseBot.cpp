@@ -168,6 +168,7 @@ void OffenseBot::handleCollision(GameObject& otherGameObject) {
 				GAME.getCurrentScene().addGameObject(explosion_);
 				makeDead();
 			}
+
 		} else {
 			DefenseBot::setReachingIntoFrame(true);
 		}

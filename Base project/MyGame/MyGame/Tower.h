@@ -52,6 +52,8 @@ private:
 	int projectilesShot = 1;
 	int level = 0;
 
+	sf::Sound fireSound_;
+
 	void targetEnemy(float msElapsed);
 	void attackAction(sf::Vector2f distanceToEnemy);
 	void upgrade();

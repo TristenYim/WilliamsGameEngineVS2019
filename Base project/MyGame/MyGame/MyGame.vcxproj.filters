@@ -44,6 +44,7 @@
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IntroText.cpp" />
     <ClCompile Include="UpgradeAnimation.cpp" />
+    <ClCompile Include="RamAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -91,6 +92,7 @@
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IntroText.h" />
     <ClInclude Include="UpgradeAnimation.h" />
+    <ClInclude Include="RamAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -241,5 +243,10 @@
     <Text Include="Intro.txt">
       <Filter>Resources</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\PowerUp15.wav">
+      <Filter>Resources</Filter>
+    </Media>
   </ItemGroup>
 </Project>

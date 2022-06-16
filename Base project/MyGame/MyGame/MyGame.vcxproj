@@ -105,6 +105,7 @@
     <ClCompile Include="PlayingField.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectileTrailObject.cpp" />
+    <ClCompile Include="RamAnimation.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="ScoringProjectile.cpp" />
     <ClCompile Include="SelectionBox.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="OffenseBotSpawner.h" />
     <ClInclude Include="PlayingField.h" />
     <ClInclude Include="Projectile.h" />
+    <ClInclude Include="RamAnimation.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="ScoringProjectile.h" />
     <ClInclude Include="SelectionBox.h" />
@@ -198,6 +200,9 @@
     <Text Include="Intro.txt" />
     <Text Include="Obstacle Field Map.txt" />
     <Text Include="Waves.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\PowerUp15.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
