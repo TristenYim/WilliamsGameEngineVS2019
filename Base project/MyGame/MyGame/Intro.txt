@@ -1,9 +1,8 @@
 In FIRST TD, you are a defense bot trying to defend an incoming wave of offense bots which are trying to score in your goal.
 
-You use a selection box to interact with the game. By default it's moved with the arrow keys, but it can also follow your cursor.
-Press 'M' to toggle between arrow key movement and cursor following.
+You use a selection box that follows your cursor to interact with the game.
 
-To buy towers, press the number keys, select your location, and then press B to buy.
+To buy towers, press the number keys, select your location, and then right click to buy.
 To upgrade, hover over the tower and press u.
 When you hover over towers, a box is drawn showing its range.
 

@@ -8,6 +8,7 @@ const int FADE_IN_TIME = 250;
 const int TIME_BUFFER = 1000;
 const float ARROW_KEY_DELAY = 1000;
 const float ARROW_KEY_SUPER_SPEED_DELAY = 750;
+const sf::Vector2f GAME_RESOLUION{ 1920, 1080 };
 
 class SelectionBox : public TextObject {
 public:

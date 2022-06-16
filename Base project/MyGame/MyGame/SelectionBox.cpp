@@ -61,7 +61,7 @@ void SelectionBox::towerActions() {
 		TowerGhost::setVisibility(false);
 	}
 
-	if (TowerGhost::isVisibile() && sf::Keyboard::isKeyPressed(sf::Keyboard::B) && Credits::getCredit() >= Tower::getCost(TowerGhost::getType()) &&
+	if (TowerGhost::isVisibile() && sf::Mouse::isButtonPressed(sf::Mouse::Left) && Credits::getCredit() >= Tower::getCost(TowerGhost::getType()) &&
 		PlayingField::canThisObjectBeAt(PlayingField::findRelativePosition(sprite_.getPosition()), "tower"))
 	{
 		PlayingField::addPositionToTowerPositions(PlayingField::findRelativePosition(sprite_.getPosition()));
@@ -93,7 +93,7 @@ void SelectionBox::updateColorAndAnimation(float msElapsed) {
 
 void SelectionBox::updatePosition(float msElapsed) {
 	sf::Vector2f neoPosition;
-	sf::Vector2i cursorPosition = PlayingField::findRelativePosition((sf::Vector2f)sf::Mouse::getPosition(GAME.getRenderWindow()));
+	sf::Vector2i cursorPosition = PlayingField::findRelativePosition(sf::Vector2f(sf::Mouse::getPosition(GAME.getRenderWindow()).x * GAME_RESOLUION.x / GAME.getRenderWindow().getSize().x, sf::Mouse::getPosition(GAME.getRenderWindow()).y * GAME_RESOLUION.y / GAME.getRenderWindow().getSize().y));
 	neoPosition = PlayingField::findAbsolutePosition(cursorPosition);
 	if (OUTSIDE_OF_FIELD_DOWN_OR_RIGHT == cursorPosition.x) {
 		neoPosition.x -= sprite_.getGlobalBounds().width;
