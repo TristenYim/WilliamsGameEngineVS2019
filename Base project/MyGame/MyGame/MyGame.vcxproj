@@ -111,6 +111,7 @@
     <ClCompile Include="TextObject.cpp" />
     <ClCompile Include="Tower.cpp" />
     <ClCompile Include="TowerGhost.cpp" />
+    <ClCompile Include="UpgradeAnimation.cpp" />
     <ClCompile Include="Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="Tower.h" />
     <ClInclude Include="BombExplosion.h" />
     <ClInclude Include="TowerGhost.h" />
+    <ClInclude Include="UpgradeAnimation.h" />
     <ClInclude Include="Wave.h" />
   </ItemGroup>
   <ItemGroup>
@@ -189,6 +191,7 @@
     <Image Include="Resources\Tower 254.png" />
     <Image Include="Resources\Turret.png" />
     <Image Include="Resources\Ultimate Ascent.png" />
+    <Image Include="Resources\Upgrade Spritesheet.png" />
     <Image Include="Resources\Yellow Square.png" />
   </ItemGroup>
   <ItemGroup>

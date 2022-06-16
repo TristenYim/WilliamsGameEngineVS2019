@@ -3,6 +3,7 @@
 #include "Credits.h"
 #include "Projectile.h"
 #include "BombProjectile.h"
+#include "UpgradeAnimation.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -84,7 +85,7 @@ void Tower::initializeTowerVectors() {
 	upgradedProjectileDamageModifiers.push_back(std::vector<int>{ 0, 10, 25, 40, 75 });
 
 	projectileTextures.push_back("Resources/Cheesy Poof.png");
-	projectileSpeeds.push_back(1.0);
+	projectileSpeeds.push_back(1.5);
 	projectileDamages.push_back(50);
 	projectilePiercesEnemies.push_back(false);
 
@@ -274,6 +275,8 @@ void Tower::attackAction(sf::Vector2f distanceToEnemy) {
 
 void Tower::upgrade() {
 	if (4 > level) {
+		UpgradeAnimationPtr upgradeAnimation_ = std::make_shared<UpgradeAnimation>(sprite_.getPosition());
+		GAME.getCurrentScene().addGameObject(upgradeAnimation_);
 		Credits::addCredit(-upgradeCosts[type_][level]);
 		level++;
 		range_.setScale(sf::Vector2f(upgradedRanges[type_][level], upgradedRanges[type_][level]));

@@ -43,6 +43,7 @@
     <ClCompile Include="PenaltyTimerText.cpp" />
     <ClCompile Include="IntroScene.cpp" />
     <ClCompile Include="IntroText.cpp" />
+    <ClCompile Include="UpgradeAnimation.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\AnimatedSprite.h">
@@ -89,6 +90,7 @@
     <ClInclude Include="PenaltyTimerText.h" />
     <ClInclude Include="IntroScene.h" />
     <ClInclude Include="IntroText.h" />
+    <ClInclude Include="UpgradeAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -225,6 +227,9 @@
       <Filter>Resources</Filter>
     </Image>
     <Image Include="Resources\Bomb.png">
+      <Filter>Resources</Filter>
+    </Image>
+    <Image Include="Resources\Upgrade Spritesheet.png">
       <Filter>Resources</Filter>
     </Image>
   </ItemGroup>
